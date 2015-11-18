@@ -1,0 +1,59 @@
+\section{Related Work}\label{Related}
+%%%%%%%%%%%%%%%%%%%%
+
+\subsection{MPLS overview}\label{Related.mpls}
+% %%%%%%%%%%%%%%%%%%%%%%%%%
+Multiprotocol Label Switching (MPLS) \cite{REF} was originally designed
+to speed up the forwarding process. In practice, this was done with one or more
+32 bits labelstack entries(LSE) inserted between the frame header  and the IP
+packet.
+
+In a MPLS network, packets are forwarded using an exact match lookup of a 20-bit
+label found in the LSE. An MPLS LSE also has a time-to-live (LSE-TTL) field and
+a type-of-service field \cite{rfc1771}. At each MPLS hop, the label of the
+incoming packet is replaced by a corresponding outgoing label found in an MPLS
+switching table. A portion of a path where the forwarding decision is not
+anymore based on longest prefix matching but rather on MPLS features is known as
+an MPLS tunnel. A router with label switching capabilities is called Label
+Switching Router (LSR). A series of LSRs connected together form a Label Switched Path(LSR).
+
+
+
+\subsection{Revealing MPLS tunnels}
+
+\textit{Donnet et al.} provided a taxonomy for MPLS tunnels revealed by
+traceroute and developed algotithms in order to detect it based on the way that
+LSR react to ttl-propagate  and RFC 4950 option. Regarding this, we can sumarize
+two kind of visible MPLS tunnels: explicit tunnels and implicit tunnels.
+
+Explicit tunnels are based on RFC 4950 implementation. MPLS routers may send
+ICMP time-exceeded messages when the LSE-TTL expires. The RFC 4950 is an
+extension to ICMP allowing a router to embed an MPLS LSE in an ICMP
+time-exceeded message. In that case, when the LSE-TTL expires on a MPLS router,
+it simply quotes the MPLS label stack in the ICMP \texttt{time-exceeded}
+message.
+
+Implicit tunnels discovery are based on two signatures detection: \textit{qttl}
+and\textit{u-turn} signature. \textit{qttl} signatures are relate with
+\texttt{ttl-propagate} option, if this option is implemented, the first MPLS
+router (the Ingress Label Edge Router - LER) of an LSP copies the IP-TTL value
+to the LSE-TTL field rather than setting the LSE-TTL to an arbitrary value, then
+LSRs along the LSP will reveal themselves via ICMP messages even if they do not
+implement RFC 4950. Typically the IP packet expires when the TTL value decrease
+until one ($qttl=1$). Thereby, when $qttl>1$, the ICMP reply message belongs to
+an MPLS tunnel. \textit{U-turn} signature relies on the fact that most LSRs in an LSP
+present a common behavior: when the LSE-TTL expires, the LSR first sends the
+time-exceeded reply to the LH router wich then forwards the reply to the
+probing source using directly an IP route if available. The delta between
+these probing messages is identified as \textit{u-turn} signature. These
+signature on MPLS tunnel discovery are discussing in detail on\cite{Donnet12} .
+
+The \texttt{qttl} signature ($qttl>1$) is present just in MPLS behaviour.
+Commonly there is not another way to get a $qttl>1$. However, \texttt{u-turn}
+signature could be caused for another Internet issues such as police routing or
+load balancing paths, that produces different lengths in the return path. 
+
+In this paper we consider that RFC 4950 implementation and \textit{qttl} signature are
+highly reliable methods to reveal MPLS tunnels and we mainly focus on to test
+\texttt{u-turn} signature accuracy.
+

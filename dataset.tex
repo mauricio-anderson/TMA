@@ -1,0 +1,21 @@
+\section{Dataset}\label{dataset}
+
+Because part of our works focus on signature validation, we developed our own
+measurement tool in order to get \textit{qTTL} and \textit{u-turn} signatures.
+We use \textit{Magallanes} [REF] which is an open source software that allows
+to run and to manage Scamper \cite{Luckie10} based probes through Planet Lab (PL) infrastructure. \textit{Magallanes}  allocates randomly several Vantage Points (VP) within the available set of PL nodes and it distributes a given number of destination  targets to each VP. To achieve uniformity in target selection,  \textit{Magallanes} uses data provided by MaxMind\footnote{\url{www.maxmind.com}}. In this way, it chooses the targets randomly and proportionality distributed according to the number of subnets assigned by the Regional
+Internet Registry (RIR) to each region. Additionally, it allows to storage the experiments results on a centralized database and to solve alias resolution process using MIDAR \cite{Keys13}. 
+
+For our experiment, we run the exploration October 31, 2015. We choose 100 VP and we selected 10K of destination targets per VP. Each set of destination targets are disjoint sets. We use ICMP-Paris probes  in order to avoid load balancing issues in
+the forwarding path. To get the \textit{u-turn} signature, we send a
+\textit{ping} to each hop revealed by traceroute. We sent six ICMP-echo packets
+from the same monitor. Six ICMP-echo responses allows us to infer with $95\%$
+confidence if there is a single return path length and therefore reduce
+measurement error caused by a reverse path containing load-balanced segments of
+different lengths \cite{BRICE07}. As a result we discovered around 270K of IP interfaces 520K links, $42\%$ of which were available to run MIDAR and we found aliases successfully on $19\%$ of then. To match IP interfaces to ASes, we use the RouteViews Dataset provided by CAIDA.  Additionally
+we found MPLS tunnels on  $44\%$ of the traceroutes. The amount of explicit
+tunnels is highly superior to implicit tunnels. We discovered explicit tunnels
+on $34\%$ of traceroutes and at least one implicit tunnel on $16\%$.
+Surprisingly we found more implicit tunnels revealed through \textit{u-turn}
+signature ($12\%$) rather than \textit{qTTL} signature ($4\%$). However, the \textit{qTTL} signature match with at least $63\%$ of the explicit tunnels. We discuss these
+results in the next sections. Finally, we did not found opaque tunnels.

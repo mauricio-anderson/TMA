@@ -1,0 +1,224 @@
+\section{Introduction}
+
+Internet topology is concerned with the study of the various types of connectivity structures and representations between directly connected nodes in the Internet architecture \cite{Calvert97}. This representations aims to obtain models that represent the Internet with the greatest possible accuracy in order to test new communications protocols, algorithms, QoS policies, traffic engineering, etc. 
+ 
+The first efforts to model the Internet architecture began with Waxman's works in 1988 \cite{Waxman88}. Since there, several sophistication was added to network modelling. The first remarkable characteristic of Internet topology appears  in 1999 [Faloutsos]. It shows that Internet's distribution degree obeys a heavy-tail power law instead of Poison distributed as it was believed. From this discovery, many efforts focused on to get more detailed information about Internet Topology including new metrics and innovations. In this way, it has been shown previously that the k-core decomposition is capable of identifying networks sources by means of the visualization \cite{Alvarez06k} \cite{Beiro09}, may be used to validate models \cite{Serrano06}, and discover exploration biases on the Internet \cite{Alvarez08k}. These facts support the k-core analysis as one of the relevant tools to describe the Internet topology maps. These previous works typically have focused in router level topology and AS level topology, but it does not include details closely related to the current Internet Technologies, i.e, \textit{Multiprotocol Label Switching} clouds. 
+
+MPLS was designed to reduce the time required to make forwarding decision thanks to the insertion of labels before the IP header. It is quite relevant as it commonly deployed in today's Internet \cite{SOM11}, \cite{Donnet12}, \cite{Vanaubel15}.  In this way, we believe that it is necessary to study in more depth MPLS features and its topological properties such as robustness and resilience capability. We turn our attention  in MPLS clouds. First, we validate the accuracy of the signatures that allows to reveal MPLS tunnels. Moreover we build an router level topology where we distinguish \textit{IP links} and \textit{mpls links}. Finally we use the obtained network topology in order to analyse the properties of MPLS networks based on graph analysis tools such as k-core decomposition.
+
+
+\section{Background}
+
+\subsection{MPLS overview}
+
+Multiprotocol Label Switching (MPLS) \cite{Vanaubel15} was originally designed to speed up the forwarding process. In practice, this was done with one or more 32 bits labelstack entries(LSE) inserted between the frame header  and the IP packet. 
+
+In a MPLS network, packets are forwarded using an exact match lookup of a 20-bit label found in the LSE. An MPLS LSE also has a time-to-live (LSE-TTL) field and a type-of-service field \cite{rfc1771}. At each MPLS hop, the label of the incoming packet is replaced by a corresponding outgoing label found in an MPLS switching table. A portion of a path where the forwarding decision is not anymore based on longest prefix matching but rather on MPLS features is known as an MPLS tunnel. A router with label switching capabilities is called Label Switching Router. 
+
+\subsection{Revealing MPLS tunnels}
+
+MPLS tunnels could be revealed using traceroutes tools based. We can identified two kind of visible MPLS tunnels: explicit tunnels and implicit tunnels.
+
+Explicit tunnels are based on RFC 4950 implementation. MPLS routers may send ICMP time-exceeded messages when the LSE-TTL expires. The RFC 4950 is an extension to ICMP allowing a router to embed an MPLS LSE in an ICMP time-exceeded message. In that case, when the LSE-TTL expires on a MPLS router, it simply quotes the MPLS label stack in the ICMP \texttt{time-exceeded} message. 
+
+Implicit tunnels discovery are based on two signatures: \textit{qttl} signature and\textit{ u-turn} signature. \textit{qttl} signatures are related with \texttt{ttl-propagate} option, if this option is implemented, the first MPLS router (the Ingress Label Edge Router - LER) of an LSP copies the IP-TTL value to the LSE-TTL field rather than setting the LSE-TTL to an arbitrary value, then LSRs along the LSP will reveal themselves via ICMP messages even if they do not implement RFC 4950. Typically the IP packet expires when the TTL value decrease until one ($qttl=1$). Thereby, when $qttl>1$, the ICMP reply message belongs to an MPLS tunnel. U-turn signature relies on the fact that most LSRs in an LSP present a common behavior: when the LSE-TTL expires, the LSR first sends the time-exceeded reply to the LH router which then forwards the reply to the probing source using directly an IP route if available. The difference between these probing messages is identified as \textit{u-turn} signature. These signature on MPLS tunnel discovery are discussing in detail on\cite{Donnet12} . 
+
+The \texttt{qttl} signature ($qttl>1$) is present just in MPLS behaviour. Commonly there is not another way to get a $qttl>1$. However, \texttt{u-turn} signature could be caused for another internet issues such as police routing or load balancing, producing different lengths in the return path. Thereby, in this paper we consider that RFC 4950 implementation and \textit{qttl} signature are highly reliable methods to reveal MPLS tunnels and we mainly focus on to test \texttt{u-turn} signature accuracy.
+
+\subsection{K-core visualization analysis}
+
+The visualization based on {k}-core decomposition is a tool where we can easily read basic features of the graph (Degree, hierarchical structure, etc.) as well as more entangled features, e. g., the relation between a vertex and the hierarchical position of its neighbours. It is also a useful tool to  discriminate between networks with different topological properties and structural arrangement. In this way, we use $k$-core decomposition in order to discriminate between MPLS and IP networks properties. 
+
+Let the graph $G=(V,E)$, \textit{k}-core decomposition analysis is based in the next definitions:
+
+\begin{itemize}
+\item[i]{\textbf{\textit{k}-cores}}. A subgraph $H=(C,E|C)$ induced by the set $ C\subseteq V$ is a \textit{k}-core of order $k$ $iff$ $\forall v \in C: degree_{H}(v)\geq k$ and $H$ is the maximum subgraph with this property.
+
+A \textit{k}-core of $G$ can therefore be obtained by recursively removing all the vertices of degree less than $k$, until all vertices in the remaining graph have at least degree $k$. 
+
+\item[ii]\textbf{Shell index}. A vertex $i$ has shell index $c$ if it belongs to the $c$-core but not to $(c+1)$-core. We denote by $C_i$ to the shell index of vertex $i$. A shell $C_c$ is composed by all the vertices whose shell index is $c$. The maximum value $c$ such that $C_c$ is not empty is denoted $C_{max}$. The $k$-core is thus the union of all shells $C_c$ with $c \geq k$.
+
+\end{itemize}
+
+The $k$-core visualization return a two dimensional plot, where the position of each vertex depends on its shell index and on the index of its neighbours. A color code allows for the identification of shell indices, while the vertex’s original degree is provided by its size that depends logarithmically on the degree. A central role in the visualization method is played by multi-components representation of $k$-cores. In the most general situation, indeed, the recursive removal of vertices having degree less than a given $k$ can break the original network into various connected components, each of which might even be once again broken by the subsequent decomposition.
+
+In this work, we use $k$-core decomposition focus on \textit{LSRs} and \textit{mpls clouds} location. So we mainly use the visualization in order to find properties and fingerprints tightly with MPLS presence.
+
+
+\section{Dataset}
+
+\begin{figure*}[!t]
+\centering
+\subfloat[Degre Distribution]{\includegraphics[width=2.2in]{DegreeDistribution}
+\label{fig_metrics_a}}
+\hfil
+\subfloat[Clustering Coeficient]{\includegraphics[width=2.2in]{ClusteringCoeficient}
+\label{fig_metrics_b}}
+\hfil
+\subfloat[Neighborg Degree Distribution]{\includegraphics[width=2.2in]{NearestNeighbor}
+\label{fig_metrics_c}}
+\caption{ Dataset Metrics}
+\label{fig_metrics}
+\end{figure*}
+
+Because part of our works focus on signature validation, we developed our own measurement tool in order to get \textit{qttl} and \textit{u-turn} signatures. We use \textit{conexdata explorer} [REF] software which is responsible to manage exploration through \textit{Planet Lab} Infrastructure. We choose 100 vantage point, selected randomly from the available set of Planet Lab Nodes. Additionally we selected 1M of targets IP address uniformly distributed over each VP. To achieve uniformity in target selection we used data provided by MaxMind\index{\url{www.maxmind.com}}. In this way, we choose a number of destinations according to the number of subnets assigned by the Regional Internet Registry to each region.
+
+Our software use ICMP-Paris probes in order to avoid load balancing issues in the forwarding path. To get the \textit{u-turn} signature, we send a \textit{ping} to each hop revealed by traceroute. We sent six ICMP-echo packets from the same monitor. Six ICMP-echo responses allows us to infer with $95\%$ confidence if there is a single return path length and therefore reduce measurement error caused by a reverse path containing load-balanced segments of different lengths \cite{BRICE07}.
+
+Finally, for better develop a realistic dataset, we build a router level topology. We resolve alias resolution issues using MIDAR. We found that $ \%$ of the discovered IP interfaces had at least one alias. IP level topology and router level topology (after alias resolution process) had similar characteristics as was expected. The main features related to our dataset are described in figure \ref{fig_metrics}.
+
+To match the set of IP interfaces discovered to their respective Autonomus System, we use the RouteViews Dataset provided by CAIDA. 
+
+Our experiment discovered around 260K IP interfaces and 520K links. Additionally we found MPLS tunnels on  $44\%$ of the traceroutes. The amount of explicit tunnels is highly superior to implicit tunnels. We discovered explicit tunnels on $34\%$ of traceroutes and at least one implicit tunnel on $16\%$. Surprisingly we found more implicit tunnels revealed trought \textit{u-turn} signature ($12\%$) rather than \textit{qttl} signature ($4\%$). We discuss these results in the next sections. Finally, we did not found opaque tunnels.
+
+
+\section{MPLS signatures validation}
+
+In this section we describe the used methodology to validate the MPLS signatures revealed by traceroutes. As we described previously, the RFC9450 and \textit{qttl} signature are fingerprints that occurs just on MPLS behaviour, while \textit{uturn} could be related with issues not related with MPLS such as load balancing. Thereby e mainly focus on test the \textit{u-turn} signatures. 
+
+If the RFC 4950 is not implemented in the \textit{LSRs}, the only way to reveal an MPLS tunnel is trough \textit{qttl} or \textit{u-turn} signatures. Both of them are directly related with the position of MPLS within the tunnel.  
+
+\begin{itemize}
+\item[i] \textit{qttl} value refers to the \textit{TTL} of ICMP-\textit{echo} message when it enters to the MPLS  tunnel. A quoted \textit{TTL} of $n$ in the incoming ICMP-\textit{time-exceeded} reply means that the sent probe expired $n$ hops later to ingress to the \textit{LSP}. In this way, we can say that a \textit{LSR} that replies with $qttl=n$ appears  in the $n$ position of MPLS tunnel.
+
+\item[ii] The \textit{u-turn} signature  relay on the difference in the incoming \textit{TTL} ICMP-\textit{time-exceeded} and \textit{TTL} ICMP-\textit{echo-reply}, indeed  $u-turn= TTL_{echo-reply}-TTL_{time-exceeded}$. The expected \textit{u-turn} value is in the form $[2L$, $2L-2$, $2L-4$, $...$, $2]$ where $L$ corresponds to the tunnel Length and the array position corresponds to the \textit{LSR} position within the MPLS tunnel.
+\end{itemize}
+
+%Figura u-turn
+\begin{figure*}[!t]
+\centering
+\subfloat[Tunnel Length Distribution]{\includegraphics[width=2.5in]{hist_length}
+\label{hist_length}}
+\hfil
+\subfloat[\textit{qttl} and $n$-position comparison]{\includegraphics[width=2.5in]{n_vs_qttl}
+\label{n_vs_qttl}}
+\hfil
+\subfloat[ \textit{u-turn} on \textit{LSRs} with no other signature was found ]{\includegraphics[width=2.5in]{n_vs_uturn_L5}%
+\label{fig_uturn_a}}
+\hfil
+\subfloat[\textit{u-turn} on \textit{LSRs} revealed through RFC4950 and \textit{qttl}]{\includegraphics[width=2.5in]{n_vs_uturn_L5_exp}%
+\label{fig_uturn_b}}
+\caption{\textbf{.Comparison between obtained and expected values for \textit{qttl} and \textit{uturn} signatures}. The circle size in each circle is related with the frequency of \textit{u-turn} value founded regard each $n$-position. The transparency of the figure is related with the frequency of the  $n$-position regard each \textit{u-turn} value}
+\label{fig_signatures}
+\end{figure*}
+
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
+%\label{fig_second_case}}
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure*}
+
+
+Our signature validation relays on the hypothesis that the MPLS position match with the $n$-position  which an \textit{LSR} is revealed by traceroute. Indeed we use a paris-traceroute based tool in order to sure that the probes follow the same path. In order to validate our hypotheses we first test it in explicit and implicit tunnels. Thereby we remove the bias caused by possible false \textit{u-turn} deltas. The \textit{qttl} value should to match with $n$-position, i.e., $qttl=n$. In order to test it, we first test the hypothesis to know the error generated by our assumption. Then, once it  was proved  we use $n$-position as a reference value to test the \textit{u-turn} signature. 
+
+We compare the \textit{qttl} value and their respective position that the traceroute reveal to \textit{LSR} within the MPLS tunnel (if any). The obtained results are showing in figure \ref{n_vs_qttl}. We noticed that \textit{qttl} signature highly match with the $n$-position i.e., $qttl=n$.  A small bias occurs due to the limitation in our method to reveal the first \textit{LSRs} in the tunnel if it does not implement the RFC 4950 i.e., If the RFC 4950 is not implemented, the first LSR revealed by traceroute within the tunnel  ($n=1$) could correspond to a \textit{LSR} with $qttl>n$. A second small deviation occurs due to possible load balancer inference in the follow path. In this case, the traceroute probes follow paths with different lengths before to reach the MPLS tunnel. Therefore different traceroute probes (with different initial \textit{TTL} ) entered to the MPLS tunnel with the same TTL value. This issue produce that the same \textit{qttl} value were revealed in different $n$-positions. Finally, we noticed that in some cases the \textit{qttl} always remains at 1 for all positions. We think that this issue occurs because some routers update the $TTL_{ip}$ to one in the expired packet instead of keeping it unchanged. We found that in $58\%$ of the cases, the $n$-position match with the \textit{qttl} value, in $36,3\%$ of cases the \textit{qttl} signature is not present and always $qttl=1$, and finally just a $6,7\%$ of the cases presented some bias around the expected value.
+
+Once we noticed that the \textit{qttl} value match with the $n$-position, we use this position as a reference value to validate the \textit{u-turn} signature. In this case, the expected value should to be $u-turn=2(L-(n-1))$ where $n$ is the position of the LSR within the tunnel and $L$ is the tunnel length. Because \textit{u-turn} is commonly present in almost \textit{LSRs}, first we test it in MPLS tunnels  where other signatures were found i.e., \textit{LSRs} revealed through RFC 4950 implementation (explicit tunnels) and \textit{qtll} signatures. Secondly we test it on \textit{LSRs} where \textit{u-turn} was the only signature that allows to reveal the MPLS tunnel. We use a filter ($u-turn>3$) to avoid false isolated \textit{u-turn} deltas. Some results are showed in figures \ref{fig_uturn_a}, \ref{fig_uturn_b} . We compare the expected value and the obtained value using a scatter plot where we can distinguish the amount of signatures biased. We found the same results for different tunnel lengths. We noticed that on \textit{LSRs} revealed through RFC 4950 implementation and \textit{qtll} signatures, the $60\%$ of obtained \textit{u-turn} values match with the expected values. However when we compare the results in \textit{LSRs} where no other signature exists (therefore where the \textit{u-turn} signatures are really useful), the obtained \textit{u-turn} signature just match in $25\%$  so we can conclude that the \textit{LSRs} revealed through \textit{u-turn} signatures are highly overestimated. Mainly because MPLS tunnels are not the only behaviour that causes the \textit{u-turn} delta  and it is also related with load balancing issues. Indeed, available tools used to avoid load balancing issues are based on keep constant the first 32 bits of the IP \textit{payload} \cite{BRICE06}. In the case of ICMP messages, this fields are \textit{Type}, \textit{Code} and \textit{Checksum}. By definition, \textit{u-turn} signature is based on two kinds of ICMP message: ICMP \textit{reply}-Code 11 and ICMP \textit{time exceeded}-Code 0. Thereby, because the different codes values related with each ICMP message, there is no way to sure that the \textit{u-turn} value is caused just by MPLS tunnels.
+
+
+\section{\textit{LSRs} and MPLS clouds}
+
+\subsection{Methodolody}
+
+For the best of our acknowledge, MPLS architecture on Internet Topology has not been yet studied. In this way, we focus our attention on study some properties of \textit{LSRs} and \textit{MPLS clouds}. The \textit{LSRs} refers to routers with MPLS capabilities and \textit{MPLS clouds} refer to networks of \textit{LSRs} linked through MPLS tunnels. 
+
+Generally speaking, we propose a study  in order to better understand the interaction inward and outward between MPLS networks and non MPLS networks (IP level).
+
+For our purposes , following  we define some some basic terminology for the remains of the work.  
+
+\textbf{IP level Graph}. IP level graph $G_{ip}=(V_{ip}, E_{ip})$, where $V_{ip}$ is the IP address discovered in our exploration and $E_{ip}$ is the set of the links founded trough traceroute. 
+
+\textbf{Router Level Graph}. Graph obtained after apply the Alias Resolution Process using MIDAR over the set of IP address $V_{ip}$ . As a result we get the graph $G_{r}=(V_{r}, E_{r})$, where $V_{r}$ is the set of routers where we found at least one IP address and $E_{r}$ is the set of all the links founded between any pair of routers.
+
+\textbf{MPLS IP level Graph}. IP level subgraph build by IP interfaces where we discovered at least one MPLS tunnel. Formally, $G^{mpls}_{ip}=(V^{mpls}_{ip}, E^{mpls}_{ip})$, where  $V^{mpls}_{ip}$ is the set of IP address  belonging to an MPLS tunnel and  $ E^{mpls}_{ip}$ is the set of all \textit{mpls links} $(v^{mpls(a)}_{ip}, v^{mpls(b)}_{ip})$ such as $v^{mpls(a)}_{ip}$ and $v^{mpls(b)}_{ip}$ $\in V^{mpls}_{ip}$.
+
+
+\textbf{MPLS router level Graph}. Router level subgraph builded by routers where we find at least one MPLS interfaces. Formally, $G^{mpls}_{lsr}=(V^{mpls}_{lsr}, E^{mpls}_{lsr})$, where  $V^{mpls}_{lsr}$ is the set of routers where we founded at least one IP address belonging to an MPLS tunnel and  $E^{mpls}_{lsr}$ is the set of all \textit{mpls links} $(v^{mpls(a)}_{lsr}, v^{mpls(b)}_{lsr})$ such as $v^{mpls(a)}_{lsr}$ and  $v^{mpls(b)}_{lsr}$  $\in V^{mpls}_{lsr}$.
+
+\textbf{Induced Graph by nodes belonging to the same AS}. We define the graphs $G^{(as)}_{ip}$, $G^{(as)}_{r}$, $G^{mpls(as)}_{ip}$ and $G^{mpls(as)}_{lsr}$ as the induced graphs of  $G_{ip}$, $G_{r}$, $G^{mpls}_{ip}$ and $G^{mpls}_{lsr}$ respectively, such as the vertexes of the Graphs belongs to the same Autonomous System $as$. For router level topology, where the IP interfaces could belong to different ASs, we discard the interfaces that do not belong to $as$.
+
+
+\textbf{MPLS Clouds}. We define two levels of MPLS clouds: IP and router level clouds. An IP level MPLS cloud $C^{mpls(i)}_{ip}$ is a connected component $i$ of $G^{mpls(as)}_{ip}$ . A router level MPLS cloud $C^{mpls(i)}_{lsr}$ is a connected component $i$ of $G^{mpls(as)}_{lsr}$. In simple words, we define a \textit{MPLS cloud} as a connected component of \textit{LSRs} whose interfaces belonging to the same Autonomous System. One Autonomous system could to have several \textit{mpls clouds}
+
+\textbf{MPLS Cloud level Graph}. We define an MPLS Cloud level Graph as an hybrid IP level graph $G_{ip\backslash lsr}$  or an hybrid router level graph $G_{r\backslash lsr}$  where all the \textit{MPLS Clouds} were contracted to a single node while IP interfaces  and  routers remains unchanged. Finally, we called $G^{as}_{ip\backslash lsr}$ and $G^{as}_{r\backslash lsr}$ to the induced subgraphs of $G_{ip\backslash lsr}$ and $G_{r\backslash lsr}$ respectively, such as each vertex of the graphs are in the Autonomous System $as$. Broadly speaking, an \textit{MPLS Cloud level Graph} refers to a graph where all MPLS clouds are treated as a single node. In this way, we can study how non MPLS interfaces and non MPLS routers interact with MPLS networks.
+
+
+\subsection{MPLS on Internet Topology} 
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3in]{Routers}
+\caption{$k$-core visualization of router level topology $G_{r}=(V_{r}, E_{r})$ }
+\label{fig_k_core_routers}
+\end{figure}
+
+Mainly, we based on $k$-core decomposition in order to study the fingerprints printed by \textit{LSRs} and \textit{MPLS clouds} on Internet topology, as well as some topological properties of MPLS networks. 
+
+First we analyse the graphs $G_{ip}$ and $G_{r}$ in order to know if there is some strong difference between their structure and properties. As was expected we noticed that the router level topology has strong clustering coefficient than ip level topology. This fact occurs due to the join of ip interfaces into single routers. However, the structure of both topologies are identical. We also compared this topologies using $k$-core decomposition and given that we did not notice any meaningful difference between them and because router level topology are more approached to a realistic Internet behaviour , we selected router level topologies based for the remain of the analysis.
+
+Figure \ref{fig_k_core_routers} shows the $k$-core visualization of $G_{r}$. In the center is located the shell index with the $k_{max}-core$ and the rest of the shells are located concentrically around it. On the right is a gray scale with the shell index $c_i$ and left is a node degree scale represented by the size of each one. We see that all the shells index are highly populated and that the node degree is not related with the shell index i.e., there is many routers with high degree in the outer shells. In order to locate \textit{LSRs}-routers with mpls capabilities into the shells index, we painted in black the  \textit{non MPLS capable routers} and in gray color the \textit{LSRs}. The results are showed in figure \ref{fig_k_core_LSR}. For the sake of the visualization we do not include the shell index and degree scale. We noticed that the \textit{LSRs} are distributed around the different shells of Internet but  lightly tends to concentrate with more density nearby to the core. Additionally, we apply the same concept for the MPLS cloud level graph $G_{r\backslash lsr}$. The figure \ref{fig_k_core_MPLS} shows the getting results. We distinguish the MPLS clouds with gray color. In this case, the MPLS clouds  are also spread out on the Internet, indeed we see some well defined gray nodes on the periphery. However MPLS clouds shows a stronger tendency to concentrate it near to the core.
+
+\subsection{MPLS on Autonomous Systems}
+
+Although the previous results give us a general overview around MPLS deployment, we believe that the study of MPLS structure requires a zoom in on each MPLS cloud or at least within each Autonomous System. Indeed, we found that around $89.9\%$ of \textit{mpls links} are intra\textit{AS}).  Thereby in order to get a zoom on MPLS architecture we selected the principal \textit{ASs} we reveal. We choose the top ten of \textit{ASs} according to the amount of  links discovered. In order to avoid bias related with AS not well explored,  we discard those where we found less than five hundred of \textit{mpls links}. Additionally we identified the \textit{mpls links} according to the kind of tunnel. The summary of the top \textit{AS} is showed in the figure \ref{top_as}. We noticed that the ratio $r_{mpls}$ between \textit{mpls links} and the total amount of links discovered by \textit{AS} is greater when more explicit \textit{mpls links} have been discovered. Interestingly, we also see that the \textit{ASs} with more links discovered have the lowest ratio $r_{mpls}$. This fact suggests that exists a high amount of invisible tunnels in this Autonomous System.
+
+\begin{figure*}[!t]
+\centering
+\subfloat[]{\includegraphics[width=6in]{LSR}%
+\label{fig_k_core_LSR}}
+\hfil
+\subfloat[]{\includegraphics[width=6in]{MPLS}%
+\label{fig_k_core_MPLS}}
+\caption{ (a) $k$-core visualization of router level topology  $G_{r}=(V_{r}, E_{r})$. Black nodes refer to non MPLS capable routers and gray nodes refer no LSRs. (b) $k$-core visualization of MPLS cloud level topology  $G_{r\backslash lsr}$. Black nodes refer to non MPLS capable routers and gray nodes refer to MPLS clouds}
+\label{fig_kcore_overview}
+\end{figure*}
+
+
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3in]{TOP_AS}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+\caption{\textbf{Top of Autonomous System with most links discovered}}
+\label{top_as}
+\end{figure}
+
+In this section, we study the graphs $G^{as}_{r}$ and $G^{as}_{r\backslash lsr}$. We applied the same analysis based on $k$-core decomposition used previously.  Regarding the graph $G^{as}_{r}$, we find that almost of \textit{LSRs} tends to locate in the vicinity of the cores, similar to that observed on $G_{r}$ in the previous section. However, the most remarkable observation around the analysis of MPLS per \textit{ASs} occurs regarding the graph $G^{as}_{r\backslash lsr}$: $k$-core visualization highly differs on those \textit{ASs} where prevails explicit tunnels in comparison with those where high percentage of \textit{u-turn} coverage i.e., \textit{ASs} that have more than $1/3$ of tunnels revealed by \textit{u-turn} signatures. The figures \ref{fig_cloud_mpls_174}, \ref{fig_cloud_mpls_1299}, \ref{fig_cloud_mpls_6762} shows this observation. The figures show visualization based on $k$-core decomposition for the graphs $G^{as}_{r\backslash lsr}$  for the autonomous system AS174, AS1299 and AS6762. The \textit{MPLS clouds} located in this autonomous systems (represented as gray nodes) are spread out over the different shells index. This $k$-core structure are similar in our top four of \textit{ASs}, where \textit{u-turn} signature was majority discovered i.e., between $30\%$ and  $80\%$ over  the total of \textit{mpls links}. However, for the rest of \textit{ASs} where prevails explicit tunnels, we found a $k$-core structure highly different.  In this cases,  the \textit{ASs} seems to have few and well defined MPLS clouds, mainly belonging to the maximum $k_{max}$-core. Some examples of this $k$-core structure are showed on figures \ref{fig_cloud_mpls_7018}, \ref{fig_cloud_mpls_1273} and \ref{fig_cloud_mpls_2914}. The same result was noticed in the rest of top \textit{ASs}. This observation suggest that exists a great number of\textit{MPLS} links non revealed in the top four of \textit{ASs}, therefore  the \textit{LSRs} discovered can not build large \textit{MPLS} clouds so they are thoroughly spread out. Additionally, because \textit{u-turn} signatures are overestimated, as we showed previously, there are several false \textit{LSRs} spread out over the shell indexes, adding false MPLS clouds.
+
+Another remarkable characteristic  relays on the fact that the degree reached by the MPLS clouds is considerably high in comparison with the network size \textit{ASs}of each . Indeed, with exception of AS174, the rest of top \textit{ASs } suggest that more than $50\%$ of non mpls routers connects to at least one \textit{LSR}. Even the outer shells of the $k$-core decomposition are linked directly with the MPLS clouds located in the core. 
+
+%Figura u-turn
+\begin{figure*}[!t]
+\centering
+\subfloat[AS174]{\includegraphics[width=2in]{174}%
+\label{fig_cloud_mpls_174}}
+\hfil
+\subfloat[AS1299]{\includegraphics[width=2in]{1299}%
+\label{fig_cloud_mpls_1299}}
+\hfil
+\subfloat[AS6762]{\includegraphics[width=2in]{6762}%
+\label{fig_cloud_mpls_6762}}
+\hfil
+\subfloat[AS7018]{\includegraphics[width=2in]{7018}%
+\label{fig_cloud_mpls_7018}}
+\hfil
+\subfloat[ AS1273]{\includegraphics[width=2in]{1273}%
+\label{fig_cloud_mpls_1273}}
+\hfil
+\subfloat[AS2914]{\includegraphics[width=2in]{2914}%
+\label{fig_cloud_mpls_2914}}
+\caption{$k$-core visualization of MPLS cloud level topology by \textit{ASs} $G^{as}_{ip\backslash lsr}$.}
+\label{fig_cloud_mpls}
+\end{figure*}
+
+\section{Further Work}
+
+\section{Conclusions}
+

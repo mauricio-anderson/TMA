@@ -1,0 +1,50 @@
+\section{Introduction}\label{intro}
+% %%%%%%%%%%%%%%%%%%%%%
+Internet topology refers to the study of the various types of
+connectivity structures and representations between directly connected nodes on
+the Internet architecture~\cite{Calvert97}. This representation aims at
+obtaining models that represent  Internet with the greatest possible accuracy in order
+to test new communications protocols, algorithms, QoS policies, traffic
+engineering, etc.
+
+The Internet topology can be seen at several abstraction levels i.e., IP
+interface, router, subnetwork, PoP, and Autonomous System (AS) levels. All these
+models have been widely studied in the past~\cite{DONNET13} . However, the
+current state of the art of Internet deployments involves a great number of
+technologies impacting the Internet Topology.  And those technologies deserve a
+deep study in order to include them in Internet topology models.  For instance, 
+\dfn{Multiprotocol Label Switching} (MPLS)~\cite{rfc3031} has been recently the
+focus of several studies~\cite{SOM11,DONNET13,Vanaubel15}.  It has been
+demonstrated that MPLS is a mature technology widely deployed for (mainly) load
+balancing reasons or traffic engineering purposes.  A few studies have
+partially questioned its impact on Internet topology~\cite{BRICE07,Flach2012}.
+
+Although, the  MPLS deployment impact on the Internet architecture has not been
+studied yet. The importance to study new architectural details and topological
+features related with MPLS usage and its impact would help to know the way in
+which the Internet Service Providers (ISPs) use their networks or apply their
+policies for traffic engineering as well as to better understand the today's
+Internet architecture more accurately. Our work provides a study around the impact of MPLS deployments over Internet
+Topology. Principally, we focus on the properties and features that MPLS
+modifies on traditional networks maps such as router level topology. For our purpose we
+mainly based on  $k$-core decomposition method~\cite{batagelj2002}. In this way, it has been shown previously that the $k$-core decomposition is a relevant tool to describe Internet Topology, by being 
+capable of identifying networks sources by means of the
+visualization~\cite{Alvarez06k}, may be used to validate
+models~\cite{Serrano06}, and discover exploration biases on the Internet
+\cite{Alvarez08k}.
+
+In this way, this paper adds complementary and enriched information around MPLS usage on Internet. First, we present a quantification of the biases involved on implicit MPLS tunnel detection. Additionally, we provided some properties and architectural details related with MPLS deployment on router topology. We found that routers with lower degree are frequently connected with MPLS capable routers and routers with high degree are usually connected to common MPLS networks. Additionally, we describes the behaviour of MPLS networks within some ASes with most MPLS usage. We found that given an AS, the MPLS networks tend to form few and well defined clouds. However, this observation could change on regarding with the type of MPLS tunnel that prevails. 
+
+%\ed{BD: describe here quickly our main findings}
+
+The remainder of this paper is organized as follows: Sec.~\ref{related} provides
+the state of the art and the background related to MPLS tunnels discovery. In
+particular, it describes how MPLS tunnels can be revealed through active
+measurements;  Sec.~\ref{dataset} explains how we collected data for this work;
+Sec.~\ref{validation} presents our results related to \textit{mpls
+signatures} accuracy; Sec.~\ref{cluster} presents the main
+contributions of this paper with a detailed study around the behaviour of MPLS networks on the
+Internet Topology and architectural details of some ASes with most MPLS usage; %\ed{BD: unclear}
+Finally, Sec.~\ref{ccl} concludes this paper by summarizing its main
+achievements.
+

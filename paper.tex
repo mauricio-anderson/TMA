@@ -1,0 +1,73 @@
+\documentclass[conference]{IEEEtran} % Camera-ready format
+
+\usepackage{graphicx}             % import, scale, and rotate graphics
+\usepackage{subfig}            % group figures
+\usepackage{url}                  % facilitate linebreaking of URLs
+\usepackage[latin1]{inputenc}     % use characters with accents in the source
+\usepackage{nicefrac}             % write fractions in the text
+\usepackage{indentfirst}          % indent the first paragraph
+\usepackage[super, negative]{nth}
+\usepackage{multirow}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{dcolumn}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{xspace}
+
+\usepackage{array,booktabs}
+\usepackage{latexsym}
+\usepackage{pifont}
+\usepackage{colortbl}
+\usepackage{bytefield}
+
+\newcommand{\ed}[1]{\textsf{\textbf{[#1]}}}  %editorial comments
+\newcommand{\dfn}[1]{\textit{#1}}            %introducing new terms
+\newcommand{\revision}[1]{\tr{#1}}
+\newcommand{\co}[2]{#1 & \tiny{$\pm#2$}}     %intervalles de confiance
+\newcommand{\ttlexceeded}{\texttt{time-exceeded}\xspace}
+\newcommand{\tpropagate}{\texttt{ttl-propagate}\xspace}
+\newcommand{\echoreply}{\texttt{echo-reply}\xspace}
+\newcommand{\echorequest}{\texttt{echo-request}\xspace}
+\newcommand{\dstunreach}{\texttt{destination-unreachable}\xspace}
+\newcommand{\traceroute}{\texttt{traceroute}\xspace}
+\newcommand{\ping}{\texttt{ping}\xspace}
+
+\hyphenation{trace-route trace-routes trace-rout-ing}
+\hyphenation{destination-un-reachable dest-ination-unreachable
+destination-un-reach-able des-tination-unreachable desti-nation-unreachable
+destina-tion-unreachable}
+\hyphenation{AS-es}
+\hyphenation{Topo-logy}
+
+\graphicspath{{.}{./Figures/}}
+
+\begin{document}
+
+\title{A Funky Title}
+\author{Gabriel Davila Revelo{$^{\ddag}$}, Mauricio Anderson Ricci{$^{\ddag}$} , Benoit Donnet{$^{\ast}$},
+Jos\'e Ignacio Alvarez-Hamelin{$^{\ddag}$}\\
+$\ddag$ Universidad de Buenos Aires, Buenos Aires -- Argentina\\ 
+\{gdavila, manderson, ihameli\}@cnet.fi.uba.ar \\
+$\ast$ Universit\'e de Li\`ege, Li\`ege -- Belgium\\
+\{benoit.donnet\}@ulg.ac.be
+}
+
+\maketitle
+
+\input{abstract.tex}
+
+\input{introduction.tex}
+\input{related.tex}
+\input{dataset.tex}
+\input{validation.tex}
+\input{clusters.tex}
+\input{conclusion.tex}
+\input{ack.tex}
+
+{\small
+ \bibliographystyle{IEEEtran}
+ \bibliography{IEEEabrv,Bibliography}
+}
+
+\end{document}
