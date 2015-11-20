@@ -30,16 +30,16 @@ penultimate MPLS router (\dfn{penultimate hop popping}, PHP).  The Egress LER
 then performs a classic IP lookup and forwards the traffic, reducing so the load
 on the Egress LER (specially if the Egress LER is shared among several LSPs).
 This means that, when using PHP, the tunnel exit is one hop before the Egress
-LER.  In its most basic operation, LSPs are constructed along best effort routes
-using the \dfn{Label Distribution Protocol} (LDP~\cite{rfc5036}). More specific
-LSPs may be constructed for Traffic Engineering purposes, using an extension of
-the RSVP protocol, \dfn{RSVP-TE}~\cite{rfc3209}. In these two cases, the label
-stack contains only one LSE. A more complex usage is for Virtual Private Networks
-(VPN~\cite{rfc2917}), where LSPs are constructed using either LDP or RSVP-TE,
-and an additional LSE at the bottom of the label stack is used to specify a Virtual
-Routing Table at the Egress. In this case, the bottom of the stack is constant
-along an LSP, while the top of the stack is modified at each hop, as in the
-previous cases.
+LER. % In its most basic operation, LSPs are constructed along best effort routes
+%using the \dfn{Label Distribution Protocol} (LDP~\cite{rfc5036}). More specific
+%LSPs may be constructed for Traffic Engineering purposes, using an extension of
+%the RSVP protocol, \dfn{RSVP-TE}~\cite{rfc3209}. In these two cases, the label
+%stack contains only one LSE. A more complex usage is for Virtual Private Networks
+%(VPN~\cite{rfc2917}), where LSPs are constructed using either LDP or RSVP-TE,
+%and an additional LSE at the bottom of the label stack is used to specify a Virtual
+%Routing Table at the Egress. In this case, the bottom of the stack is constant
+%along an LSP, while the top of the stack is modified at each hop, as in the
+%previous cases.
 
 \subsection{Revealing MPLS Tunnels}\label{related.revealing}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,7 +97,7 @@ LH router).  Implicit and opaque tunnels can be revelead as follows:
    $\textit{u-turn}=\text{TTL}_{\text{echo-reply}}-\text{TTL}_{\text{time-exceeded}}$.  The
   expected \textit{u-turn} value is in the form $[2L, 2L-2, 2L-4,..., 2]$ where $L$
   is the tunnel length and the array position correspond to the LSR position
-  within the tunnel.
+  within the LSP.
   \item opaque tunnels are revealed through an \textit{abnormal} LSE-TTL
   ($1<$LSE-TTL$<255$) returned by the LH in the \ttlexceeded reply.
 \end{enumerate}
@@ -111,6 +111,26 @@ signature accuracy.
 
 
 
+%Figura u-turn
+\begin{figure*}[!t]
+  \begin{center}
+    \subfloat[Tunnel Length Distribution]{\label{hist_length}
+      \includegraphics[width=6cm]{hist_length}}
+      \hfil
+    \subfloat[\textit{qTTL} and $n$-position comparison]{\label{n_vs_qttl}
+      \includegraphics[width=6cm]{n_vs_qttl}} 
+      \hfil
+    \subfloat[\textit{u-turn} on LSRs where no other signature was found]{\label{fig_uturn_a}
+      \includegraphics[width=6cm]{n_vs_uturn_L5}}
+      \hfil
+    \subfloat[\textit{u-turn} on LSRs revealed through RFC4950 and \textit{qTTL}]{\label{fig_uturn_b}
+      \includegraphics[width=6cm]{n_vs_uturn_L5_exp}}    
+  \end{center}
+  \caption{ Comparison between obtained and expected values for \textit{qTTL} and
+  \textit{u-turn} signatures. On figures (b), (c) and (d) the circle size in the scatter plot is related with the occurrence frequency of \textit{y-axis} values regarding each $n$-position. The
+  transparency of the circle is related with occurrence frequency of $n$-position  regarding each \textit{y-axis} value, e.g., on figure (b) for values where $n>1$, the biggest circles are mainly located on  $\textit{qTTL}=1$ and $\textit{qTTL}=n$ so this suggest that for a given $n$-position the \textit{qTTL} value usually takes either the value of $1$ or $n$; in the same way, the transparency value suggests that for a given \textit{qTTL} value the $n$-position usually takes the same \textit{qTTL} value.  \textbf{Figure (c)} and \textbf{Figure (d)} suggest that \textit{u-turn} value is overestimated. }
+  \label{ig_signatures}
+\end{figure*}
 
 % \section{Related Work}\label{related}
 % %%%%%%%%%%%%%%%%%%%%
