@@ -2,8 +2,7 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In this section we describe the used methodology to validate the MPLS signatures
-revealed by traceroutes. Basically, we compare the LSR position within an MPLS tunnel with the signatures values.
-
+revealed by traceroutes. Basically, we compare the LSR position within an MPLS tunnel with the different signatures values.
 Implicit tunnels are based either on \textit{qTTL} or \textit{u-turn} signatures. Both of
 them, directly related with MPLS position:
 
@@ -11,8 +10,8 @@ them, directly related with MPLS position:
   \item[i] \textit{qTTL} value refers to the IP-TTL of ICMP-\textit{echo}
   message when it enters to the MPLS  tunnel. A quoted TTL of $n$ in
   the incoming ICMP reply means that the sent probe
-  expired $n$ hops later to ingress to the \textit{LSP}, i.e., a LSR reply where $\textit{qTTL}=n$ means that the LSR appears  in the $n$ position of MPLS tunnel.
-  \item[ii] \textit{u-turn} value is related with the tunnel length $L$ and the $n$-position of the LSR within the tunnel (see section \ref{related.revealing})
+  expired $n$ hops later to ingress to the \textit{LSP}, i.e., a LSR reply where $\textit{qTTL}=n$ means that the LSR appears  in the $n$ position of MPLS tunnel;
+  \item[ii] \textit{u-turn} value is related with the tunnel length $L$ and the $n$-position of the LSR within the tunnel (see section \ref{related.revealing}).
 \end{itemize}
 
 
@@ -29,42 +28,38 @@ them, directly related with MPLS position:
 
 Our signature validation relays on the hypothesis that the MPLS position match
 with the $n$-position  which an LSR is revealed by traceroute. Indeed,
-we use a paris-traceroute \cite{BRICE06}  based tool in order to sure that the probes follow the
-same path. In order to validate our hypotheses, first, we compare a high reliable signature such as \textit{qTTL} with  $n$-position.
-
-To probe our assumption, the \textit{qTTL} values should to match with
-$n$-position, i.e., $\textit{qTTL}=n$. The
-results are showed in figure \ref{n_vs_qttl}. The figure \ref{hist_length} shows the MPLS tunnel length distribution that additionally can help us to understand the amount LSR distributed by position. We principally noticed that \textit{qTTL}
-signature highly match with $n$.  The bias $\textit{qTTL}=n \pm \vartriangle $ could
-occur due to the limitation in our method to reveal the first LSRs in
-the tunnel if it does not implement the RFC4950. %, i.e., the first LSR revealed by traceroute within the tunnel  ($n=1$) could correspond to a LSR with $\textit{qTTL}>n$. 
-A second deviation could
-occur due to possible load balancer presence in the follow path. In this case,
-the traceroute probes follow paths with different lengths before to reach the
-MPLS tunnel. This issue
-produce that the same \textit{qTTL} value could be revealed several times in different
-$n$-positions. The figure also shows that \textit{qTTL} 
-frequently takes the value of $1$. This usually  means that \tpropagate is not implemented. However, we found that around $2\%$ of LSRs do not react to \textit{qTTL} signature, even if \tpropagate option is activated, i.e., some LSRs interfaces located at $i_{n\pm 1}$ tunnel positions react properly to \textit{qTTL} signatures but the LSR interface located at $i_n$ position does not.
+we use a paris-traceroute \cite{BRICE06}  based tool in order to assure that probes follow the
+same path. In order to validate our hypotheses, first, we compare a high reliable signature such as \textit{qTTL} with  $n$-position,
+%
+%To probe our assumption, the \textit{qTTL} values should to match with
+%$n$-position,
+i.e., $\textit{qTTL}=n$. 
+The results are showed in figure~\ref{n_vs_qttl} while figure~\ref{hist_length} shows the MPLS tunnel length distribution; which can help us to understand the number of LSR in each $n$ position. We principally noticed that \textit{qTTL} signature highly match with $n$.%, their values are $75\%$ at least {\bf Gabriel: please check the real values}.  
+The bias $\textit{qTTL}=n \pm \vartriangle $ could occur due to two causes: one  is the limitation in our method to reveal the first LSRs of the
+tunnel when RFC4950 is not implemented; %, i.e., the first LSR revealed by traceroute within the tunnel  ($n=1$) could correspond to a LSR with $\textit{qTTL}>n$. 
+and the second cause could occur due to load balancers in the follow path. 
+In the later case, the traceroute probes may follow paths with different lengths before to reach the MPLS tunnel, yielding that the same \textit{qTTL} value is revealed several times in different $n$-positions. 
+The figure~\ref{n_vs_qttl} also shows that \textit{qTTL} frequently takes the value of $1$. 
+This usually  means that \tpropagate is not implemented. However, we found that around $2\%$ of LSRs do not react to \textit{qTTL} signature, even if \tpropagate option is activated, i.e., some LSRs interfaces located at $i_{n\pm 1}$ tunnel positions react properly to \textit{qTTL} signatures but the LSR interface located at $i_n$ position does not.
 % We think that this issue occurs because some routers update the IP-TTL to $1$ in the expired packet instead of keeping it unchanged as usual. 
-However, $n$-position are highly reliable. We found that in $58\%$ of the cases the $n$-position match with the
-\textit{qTTL} value while in $36,3\%$ of cases the \textit{qTTL} signature is not
-present and takes the value of $1$, and just $6,7\%$ of the cases presented
-some bias around the expected value. This facts support our hypothesis: the  MPLS tunnel position highly match with the $n$-position  which an LSR is revealed by traceroute. Thereby,  we use
-$n$-position as a reference value to validate the \textit{u-turn} signatures. The expected \textit{u-turn} value is related with $n$ in the way $\textit{u-turn}=2(L-(n-1))$, where $L$ is the tunnel length. Because
-\textit{u-turn} is commonly present in almost all LSRs, first, we compare $n$ vs \textit{u-turn} on
-LSRs  revealed either explicitly or \textit{qTTL} based.
+However, $n$-position are highly reliable. We found that in $58\%$ of the cases the $n$-position match with the \textit{qTTL} value while in $36,3\%$ of cases the \textit{qTTL} signature is not present and takes the value of $1$, and just $6,7\%$ of the cases presented have some bias around the expected value $n$. 
+This facts support our hypothesis: the  MPLS tunnel position highly match with the $n$-position  which an LSR is revealed by traceroute. 
+Thereby,  we use $n$-position as a reference value to validate the \textit{u-turn} signatures.
 
-Subsequently, we study $n$ value on LSRs where \textit{u-turn} was the only detected
-signature. We use the filter $\textit{u-turn}>3$ to
-avoid false isolated \textit{u-turn} signatures. The results for a given tunnel length $L$ are showed on figures
-\ref{fig_uturn_a}, \ref{fig_uturn_b}. Similar results was noticed for other tunnel length values. Basically, we noticed that the obtained values are close to expected values on the LSRs explicitly revealed  and \textit{qTTL} based (figure \ref{fig_uturn_a}). However on the set of  LSRs revealed just by \textit{u-turn} signatures (figure \ref{fig_uturn_b}) the values commonly  does not match. If we accept a bias of $ \pm 2$ around the expected value, we
-noticed that  on LSRs explicitly revealed  and \textit{qTTL} based, the $60\%$ of obtained \textit{u-turn} values match
-with the expected values. However, on LSRs
-revealed just trough \textit{u-turn} signature (therefore where it
-is really useful), the obtained \textit{u-turn} value just match in $25\%$ with the expected value $2(L-(n-1))$. 
-Therefore, LSRs revealed through \textit{u-turn} is highly inaccurate and overestimated. Mainly, because MPLS tunnels are not the
-only behaviour that could causes \textit{u-turn} signatures. Indeed, has been showed that load balancing is common on traverse paths even between the same pairs source-destination \cite{BRICE07}. This issue is called \textit{per-flow} load balancing. Basically, packets that belongs to the same \textit{flow} are treated similarly \cite{BRICE06}. A \textit{flow} is identified by the first 32 bits of the IP \textit{payload}. In the case of ICMP messages, this fields refers to \textit{Type},
-\textit{Code} and \textit{Checksum}. By definition, \textit{u-turn} signature is
-based on two kinds of ICMP messages: ICMP \echoreply \textit{Code 11} and ICMP
-\ttlexceeded \textit{Code 0}. Due to the different codes values
-related with each ICMP message, there is no way to sure that they belong to the same \textit{flow} identifier and thereby to be sure that \textit{u-turn} value is caused just by MPLS tunnels.
+The expected \textit{u-turn} value is related with $n$ in the way $\textit{u-turn}=2(L-(n-1))$, where $L$ is the tunnel length. 
+Because \textit{u-turn} is commonly present in almost all LSRs, first, we compare $n$ vs \textit{u-turn} on LSRs  revealed either explicitly or \textit{qTTL} based.
+Subsequently, we study $n$ value on LSRs where \textit{u-turn} was the only detected signature. 
+We use the filter $\textit{u-turn}>3$ to avoid false positives. The results for a given tunnel length $L=5$ are showed on figures~\ref{fig_uturn_a} and~\ref{fig_uturn_b}. 
+Similar results was also obtained for other tunnel length $L$ values. 
+Basically, we noticed that the percentage of cases are close to expected ones when the LSRs explicitly revealed  and \textit{qTTL} is present (figure~\ref{fig_uturn_a}). 
+However on the set of  LSRs revealed just by \textit{u-turn} signatures (figure \ref{fig_uturn_b}) the cases commonly  does not match. If we accept a bias of $ \pm 1$ around the expected value, we noticed that  on LSRs explicitly revealed  and \textit{qTTL} signatured based, the $60\%$ of obtained \textit{u-turn} signed cases match with the expected values. 
+However, on LSRs revealed just trough \textit{u-turn} signature (therefore where it is really useful), the obtained \textit{u-turn} cases just match in $25\%$ with the expected value $2(L-(n-1))$. 
+Therefore, LSRs revealed through \textit{u-turn} is highly inaccurate; % and overestimated. 
+mainly because MPLS tunnels are not the only responsible on the variation in it leght, but also%  that could causes \textit{u-turn} signatures. Indeed, has been showed that 
+the load balancing is common for paths between the same pairs source-destination \cite{BRICE07}. 
+This issue is called \textit{per-flow} load balancing. 
+Basically, packets that belongs to the same \textit{flow} are treated similarly \cite{BRICE06}. 
+A \textit{flow} is identified by the first 32 bits of the IP \textit{payload}, e.g., TCP header. 
+In the case of ICMP messages, this fields refers to \textit{Type}, \textit{Code} and \textit{Checksum}. 
+By definition, \textit{u-turn} signature is based on two kinds of ICMP messages: ICMP \echoreply \textit{Code 11} and ICMP \ttlexceeded \textit{Code 0}. 
+Due to different codes for each ICMP message, there is no way to assure that they belong to the same \textit{flow} identifier and thereby to be sure that \textit{u-turn} value is caused just by MPLS tunnels.
