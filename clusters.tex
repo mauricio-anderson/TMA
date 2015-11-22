@@ -53,8 +53,8 @@ Additionally, we called $G_{r\backslash lsr}(as)$ to the induced subgraphs of $G
 
 
 As the analysis is mainly based on $k$-core decomposition, we present the following definitions:
-. 
-Formally, let the graph $G=(V,E)$, $k$-core decomposition analysis is defined as:
+ 
+%Formally, let the graph $G=(V,E)$, $k$-core decomposition analysis is defined as:
 
 \begin{itemize}
 \item[i]{\textbf{\textit{k}-core:}}. Given a graph $G=(V,E)$, then the subgraph $H=(C,E|C)$ induced by the set $ C\subseteq V$ is a \textit{k}-core of order $k$ $iff$ $\forall v \in C: degree_{H}(v)\geq k$ and $H$ is the maximum subgraph with this property.
@@ -122,21 +122,30 @@ On the other hand, the clustering coefficient of $G_{r \backslash lsr }$ change 
 Although, the previous results give us a general overview about MPLS deployment, we believe that the study of MPLS structure requires some deep into the individual AS topology. 
 Indeed, we found that around $89.9\%$ of \textit{mpls links} are intra-AS.  
 Thereby, we choose the top of ASes according to the total number of discovered links; and in order to focus our analysis on those ASes were MPLS is relevant, we discarded those having less than five hundred \textit{mpls links}. 
-Additionally, we identified  the amount of \textit{mpls links} by AS, distinguishing the type of tunnel; i.e., we define as \textit{explicit mpls link} to those link between an interface $i_{n}$  and its previous interface $i_{n-1}$ discovered by traceroute, such that both interfaces are also revealed as explicitly MPLS one.
-We did the same for \textit{qTTL links} and  \textit{u-turn mpls links}. [IT IS NOT CLEAR HOW]
+Additionally, we identified  the amount of \textit{mpls links} by AS, distinguishing the type of tunnel: 
+
+\begin{itemize}
+\item[i] \textit{explicit mpls link:} Link between an interface $i^{\text{explicitMPLS}}_{n}$  and its previous interface $i^{\text{MPLS}}_{n-1}$ discovered by traceroute, such that $i^{\text{explicitMPLS}}_{n}$ belongs to an explicit MPLS tunnel and $i^{\text{MPLS}}_{n-1}$ belongs to any kind of MPLS tunnel (explicit, \textit{qTTL} based or \textit{u-turn} based).
+
+\item[ii] \textit{qTTL mpls link:} Link between the interfaces $i^{\text{qTTL}}_{n}$  and $i^{\text{MPLS}}_{n-1}$, such that $i^{\text{qTTL}}_{n}$ belongs to a tunnel \textit{qTTL} based.
+
+\item[iii] \textit{u-turn mpls link:} Link between the interfaces $i^{\text{u-turn}}_{n}$  and $i^{\text{MPLS}}_{n-1}$, such that $i^{\text{u-turn}}_{n}$ belongs to a tunnel \textit{u-turn} based.
+
+\end{itemize}
 
 The summary of the top ASes is showed in the figure \ref{top_as}. 
 We noticed that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as) \vert /\vert E_{r} (as) \vert $  is greater when more  \textit{explicit mpls links} have been discovered. 
 Interestingly, we also see that the ASes with more links discovered have the lowest ratio $r_{mpls}$. 
 
 For our purposes, we select the most representatives ASes from those in figure~\ref{top_as}.
-In this way we analyzed the graphs $G_{r}(as)$ and $G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS7018, AS1273 and AS2910. 
+In this way we analyzed the graphs $G_{r}(as)$ and $G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS7018, AS1273 and AS2914. 
 The most remarkable observation (see figure~\ref{fig_cluster_mpls}) occurs regarding the graph $G_{r\backslash lsr}(as)$: $k$-core decomposition highly differs on those ASes, where prevails explicit tunnels in regard to those with more \textit{u-turn} tunnels proportionally. 
 We show that \textit{MPLS clusters} (represented as gray nodes) for  AS1299 (Teliasonera AB), AS174 (Congent Communication) and AS6762 (Telecom Italia) are spread out over different shells index. 
 These $k$-core structures are similar in our top four of ASes where we additionally noticed  the \textit{u-turn} signature was majority discovered, i.e., between $30\%$ and  $80\%$ over  the total amount of \textit{mpls links}. 
-However, for AS7018 (AT\&T), AS1273 (Cable and Wireless Worldwide plc) and AS2910 (Citicorp) [PAY ATTENTION: THERE IS AS2914 IN YOUR PICTURES, PLEASE FIND IF IT IS 2910 OR 2914 AND CORRECT THEM] where prevail explicit tunnels, we found a $k$-core structure highly different.  
+However, for AS7018 (AT\&T), AS1273 (Cable and Wireless Worldwide plc) and AS2914 (NTT America Inc.) %[PAY ATTENTION: THERE IS AS2914 IN YOUR PICTURES, PLEASE FIND IF IT IS 2910 OR 2914 AND CORRECT THEM] GD: Corrected
+ where prevail explicit tunnels, we found a $k$-core structure highly different.  
 In these cases,  the ASes have few and well defined \textit{MPLS clusters}, mainly belonging to the $C_{\max}$-core. 
-The same $k$-core decomposition structure was noticed  on the rest of top ASes with high percentage of \textit{qTTL} signature, i.e., AS7018, AS1273 and AS2910.
+The same $k$-core decomposition structure was noticed  on the rest of top ASes with high percentage of \textit{qTTL} signature, i.e., AS7018, AS1273 and AS2914.
 
 Another remarkable observation  relays on the fact that the maximum degree reached by \textit{MPLS clusters} is considerably high in regard to the network size. 
 Indeed, with exception of AS174, the rest of ASes suggest that more than $50\%$ of non mpls routers are connected  to at least one LSR. 
@@ -156,7 +165,7 @@ Finally, it draws our attention that the ratio of \textit{u-turn links} differs 
 % where an .eps filename suffix will be assumed under latex, 
 % and a .pdf suffix will be assumed for pdflatex; or what has been declared
 % via \DeclareGraphicsExtensions.
-\caption{\textbf{Top of ASes with most links discovered} On top four ASes prevails \textit{u-turn mpls links}. ON the rest of ASes prevails \textit{qttl mpls links}.}
+\caption{\textbf{Top of ASes with most links discovered} On top four ASes prevails \textit{u-turn mpls links}. On the rest of ASes prevails \textit{qttl mpls links}.}
 \label{top_as}
 \end{figure}
 

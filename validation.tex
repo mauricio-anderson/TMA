@@ -34,7 +34,7 @@ same path. In order to validate our hypotheses, first, we compare a high reliabl
 %To probe our assumption, the \textit{qTTL} values should to match with
 %$n$-position,
 i.e., $\textit{qTTL}=n$. 
-The results are showed in figure~\ref{n_vs_qttl} while figure~\ref{hist_length} shows the MPLS tunnel length distribution; which can help us to understand the number of LSR in each $n$ position. We principally noticed that \textit{qTTL} signature highly match with $n$.%, their values are $75\%$ at least {\bf Gabriel: please check the real values}.  
+The results are showed in figure~\ref{n_vs_qttl} while figure~\ref{hist_length} shows the MPLS tunnel length distribution; which can help us to understand the number of LSR in each $n$ position. We principally noticed that \textit{qTTL} signature highly match with $n$.%, their values are $75\%$ at least {\bf Gabriel: please check the real values}.  {GD: the details about match values are in line 45}
 The bias $\textit{qTTL}=n \pm \vartriangle $ could occur due to two causes: one  is the limitation in our method to reveal the first LSRs of the
 tunnel when RFC4950 is not implemented; %, i.e., the first LSR revealed by traceroute within the tunnel  ($n=1$) could correspond to a LSR with $\textit{qTTL}>n$. 
 and the second cause could occur due to load balancers in the follow path. 
