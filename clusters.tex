@@ -17,11 +17,11 @@ Our study aims to better understand the impact of MPLS deployments over internet
 
 \begin{figure*}[!htb]
   \begin{center}
-    \subfloat[Degree Distribution Probability]{\label{fig_degree_distribution}
+    \subfigure[Degree Distribution Probability]{\label{fig_degree_distribution}
       \includegraphics[width=5.5cm]{DegreeDistribution}}\hfil
-    \subfloat[Clustering Coefficient]{\label{fig_clustering}
+    \subfigure[Clustering Coefficient]{\label{fig_clustering}
       \includegraphics[width=5.5cm]{ClusteringCoeficient}}\hfil
-    \subfloat[Neighbor Degree Distribution]{\label{fig_neighbor}
+    \subfigure[Neighbor Degree Distribution]{\label{fig_neighbor}
       \includegraphics[width=5.5cm]{NearestNeighbor}}
   \end{center}
 \caption{\textbf{Metrics for IP, router and MPLS cluster interconnection topologies.} IP, router and MPLS cluster interconnection topologies have similar degree distribution. Clustering Coefficient and Neighbor Degree Distribution do not change significantly between IP level and router level topologies. However the \textit{MPLS clusters} presence highly impact on internet topology. The figure suggest that routers with low degree are highly connected with LSRs (Neighbor Degree Distribution) and routers with high degree usually have \textit{MPLS clusters} as common neighbors (Clustering Coefficient).} \label{fig_metrics}
@@ -83,10 +83,10 @@ Additionally,  the visualization help us to find properties and fingerprints tig
 %%%%%%%%%%%%%%%%%
 \begin{figure*}[!t]
 \centering
-\subfloat[]{\includegraphics[width=18cm]{LSR}%
+\subfigure[]{\includegraphics[width=18cm]{LSR}%
 \label{fig_k_core_LSR}}
 \hfil
-\subfloat[]{\includegraphics[width=18cm]{MPLS}%
+\subfigure[]{\includegraphics[width=18cm]{MPLS}%
 \label{fig_k_core_MPLS}}
 \caption{ (a) The $k$-core visualization of router level topology $G_{r}$. Black nodes refer to non MPLS capable routers and gray nodes refer to LSRs. (b) The $k$-core visualization of MPLS cluster level topology  $G_{r\backslash lsr}$. Black nodes refer to non MPLS capable routers and gray nodes refer to \textit{MPLS clusters}.}
 \label{fig_kcore_overview}
@@ -172,22 +172,22 @@ Finally, it draws our attention that the ratio of \textit{u-turn links} differs 
 %Figura u-turn
 \begin{figure*}[!htb]
 \centering
-\subfloat[AS1299  Teliasonera AB , $C_{\max}=21$, $\text{Degree}_{\max}=2781$]{\includegraphics[width=2in]{1299}%
+\subfigure[AS1299  Teliasonera AB , $C_{\max}=21$, $\text{Degree}_{\max}=2781$]{\includegraphics[width=2in]{1299}%
 \label{fig_cluster_mpls_1299}}
 \hfill
-\subfloat[AS174 Congent Communication, $C_{\max}=8$, $\text{Degree}_{\max}=751$]{\includegraphics[width=2in]{174}%
+\subfigure[AS174 Congent Communication, $C_{\max}=8$, $\text{Degree}_{\max}=751$]{\includegraphics[width=2in]{174}%
 \label{fig_cluster_mpls_174}}
 \hfill
-\subfloat[AS6762 Telecom Italia, $C_{\max}=10$, $\text{Degree}_{\max}=564$]{\includegraphics[width=2in]{6762}%
+\subfigure[AS6762 Telecom Italia, $C_{\max}=10$, $\text{Degree}_{\max}=564$]{\includegraphics[width=2in]{6762}%
 \label{fig_cluster_mpls_6762}}
 \hfill
-\subfloat[AS7018 AT\&T, $C_{\max}=3$, $\text{Degree}_{\max}=745$]{\includegraphics[width=2in]{2914}%
+\subfigure[AS7018 AT\&T, $C_{\max}=3$, $\text{Degree}_{\max}=745$]{\includegraphics[width=2in]{2914}%
 \label{fig_cluster_mpls_2914}}
 \hfil
-\subfloat[ AS1273 Cable and Wireless Worldwide plc, $C_{\max}=3$, $\text{Degree}_{\max}=806$]{\includegraphics[width=2in]{1273}%
+\subfigure[ AS1273 Cable and Wireless Worldwide plc, $C_{\max}=3$, $\text{Degree}_{\max}=806$]{\includegraphics[width=2in]{1273}%
 \label{fig_cluster_mpls_1273}}
 \hfil
-\subfloat[AS2914 Citicorp, $C_{\max}=4$, $\text{Degree}_{\max}=745$]{\includegraphics[width=2in]{7018}%
+\subfigure[AS2914 Citicorp, $C_{\max}=4$, $\text{Degree}_{\max}=745$]{\includegraphics[width=2in]{7018}%
 \label{fig_cluster_mpls_7018}}
 \caption{\textbf{$k$-core visualization of MPLS cluster interconnection Graph $G_{r\backslash lsr}(as)$}. On the top the ASes show \textit{MPLS clusters} spread out around the shell index of the decomposition. ON the bottom the ASes show \textit{MPLS clusters} well defined and located on the top core $C_{\max}$.}
 \label{fig_cluster_mpls}

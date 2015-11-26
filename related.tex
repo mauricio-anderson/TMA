@@ -84,19 +84,19 @@ not) to RFC4950 for MPLS and the \tpropagate option.  The classes proposed are:
 LER does not enable the \tpropagate option and RFC4950 is not implemented by the
 LH router).  Implicit and opaque tunnels can be revelead as follows:
 \begin{enumerate}
-  \item a quoted IP-TTL (\dfn{qTTL}) in ICMP \ttlexceeded
-  messages $>1$ will likely reveal the \tpropagate option at the ingress LER of
-  an LSP. For each subsequent \traceroute probe within an LSP, the \textit{qTTL} will be
-  one greater resulting in an increasing sequence of \textit{qTTL} values in \traceroute;
+  \item a quoted IP-TTL (\dfn{qTTL}) in ICMP \ttlexceeded messages $>1$ will
+  likely reveal the \tpropagate option at the ingress LER of an LSP. For each
+  subsequent \traceroute probe within an LSP, the qTTL will be one greater
+  resulting in an increasing sequence of qTTL values in \traceroute;
   \item  \#hops differences with the IP-TTL in \echoreply messages
   (\dfn{u-turn}).  It relies on the fact that LSRs along an LSP present an
   \textit{original label stack} default routing behavior: when the LSE-TTL
   expires, an LSR first sends the \ttlexceeded reply to the Egress LER which
   then forwards the reply on its own to the probing source, while an LSR
   replies to other probes using its own IP routing table if available. Summarizing, 
-   $\textit{u-turn}=\text{TTL}_{\text{echo-reply}}-\text{TTL}_{\text{time-exceeded}}$.  The
-  expected \textit{u-turn} value is in the form $[2L, 2L-2, 2L-4,..., 2]$ where $L$
-  is the tunnel length and the array position correspond to the LSR position
+  $\textit{u-turn}=\text{TTL}_{\text{echo-reply}}-\text{TTL}_{\text{time-exceeded}}$.
+  The expected u-turn value is in the form $[2L, 2L-2, 2L-4,..., 2]$ where $L$
+  is the tunnel length and the array position corresponds to the LSR position
   within the LSP.
   \item opaque tunnels are revealed through an \textit{abnormal} LSE-TTL
   ($1<$LSE-TTL$<255$) returned by the LH in the \ttlexceeded reply.
@@ -109,28 +109,26 @@ This is exactly what we tackle in this paper (and, consequently, our work is
 complementary to Vanaubel et al.~\cite{VAN2013}): we want to test u-turn
 signature accuracy.
 
-
-
 %Figura u-turn
-\begin{figure*}[!t]
-  \begin{center}
-    \subfloat[Tunnel Length Distribution]{\label{hist_length}
-      \includegraphics[width=6cm]{hist_length}}
-      \hfil
-    \subfloat[\textit{qTTL} and $n$-position comparison]{\label{n_vs_qttl}
-      \includegraphics[width=6cm]{n_vs_qttl}} 
-      \hfil
-    \subfloat[\textit{u-turn} on LSRs revealed through RFC4950 and \textit{qTTL}]{\label{fig_uturn_a}
-      \includegraphics[width=6cm]{n_vs_uturn_L5_exp}}
-      \hfil
-    \subfloat[\textit{u-turn} on LSRs where no other signature was found]{\label{fig_uturn_b}
-      \includegraphics[width=6cm]{n_vs_uturn_L5}}
-   \end{center}
-  \caption{ Comparison between obtained and expected values for \textit{qTTL} and
-  \textit{u-turn} signatures. On figures (b), (c) and (d) the circle size in the scatter plot is related with the occurrence frequency of \textit{y-axis} values regarding each $n$-position. The
-  transparency of the circle is related with occurrence frequency of $n$-position  regarding each \textit{y-axis} value, e.g., on figure (b) for values where $n>1$, the biggest circles are mainly located on  $\textit{qTTL}=1$ and $\textit{qTTL}=n$ so this suggest that for a given $n$-position the \textit{qTTL} value usually takes either the value of $1$ or $n$; in the same way, the transparency value suggests that for a given \textit{qTTL} value the $n$-position usually takes the same \textit{qTTL} value.  \textbf{Figure (c)} and \textbf{Figure (d)} suggest that \textit{u-turn} value is overestimated. }
-  \label{ig_signatures}
-\end{figure*}
+% \begin{figure*}[!t]
+%   \begin{center}
+%     \subfloat[Tunnel Length Distribution]{\label{hist_length}
+%       \includegraphics[width=6cm]{hist_length}}
+%       \hfil
+%     \subfloat[\textit{qTTL} and $n$-position comparison]{\label{n_vs_qttl}
+%       \includegraphics[width=6cm]{n_vs_qttl}} 
+%       \hfil
+%     \subfloat[\textit{u-turn} on LSRs revealed through RFC4950 and \textit{qTTL}]{\label{fig_uturn_a}
+%       \includegraphics[width=6cm]{n_vs_uturn_L5_exp}}
+%       \hfil
+%     \subfloat[\textit{u-turn} on LSRs where no other signature was found]{\label{fig_uturn_b}
+%       \includegraphics[width=6cm]{n_vs_uturn_L5}}
+%    \end{center}
+%   \caption{ Comparison between obtained and expected values for \textit{qTTL} and
+%   \textit{u-turn} signatures. On figures (b), (c) and (d) the circle size in the scatter plot is related with the occurrence frequency of \textit{y-axis} values regarding each $n$-position. The
+%   transparency of the circle is related with occurrence frequency of $n$-position  regarding each \textit{y-axis} value, e.g., on figure (b) for values where $n>1$, the biggest circles are mainly located on  $\textit{qTTL}=1$ and $\textit{qTTL}=n$ so this suggest that for a given $n$-position the \textit{qTTL} value usually takes either the value of $1$ or $n$; in the same way, the transparency value suggests that for a given \textit{qTTL} value the $n$-position usually takes the same \textit{qTTL} value.  \textbf{Figure (c)} and \textbf{Figure (d)} suggest that \textit{u-turn} value is overestimated. }
+%   \label{ig_signatures}
+% \end{figure*}
 
 % \section{Related Work}\label{related}
 % %%%%%%%%%%%%%%%%%%%%
