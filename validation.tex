@@ -8,17 +8,36 @@
   \label{validation.qTTLFig}
 \end{figure}
 
+\begin{figure}[!t]
+  \begin{center}
+    \includegraphics[width=4cm]{mpls_position}
+  \end{center}
+  \caption{Example of biased $n$-position. Our asumption consider that $n$-position match with the real MPLS position. However, we need first to verify this hypotesis in order to be sure that the behaviour shown on this figure is not a common issue. The figure shows a scenary where due to load balancing issues on the Ingress LER, the $n$-position could be erroneously inferred: First, the traceroute reveal the $LSR_{1}$ ($1$-position), the next traceroute probe reveals the $LSR_{2}$ ($2$-position) and so on.}
+  \label{validation.MPLSpositionFig}
+\end{figure}
+
 In this section, we expose our methodology for validating the MPLS
 signatures used to reveal implicit MPLS tunnels (see Sec.~\ref{related.revealing}).
 Basically, we compare the LSR position within an MPLS tunnel, called the
 \dfn{MPLS position} with the different signatures values. Our main goal is to test 
-u-turn accurancy. Ideally, given and LSR we could get its MPLS position through 
-either its qTTL or its u-turn signature. Then, knowing the qTTL value of the LSR we can validate its u-turn signature (if any). However, on LSRs revealed only trought u-turn signatures,
-qTTL values are not present so we need another way to know the related MPLS position. Thereby, we assume that the MPLS position
-could be obtained independently of the signatures values. Thus, we obtained the MPLS position based on the appearance order that a LSR is 
-revealed by traceroute and we called to this value $n$-position, i.e., The first LSR revealed by a traceroute probe should be
-the first LSR within the LSP ($1$-position) , the LSR revealed by the next consecutive traceroute probe should
-the second LSR within the LSP ($2$-position), etc. 
+u-turn accurancy. Theorically, given an LSR we could get its MPLS position through 
+either its qTTL or its u-turn signature. Then, knowing the qTTL value of the LSR we 
+can validate its u-turn signature (if any) or vice versa. However, on LSRs revealed 
+only trought u-turn signatures,
+qTTL values are not present so we need another way to know the related MPLS position. 
+Thereby, we assume that the MPLS position
+could be obtained independently of the signatures values. 
+Thus, we obtained the MPLS position based on the appearance order that a LSR is 
+revealed by traceroute and we called to this value $n$-position, i.e., 
+The first LSR revealed by a traceroute probe should be
+the first LSR within the LSP ($1$-position) , the LSR revealed by the next 
+consecutive traceroute probe should be
+the second LSR within the LSP ($2$-position), etc. Initially, we consider 
+this just as an hypothesis because we do not know 
+exactly the MPLS tunnel behaviour in regards with load balancing or others 
+unexpected issues, i.e, unexpected load balancing behaviour could cause 
+that the appearance order by an LSR in the traceroute ($n$-position) 
+is biased in respect to the real MPLS position (see Fig.~\ref{validation.MPLSpositionFig}).
 
 Implicit tunnels are based either on qTTL or u-turn signatures. Both of them are
 directly related with MPLS position.  Indeed, first, the qTTL value refers to
@@ -86,7 +105,7 @@ that the LSR implements the RFC4950 but do not mach with the qTTL signature.
 %which is consistant with tunnel length distribution (see Fig.~\ref{hist_length}).  \ed{we founf several explicit tunnels where the LSRs just implement RFC4950 but do not have qTTL (qTLL=1 for all positions), so the tunnel lenght is not directly related with the qTTL value, for example: a tunnel with L=3 where LSR1(qTTL=1), LSR2(qTTL=1), LSR3(qTTL=1)}. 
 
 We also find that around $2\%$ of LSRs do not react to qTTL signature, even
-if \tpropagate option is activated, i.e., some LSRs interfaces located at
+if their neighbours does, i.e., some LSRs interfaces located at
 $i_{n \pm 1}$ tunnel positions react properly to qTTL signatures but the LSR
 interface located at $i_n$ position does not.
 
