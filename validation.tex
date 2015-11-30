@@ -10,9 +10,9 @@
 
 \begin{figure}[!t]
   \begin{center}
-    \includegraphics[width=4cm]{mpls_position}
+    \includegraphics[width=8cm]{mpls_position}
   \end{center}
-  \caption{Example of biased $n$-position. Our asumption consider that $n$-position match with the real MPLS position. However, we need first to verify this hypotesis in order to be sure that the behaviour shown on this figure is not a common issue. The figure shows a scenary where due to load balancing issues on the Ingress LER, the $n$-position could be erroneously inferred: First, the traceroute reveal the $LSR_{1}$ ($1$-position), the next traceroute probe reveals the $LSR_{2}$ ($2$-position) and so on.}
+  \caption{Example of biased $n$-position. Our assumption consider that $n$-position match with the real MPLS position. However, we need first to verify this hypotesis in order to be sure that the behaviour shown on this figure is not a common issue. The figure shows a scenery where due to load balancing issues on the Ingress LER, the $n$-position could be erroneously inferred: First, the traceroute reveal the $LSR_{1}$ ($1$-position), the next traceroute probe reveals the $LSR_{2}$ ($2$-position) and so on.}
   \label{validation.MPLSpositionFig}
 \end{figure}
 
@@ -120,6 +120,15 @@ value to validate the u-turn signatures.
 
 \subsection{u-turn Signature}\label{validation.uturn}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[!t]
+  \begin{center}
+    \includegraphics[width=4.3cm]{uturn1}
+  \end{center}
+  \caption{Example of u-turn signature for an implicit MPLS tunnel.}
+  \label{validation.uturn1Fig}
+\end{figure}
+
 \begin{figure}[!t]
   \begin{center}    
     \subfigure[u-turn on LSRs revealed through RFC4950 and qTTL]{\label{fig_uturn_a}
@@ -135,7 +144,7 @@ value to validate the u-turn signatures.
 
 As explained in Sec.~\ref{related.revealing},  the expected u-turn value is in
 the form $[2L, 2L-2, 2L-4,..., 2]$ where $L$ is the tunnel length and the array
-position corresponds to the LSR position within the LSP, i.e., $n$.  The
+position corresponds to the LSR position within the LSP, i.e., $n$ ((see Fig.~\ref{validation.uturn1Fig})).  The
 relationship between $L$, $n$, and the expected value can thus be written as
 follows:
 \begin{equation}
@@ -145,6 +154,8 @@ u-turn = 2 \times (L - (n-1)) .
 
 \ed{This relationship might not look like obvious at first glance.  If we have
 room, we should add a figure to illlustrate (as done for qTTL above).}
+
+\ed{An illustration was added. Later, when the corrections are finished, we need to discuss about the space and pages}
 
 Because u-turn is commonly present in almost all LSRs, first, we compare $n$
 with u-turn on LSRs revealed either explicitly or qTTL-based using the dataset
