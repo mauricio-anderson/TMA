@@ -39,7 +39,7 @@ Notice that traceroute just records incident IP addresses in a path.
 
 \textbf{Router Level Graph:} $G_{r}=(V_{r}, E_{r})$, where $V_{r}$ is the set of routers in which at least one IP address using MIDAR, and $E_{r}$ is the set of all the links found between any pair of routers $v\in V_{r}$.
 
-\textbf{MPLS router level Graph:} $G^{mpls}_{r}=(V^{mpls}_{r}, E^{mpls}_{r})$ where  $V^{mpls}_{r}$ is the set of routers in which at least one routers' IP address belongs to an MPLS tunnel, and  $E^{mpls}_{r}$ is the set of all \textit{mpls links} $(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as 
+\textbf{MPLS router level Graph:} $G^{mpls}_{r}=(V^{mpls}_{r}, E^{mpls}_{r})$ where  $V^{mpls}_{r}$ is the set of routers in which at least one routers' IP address belongs to an LSP, and  $E^{mpls}_{r}$ is the set of all \textit{mpls links} $(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as 
 $\{{v^{mpls}_{r}(i)},{v^{mpls}_{r}(j)} \}\in V^{mpls}_{r}$.
 
 \textbf{ASes induced Graphs:} $G_{r}(as)=(V_{r}(as), E_{r}(as))$ and $G^{mpls}_{r}(as)=(V^{mpls}_{r}(as), E^{mpls}_{r}(as))$ are the induced graphs of $G_{r}$ and $G^{mpls}_{r}$ respectively; such that each vertex has a router's interface belonging to the same Autonomous System $as$.
@@ -125,7 +125,7 @@ Thereby, we choose the top of ASes according to the total number of discovered l
 Additionally, we identified  the amount of \textit{mpls links} by AS, distinguishing the type of tunnel: 
 
 \begin{itemize}
-\item[i] \textit{explicit mpls link:} Link between an interface $i^{\text{explicitMPLS}}_{n}$  and its previous interface $i^{\text{MPLS}}_{n-1}$ discovered by traceroute, such that $i^{\text{explicitMPLS}}_{n}$ belongs to an explicit MPLS tunnel and $i^{\text{MPLS}}_{n-1}$ belongs to any kind of MPLS tunnel (explicit, \textit{qTTL} based or \textit{u-turn} based).
+\item[i] \textit{explicit mpls link:} Link between an interface $i^{\text{explicitMPLS}}_{n}$  and its previous consecutive interface $i^{\text{MPLS}}_{n-1}$ discovered by traceroute, such that $i^{\text{explicitMPLS}}_{n}$ belongs to an explicit MPLS tunnel and $i^{\text{MPLS}}_{n-1}$ belongs to any kind of MPLS tunnel (explicit, \textit{qTTL} based or \textit{u-turn} based).
 
 \item[ii] \textit{qTTL mpls link:} Link between the interfaces $i^{\text{qTTL}}_{n}$  and $i^{\text{MPLS}}_{n-1}$, such that $i^{\text{qTTL}}_{n}$ belongs to a tunnel \textit{qTTL} based.
 

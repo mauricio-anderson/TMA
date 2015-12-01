@@ -159,7 +159,7 @@ room, we should add a figure to illlustrate (as done for qTTL above).}
 
 Because u-turn is commonly present in almost all LSRs, first, we compare $n$
 with u-turn on LSRs revealed either explicitly or qTTL-based using the dataset
-presented in Sec.~\ref{dataset}.  We also study  $n$ value on LSRs where u-turn
+presented in Sec.~\ref{dataset}. Later, we also study  $n$ value on LSRs where u-turn
 was the only detected signature. We use the filter $\textit{u-turn}>3$ (i.e.,
 avoiding so short tunnels where bias are more likely to appear) to avoid false
 positives.
@@ -171,32 +171,35 @@ suggests that u-turn is usually overestimated.  \ed{I stopped here (next
 should be rephrased) as I was running out of time.}
 
 
- and Fig.~\ref{fig_uturn_b}. Similar results
-where also obtained for other tunnel length $L$ values. Basically, we noticed
-that the percentage of cases \ed{cases of what?} are close to expected ones when
-the LSRs explicitly revealed \ed{revealed what?} and qTTL is present
-(Fig.~\ref{fig_uturn_a}). However, on the set of LSRs revealed just by u-turn
-signatures (Fig.~\ref{fig_uturn_b}) the cases \ed{again, the cases of what?}
-commonly does not match. If we accept a bias of $ \pm 1$ around the expected
-value \ed{of what?}, we noticed that on LSRs explicitly revealed and qTTL
-signature based, the $60\%$ of obtained u-turn signed cases match with the
-expected values \ed{again, of what?}. However, on LSRs revealed just trough
+Similar results where observed for other lengths ($L$). Basically, we noticed
+that  obtained u-turn values are close to expected ones when
+the LSRs was either explicitly revealed or qTTL is present
+(Fig.~\ref{fig_uturn_a}). However, on the set of LSRs revealed only by u-turn
+signatures (Fig.~\ref{fig_uturn_b}) the obtained and expected u-turn values  
+commonly does not match. If we accept a bias of $ \pm 2$ around the expected
+u-turn value, we noticed that on LSRs explicitly revealed and qTTL based, 
+the $60\%$ of obtained u-turn signatures match with the
+expected values. However, on LSRs revealed only trough
 u-turn signature (therefore where it is really useful), the obtained u-turn
-cases just match in $25\%$ with the expected value $2(L-(n-1))$.
-Therefore, LSRs revealed \ed{only?} through u-turn is highly inaccurate; mainly
-because MPLS tunnels are not the only responsible on the variation in it length,
-but also the load balancing is common for paths between the same pairs
-source-destination \cite{BRICE07}. This issue is called \dfn{per-flow} load
-balancing. Basically, packets that belongs to the same \dfn{flow} are treated
-similarly \cite{BRICE06}. A flow is identified by the first 32 bits of the IP
-\textit{payload}, e.g., TCP header. In the case of ICMP messages, this fields
-refers to \texttt{Type}, \texttt{Code}, and \texttt{Checksum}.
-By definition, u-turn signature is based on two kinds of ICMP messages:
-ICMP \echoreply \texttt{Code 11} and ICMP \ttlexceeded \texttt{Code 0}.
-Due to different codes for each ICMP message, there is no way to assure that
-they belong to the same flow identifier and thereby to be sure that u-turn value
-is caused just by MPLS tunnels.  \ed{The full explanation of ``per flow'' is not
-required (we can assume people are familiar with this).  But we have to clearly
-state that this is during the ``return'' path (i.e., from the LSR generating the
-\ttlexceeded towards the VP) that those per-flow LB can mainly occur.
-Otherwise, I miss something here.}
+cases just match in less than $25\%$ of cases with the expected values ($2(L-(n-1))$).
+Therefore, LSRs revealed only through u-turn is highly inaccurate; mainly,
+because MPLS tunnels are not the only responsible of u-turn signature aparition but
+it is also related with load balancing issues in the return path. Basically, 
+the two kinds of messages related with u-turn signatures (ICMP \echoreply  and ICMP
+\ttlexceeded) belong to diferents balancing \textit{flows} and thereby follow different return paths. 
+
+%is common for paths between the same pairs
+%source-destination \cite{BRICE07}. This issue is called \dfn{per-flow} load
+%balancing. Basically, packets that belongs to the same \dfn{flow} are treated
+%similarly \cite{BRICE06}. A flow is identified by the first 32 bits of the IP
+%\textit{payload}, e.g., TCP header. In the case of ICMP messages, this fields
+%refers to \texttt{Type}, \texttt{Code}, and \texttt{Checksum}.
+%By definition, u-turn signature is based on two kinds of ICMP messages:
+%ICMP \echoreply \texttt{Code 11} and ICMP \ttlexceeded \texttt{Code 0}.
+%Due to different codes for each ICMP message, there is no way to assure that
+%they belong to the same flow identifier and thereby to be sure that u-turn value
+%is caused just by MPLS tunnels.  \ed{The full explanation of ``per flow'' is not
+%required (we can assume people are familiar with this).  But we have to clearly
+%state that this is during the ``return'' path (i.e., from the LSR generating the
+%\ttlexceeded towards the VP) that those per-flow LB can mainly occur.
+%Otherwise, I miss something here.}
