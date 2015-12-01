@@ -1,12 +1,30 @@
 \section{MPLS Signatures Validation}\label{validation}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{figure}[!t]
   \begin{center}
-    \includegraphics[width=4cm]{QuotedTTL}
+    \subfigure[Example of qTTL signature for an implicit MPLS tunnel.]{\label{validation.qTTLFig}
+      \includegraphics[width=4cm]{QuotedTTL}}
+\hspace{-0.3cm}      
+    \subfigure[Example of u-turn signature for an implicit MPLS tunnel]{\label{validation.uturn1Fig}
+      \includegraphics[width=4.5cm]{uturn1}}  
   \end{center}
-  \caption{Example of qTTL signature for an implicit MPLS tunnel.}
-  \label{validation.qTTLFig}
+  \caption{Signatures behaviour for implicit MPLS tunnels.}
+  \label{validation.signatures.fig}
 \end{figure}
+
+
+
+%\begin{figure}[!t]
+%  \begin{center}
+%    \includegraphics[width=4cm]{QuotedTTL}
+%  \end{center}
+%  \caption{}
+%  \label{validation.qTTLFig}
+%\end{figure}
+
+
+
 
 \begin{figure}[!t]
   \begin{center}
@@ -49,7 +67,7 @@ This is illustrated in Fig.~\ref{validation.qTTLFig}.  From the Ingress LER, the
 qTTL starts to grow linearly with the LSP length.  We therefore expect observing
 a qTTL=$1$ on the first LSR in the LSP, a qTTL$=2$ on the second LSR in the LSP,
 etc.  Second, a u-turn value is related to the tunnel length, $L$, and the
-$n$-position of the LSR within the tunnel (see Sec.~\ref{related.revealing}).
+$n$-position of the LSR within the tunnel (see Sec.~\ref{related.revealing}) as is shown on Fig.~\ref{validation.uturn1Fig}.
 
 \subsection{qTTL Signature}\label{validation.qttl}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,13 +139,13 @@ value to validate the u-turn signatures.
 \subsection{u-turn Signature}\label{validation.uturn}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{figure}[!t]
-  \begin{center}
-    \includegraphics[width=4.3cm]{uturn1}
-  \end{center}
-  \caption{Example of u-turn signature for an implicit MPLS tunnel.}
-  \label{validation.uturn1Fig}
-\end{figure}
+%\begin{figure}[!t]
+%  \begin{center}
+%    \includegraphics[width=4.3cm]{uturn1}
+%  \end{center}
+%  \caption{Example of u-turn signature for an implicit MPLS tunnel.}
+%  \label{validation.uturn1Fig}
+%\end{figure}
 
 \begin{figure}[!t]
   \begin{center}    
