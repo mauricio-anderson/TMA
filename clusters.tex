@@ -125,7 +125,7 @@ Thereby, we choose the top of ASes according to the total number of discovered l
 Additionally, we identified  the amount of \textit{mpls links} by AS, distinguishing the type of tunnel: 
 
 \begin{itemize}
-\item[i] \textit{explicit mpls link:} Link between an interface $i^{\text{explicitMPLS}}_{n}$  and its previous consecutive interface $i^{\text{MPLS}}_{n-1}$ discovered by traceroute, such that $i^{\text{explicitMPLS}}_{n}$ belongs to an explicit MPLS tunnel and $i^{\text{MPLS}}_{n-1}$ belongs to any kind of MPLS tunnel (explicit, \textit{qTTL} based or \textit{u-turn} based).
+\item[i] \textit{explicit mpls link:} Link between an interface $i^{\text{explicitMPLS}}_{n}$  and its inmediate previous interface $i^{\text{MPLS}}_{n-1}$ discovered by traceroute, such that $i^{\text{explicitMPLS}}_{n}$ belongs to an explicit MPLS tunnel and $i^{\text{MPLS}}_{n-1}$ belongs to any kind of MPLS tunnel (explicit, \textit{qTTL} based or \textit{u-turn} based).
 
 \item[ii] \textit{qTTL mpls link:} Link between the interfaces $i^{\text{qTTL}}_{n}$  and $i^{\text{MPLS}}_{n-1}$, such that $i^{\text{qTTL}}_{n}$ belongs to a tunnel \textit{qTTL} based.
 
@@ -189,6 +189,6 @@ Finally, it draws our attention that the ratio of \textit{u-turn links} differs 
 \hfil
 \subfigure[AS2914 Citicorp, $C_{\max}=4$, $\text{Degree}_{\max}=745$]{\includegraphics[width=2in]{7018}%
 \label{fig_cluster_mpls_7018}}
-\caption{\textbf{$k$-core visualization of MPLS cluster interconnection Graph $G_{r\backslash lsr}(as)$}. On the top the ASes show \textit{MPLS clusters} spread out around the shell index of the decomposition. ON the bottom the ASes show \textit{MPLS clusters} well defined and located on the top core $C_{\max}$.}
+\caption{\textbf{$k$-core visualization of MPLS cluster interconnection Graph $G_{r\backslash lsr}(as)$}. On the top the ASes show \textit{MPLS clusters} spread out around the shell index of the decomposition. On the bottom the ASes show \textit{MPLS clusters} well defined and located on the top core $C_{\max}$.}
 \label{fig_cluster_mpls}
 \end{figure*}
