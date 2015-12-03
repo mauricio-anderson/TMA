@@ -73,9 +73,9 @@ presence of MPLS tunnels may interfere with load balancing
 detection~\cite{BRICE07} or violate the destination-based
 forwarding~\cite{Flach2012}.
 
-Donnet et al.~\cite{Donnet12} propose a taxonomy of MPLS tunnels
-based on how they react to \traceroute probes according to their compliance (or
-not) to RFC4950 for MPLS and the \tpropagate option.  The classes proposed are:
+Donnet et al.~\cite{Donnet12} propose a taxonomy of MPLS tunnels based on how
+they react to \traceroute probes according to their compliance (or not) to
+RFC4950 for MPLS and the \tpropagate option.  The classes proposed are:
 \dfn{explicit tunnels} (i.e., \tpropagate and RFC4950 are enabled),
 \dfn{implicit tunnels} (i.e., the router that pushes the MPLS label enables the
 \tpropagate option but LSRs do not implement RFC4950), \dfn{opaque tunnels}
@@ -87,7 +87,8 @@ LH router).  Implicit and opaque tunnels can be revelead as follows:
   \item a quoted IP-TTL (\dfn{qTTL}) in ICMP \ttlexceeded messages $>1$ will
   likely reveal the \tpropagate option at the ingress LER of an LSP. For each
   subsequent \traceroute probe within an LSP, the qTTL will be one greater
-  resulting in an increasing sequence of qTTL values in \traceroute;
+  resulting in an increasing sequence of qTTL values in \traceroute.  This is
+  illustrated in Fig.~\ref{validation.qTTLFig};
   \item  \#hops differences with the IP-TTL in \echoreply messages
   (\dfn{u-turn}).  It relies on the fact that LSRs along an LSP present an
   \textit{original label stack} default routing behavior: when the LSE-TTL
