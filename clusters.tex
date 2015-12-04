@@ -10,9 +10,11 @@
 
 To the best of our acknowledge, MPLS interconnection architecture on Internet
 topology has not yet been studied. In this way, we focus our attention on
-studying some LSRs properties and \dfn{MPLS clusters}; and their interaction
-with non MPLS networks. Our study aims at better understanding the impact of
-MPLS deployments over Internet, specifically over router level topology.
+studying some LSRs properties and \dfn{MPLS clusters} \ed{BD: what's an ``MPLS
+cluster''?  Please, define here in a few word the concept}; and their
+interaction with non MPLS networks. Our study aims at better understanding the
+impact of MPLS deployments over Internet, specifically over router level
+topology.
 
 \subsection{Methodology}\label{cluster.methodo}
 % %%%%%%%%%%%%%%%%%%%%%%%
@@ -56,18 +58,19 @@ is the IP address discovered in our exploration and $E_{ip}$ is the set of the
 links found trough \traceroute.   Second, the \dfn{router level graph} is
 defined as $G_{r}=(V_{r}, E_{r})$, where $V_{r}$ is the set of routers in which
 at least one IP address using MIDAR, and $E_{r}$ is the set of all the links
-found between any pair of routers $v\in V_{r}$.
+found between any pair of routers $v\in V_{r}$. Third, the \dfn{MPLS router
+level graph} refers to $G^{mpls}_{r}=(V^{mpls}_{r}, E^{mpls}_{r})$
+where  $V^{mpls}_{r}$ is the set of routers in which at least one routers' IP
+address belongs to an LSP, and  $E^{mpls}_{r}$ is the set of all \textit{mpls
+links} $(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as
+$\{{v^{mpls}_{r}(i)},{v^{mpls}_{r}(j)} \}\in V^{mpls}_{r}$.
 
 % \textbf{IP level Graph:} $G_{ip}=(V_{ip}, E_{ip})$, where $V_{ip}$ is the IP
 % address discovered in our exploration and $E_{ip}$ is the set of the links found
 % trough traceroute. Note that \traceroute just records incident IP addresses in
 % a path.
 
-\textbf{MPLS router level Graph:} $G^{mpls}_{r}=(V^{mpls}_{r}, E^{mpls}_{r})$
-where  $V^{mpls}_{r}$ is the set of routers in which at least one routers' IP
-address belongs to an LSP, and  $E^{mpls}_{r}$ is the set of all \textit{mpls
-links} $(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as
-$\{{v^{mpls}_{r}(i)},{v^{mpls}_{r}(j)} \}\in V^{mpls}_{r}$.   
+   
 
 \textbf{ASes induced Graphs:} $G_{r}(as)=(V_{r}(as), E_{r}(as))$ and
 $G^{mpls}_{r}(as)=(V^{mpls}_{r}(as), E^{mpls}_{r}(as))$ are the induced graphs
@@ -75,7 +78,7 @@ of $G_{r}$ and $G^{mpls}_{r}$ respectively; such that each vertex has a router's
 interface belonging to the same Autonomous System $as$.
 
 \textbf{MPLS clusters:} $C^{mpls}_{i}$ is a connected component $i$ of
-$G^{mpls}_{r}(as)$. One AS could to have several \textit{MPLS clusters}.
+$G^{mpls}_{r}(as)$. A single AS could have several \textit{MPLS clusters}.
 
 \textbf{MPLS cluster interconnection Graph:} $G_{r\backslash
 lsr}=(V_{r\backslash lsr},E^{mpls}_{r\backslash lsr})$ is an hybrid router level
