@@ -8,7 +8,7 @@
     \subfigure[u-turn signature.]{\label{validation.uturn1Fig}
       \includegraphics[width=4.5cm]{uturn1}}  
   \end{center}
-  \caption{Signatures behaviour for implicit MPLS tunnels.}
+  \caption{Signatures behavior for implicit MPLS tunnels.}
   \label{validation.signatures.fig}
 \end{figure}
 
@@ -113,7 +113,7 @@ Fig.~\ref{hist_length} also provides, by extension, possible values for qTTL
 Fig.~\ref{n_vs_qttl} represents a scatter plot showing the relations between the
 qTTL (Y-axis) and the $n$-position (X-axis).  The circle size in the scatter
 plot is related with the occurrence frequency of Y-axis values regarding each
-$n$-position.  The transparency of the circle is related with occurence
+$n$-position.  The transparency of the circle is related with occurrence
 frequency of the $n$-position regarding each Y-axis value.  For instance, on
 Fig.~\ref{n_vs_qttl} for values where $n>1$, the biggest circles are mainly
 located on qTTL$=1$ and qTTL=$n$.  So, this suggests that, for a given
@@ -125,15 +125,13 @@ two causes: one is the limitation in our method to reveal the first LSR in the
 LSP when RFC4950 is not implemented (by definition of implicit tunnel); and the
 second cause could occur due to load balancers (using Paris traceroute should
 avoid load balancing issues, except for ``per packet'' load balancers).
-In the later case, the \traceroute probes may follow diferent paths, as suggest
+In the later case, the \traceroute probes may follow different paths, as suggest
 Fig.~\ref{validation.MPLSpositionFig}. Fig.~\ref{n_vs_qttl} also shows that qTTL
 frequently takes the value of $1$, even for $n>1$, which means that the LSR
-implements the RFC4950 but do not mach with the qTTL signature.
-
-%which is consistant with tunnel length distribution (see Fig.~\ref{hist_length}).  \ed{we founf several explicit tunnels where the LSRs just implement RFC4950 but do not have qTTL (qTLL=1 for all positions), so the tunnel lenght is not directly related with the qTTL value, for example: a tunnel with L=3 where LSR1(qTTL=1), LSR2(qTTL=1), LSR3(qTTL=1)}. 
+implements the RFC4950 but do not mach with the qTTL signature. 
 
 We also find that around $2\%$ of LSRs do not react to qTTL signature, even if
-their neighbours does, i.e., some LSRs interfaces located at $i_{n \pm 1}$
+their neighbors does, i.e., some LSRs interfaces located at $i_{n \pm 1}$
 tunnel positions react properly to qTTL signatures but the LSR interface located
 at $i_n$ position does not.
 
@@ -148,15 +146,6 @@ reference value to validate the u-turn signatures.
 
 \subsection{u-turn Signature}\label{validation.uturn}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\begin{figure}[!t]
-%  \begin{center}
-%    \includegraphics[width=4.3cm]{uturn1}
-%  \end{center}
-%  \caption{Example of u-turn signature for an implicit MPLS tunnel.}
-%  \label{validation.uturn1Fig}
-%\end{figure}
-
 \begin{figure}[!t]
   \begin{center}    
     \subfigure[u-turn on LSRs revealed through RFC4950 and qTTL]{\label{fig_uturn_a}
@@ -170,7 +159,7 @@ reference value to validate the u-turn signatures.
   \label{validation.uturn.fig}
 \end{figure}
 
-As explained in Sec.~\ref{related.revealing},  the expected u-turn value is in
+As explained in Sec.~\ref{related.revealing},  the expected u-turn value is of
 the form $[2L, 2L-2, 2L-4,..., 2]$ where $L$ is the tunnel length and the array
 position corresponds to the LSR position within the LSP, i.e., $n$ (see
 Fig.~\ref{validation.uturn1Fig}).  The relationship between $L$, $n$, and the
@@ -180,41 +169,38 @@ u-turn = 2 \times (L - (n-1)) .
 \label{eqn.uturn}
 \end{equation}
 
-%\ed{This relationship might not look like obvious at first glance.  If we have
-%room, we should add a figure to illlustrate (as done for qTTL above).}
-
-%\ed{An illustration was added. Later, when the corrections are finished, we need to discuss about the space and pages}
-
 Because u-turn is commonly present in almost all LSRs, first, we compare $n$
 with u-turn on LSRs revealed either explicitly or qTTL-based using the dataset
-presented in Sec.~\ref{dataset}. Later, we also study  $n$ value on LSRs where u-turn
-was the only detected signature. We use the filter $\textit{u-turn}>3$ (i.e.,
-avoiding so short tunnels where bias are more likely to appear) to avoid false
-positives.
+presented in Sec.~\ref{dataset} (Fig.~\ref{fig_uturn_a}. We also study 
+$n$ value on LSRs where u-turn was the only detected signature
+(Fig.~\ref{fig_uturn_b}. We use the filter $\textit{u-turn}>3$ (i.e., avoiding
+short tunnels where bias are more likely to appear) to avoid false positives.
 
 The results for a given tunnel length $L=5$ are shown on
 Fig.~\ref{validation.uturn.fig}, a scatter plot that must be read the same way
-as Fig.~\ref{n_vs_qttl}.  In a few words, Fig.~\ref{validation.uturn.fig}
-suggests that u-turn is usually overestimated.  \ed{I stopped here (next
-should be rephrased) as I was running out of time.}
+as Fig.~\ref{n_vs_qttl}.  Quickly said, Fig.~\ref{validation.uturn.fig} suggests
+that u-turn is usually overestimated. Similar results where observed for other
+tunnel lengths. 
 
+We notice that obtained u-turn values are close to expected ones when the LSR
+was either explicitly revealed or when qTTL is present (Fig.~\ref{fig_uturn_a}).
+However, for LSRs revealed only by u-turn signatures (Fig.~\ref{fig_uturn_b})
+the obtained and expected u-turn values commonly do not match. If we accept a
+bias of $ \pm 2$ around the expected u-turn value, we notice that, on LSRs
+explicitly revealed or qTTL based, the $60\%$ of obtained u-turn signatures
+match with the expected values. However, for LSRs revealed only trough u-turn
+signature, the obtained u-turn signature just match in less than $25\%$  with
+the expected values.
 
-Similar results where observed for other lengths ($L$). Basically, we noticed
-that  obtained u-turn values are close to expected ones when the LSRs was either
-explicitly revealed or qTTL is present (Fig.~\ref{fig_uturn_a}). However, on the
-set of LSRs revealed only by u-turn signatures (Fig.~\ref{fig_uturn_b}) the
-obtained and expected u-turn values commonly does not match. If we accept a bias
-of $ \pm 2$ around the expected u-turn value, we noticed that on LSRs explicitly
-revealed and qTTL based, the $60\%$ of obtained u-turn signatures match with the
-expected values. However, on LSRs revealed only trough u-turn signature
-(therefore where it is really useful), the obtained u-turn signature just match
-in less than $25\%$  with the expected values. Therefore, LSRs revealed only
-through u-turn is highly inaccurate; mainly, because MPLS tunnels are not the
-only responsible of u-turn signature aparition but it is also related with load
-balancing issues in the return path. Basically, the two kinds of messages
-related with u-turn signatures (ICMP \echoreply  and ICMP \ttlexceeded) belong
-to diferents balancing \textit{flows} and thereby follow different return paths
-\cite{BRICE06}.
+Therefore, LSRs revealed only through u-turn are highly inaccurate, mainly,
+because MPLS tunnels are not the only responsible for u-turn signature.  It is
+also related with load balancing on the return path, where ICMP \echoreply and
+ICMP \ttlexceeded at different hops may be load balanced~\cite{BRICE06}. 
+
+%  but it is also related with load balancing issues in the return path.
+% Basically, the two kinds of messages related with u-turn signatures (ICMP \echoreply  and
+% ICMP \ttlexceeded) belong to diferents balancing \textit{flows} and thereby
+% follow different return paths \cite{BRICE06}.
 
 %is common for paths between the same pairs
 %source-destination \cite{BRICE07}. This issue is called \dfn{per-flow} load
