@@ -1,11 +1,11 @@
-\section{Dataset}\label{dataset}
-% %%%%%%%%%%%%%%%%
-In order to get \textit{qTTL} and \textit{u-turn} signatures, we develop a tool
-called \magallanes\footnote{\magallanes is freely available at \url{\ldots}}
-allowing us to easily run and manage \scamper~\cite{Luckie10} based probes
-through the PlanetLab (PL) infrastructure.  \magallanes starts by randomly
-allocating several vantage points (VP) within the available set of PL nodes.  It
-next distribues, among those VPs, a given number of probe targets.
+\section{Data Collection}\label{dataset}
+% %%%%%%%%%%%%%%%%%%%%%%%
+In order to get MPLS data, we develop a tool called
+\magallanes\footnote{\magallanes is freely available at \url{\ldots}} allowing
+us to easily run and manage \scamper~\cite{Luckie10} based probes through the
+PlanetLab (PL) infrastructure.  \magallanes starts by randomly allocating
+several vantage points (VP) within the available set of PL nodes.  It next
+distribues, among those VPs, a given number of probe targets.
 To achieve some geographical uniformity in target selection, \magallanes uses
 data provived by IP geolocation database maxmind.\footnote{See
 \url{www.maxmind.com}.  Although we know that IP geolocation databases suffer
@@ -16,11 +16,11 @@ subnets assigned by the Regional Internet Registry (RIR) to each region.
 Additionally, \magallanes allows one to store the experiments results on a
 centralized database and to perfom alias resolution using MIDAR~\cite{Keys13}.
 
-We run \magallanes on October \nth{31}, 2015.  We choose 100 VPs and select
-10,000 targets per VP.  Each VP manages its own set of targets, meaning that
-probes targets are disjoint sets between VPs.  \scamper is configured to run
+We ran \magallanes on October \nth{31}, 2015.  We chose 100 VPs and selected
+10,000 targets per VP.  Each VP managed its own set of targets, meaning that
+probes targets are disjoint sets between VPs.  \scamper was configured to run
 ICMP Paris traceroute~\cite{BRICE06}.  To get the \textit{u-turn} signature,
-we send a \ping to each hop revealed by Paris traceroute. We sent six
+we sent a \ping to each hop revealed by Paris traceroute. We sent six
 ICMP \echorequest packets from the same VP.  Six ICMP \echoreply allow us to
 infer with $95\%$ confidence if there is a single return path and, 
 therefore, reduce measurement errors caused by a reverse path containing
@@ -28,14 +28,14 @@ load-balanced segments of different lengths~\cite{BRICE07}.
 
 As a result we discovered around 270,000 IP interfaces,  520,000 links, $42\%$
 of which were available to run MIDAR and we found aliases successfully on $19\%$
-of then. To match IP interfaces to ASes, we use the CAIDA
+of then. To match IP interfaces to ASes, we used the CAIDA
 dataset~\cite{caida_ref} derived from Routeviews \footnote{See
 \url{www.routeviews.org}} and collected the same day as the exploration.
-Additionally we found that $44\%$ of traces collected traverse at least one MPLS
-tunnel.  The amount of explicit tunnels is highly superior to implicit ones. We
-discovered explicit tunnels on $34\%$ of traceroutes and at least one implicit
-tunnel on $16\%$. Surprisingly we found more implicit tunnels revealed through
-\textit{u-turn} signature ($12\%$) rather than \textit{qTTL} signature ($4\%$).
-However, the \textit{qTTL} signature matches with at least $63\%$ of the
-explicit tunnels. We discuss these results in the next sections. Finally, we did
-not found opaque tunnels, confirming so their rarity~\cite{VAN2013}.
+Additionally, we found that $44\%$ of traces collected traverse at least one
+MPLS tunnel.  The amount of explicit tunnels is highly superior to implicit
+ones. We discovered explicit tunnels on $34\%$ of traceroutes and at least one
+implicit tunnel on $16\%$. Surprisingly, we found more implicit tunnels revealed
+through \textit{u-turn} signature ($12\%$) rather than \textit{qTTL} signature
+($4\%$). However, the \textit{qTTL} signature matched with at least $63\%$ of
+the explicit tunnels. We discuss these results in the next sections. Finally, we
+did not found opaque tunnels, confirming so their rarity~\cite{VAN2013}.
