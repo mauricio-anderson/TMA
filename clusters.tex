@@ -1,11 +1,11 @@
 \section{LSRs and \textit{MPLS clusters}}\label{cluster}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 To the best of our acknowledge, MPLS interconnection architecture on Internet
-topology has not yet been studied. In this way, we focus our attention on
-studying several LSRs properties and \dfn{MPLS clusters} (i.e., set of MPLS
-graphs) and their interactions with non MPLS networks. Our study aims at better
+topology has not yet been studied. Our study aims at better
 understanding the impact of MPLS deployments over Internet, specifically over
-router level topology.
+router level topology. First, we study how LSRs and \dfn{MPLS clusters} 
+interacts  with the entire Internet Topology . Secondly, we
+study the MPLS clusters behaivor given a specific AS.
 
 \subsection{Definitions and Background}\label{cluster.methodo}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,37 +41,67 @@ topologies.}
   \label{cluster.table_notations}
 \end{table}
 
-We defined several graphs at different abstraction levels as follows (they are
-summarized in Table~\ref{cluster.table_notations}): The \dfn{IP level graph} is
-defined as $G_{ip}=(V_{ip}, E_{ip})$, where $V_{ip}$ is the IP addresses
-discovered in our exploration and $E_{ip}$ the set of the links found trough
-\traceroute.   Second, the \dfn{router level graph} is defined as $G_{r}=(V_{r},
-E_{r})$, where $V_{r}$ is the set of routers (alias resolution having been done
-through MIDAR~\cite{Keys13}), and $E_{r}$ is the set of all the links found
-between any pair of routers $v \in V_{r}$. Third, the \dfn{MPLS router level
-graph} refers to $G^{mpls}_{r}=(V^{mpls}_{r}, E^{mpls}_{r})$ where
-$V^{mpls}_{r}$ is the set of routers in which at least one IP interface belongs
-to an LSP, and  $E^{mpls}_{r}$ is the set of all \textit{mpls links}
-$(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as
-$\{{v^{mpls}_{r}(i)},{v^{mpls}_{r}(j)} \}\in V^{mpls}_{r}$.
 
-The \dfn{ASes induced graph} is defined as $G_{r}(as)=(V_{r}(as), E_{r}(as))$.
-Each vertex in $G_{r}(as)$ has an interface belonging to the same Autonomous
-System, $as$.  In particular, the induced graph of $G_r^{mpls}$ is
-$G^{mpls}_{r}(as)=(V^{mpls}_{r}(as), E^{mpls}_{r}(as))$.  This definition allows
+
+
+We defined several graphs at different abstraction levels as follows (they are
+summarized in Table~\ref{cluster.table_notations}): The \dfn{IP level graph} $G_{ip}$, builded
+by the IP addresses and links found trough
+\traceroute. Second, the \dfn{router level graph} $G_{r}$ (alias resolution having been done
+through MIDAR~\cite{Keys13}). Third, the \dfn{MPLS router level
+graph} $G^{mpls}_{r}$, formed by MPLS links and routers in which at least one IP interface belongs
+to an LSP.
+
+
+%We defined several graphs at different abstraction levels as follows (they are
+%summarized in Table~\ref{cluster.table_notations}): The \dfn{IP level graph} is
+%defined as $G_{ip}=(V_{ip}, E_{ip})$, where $V_{ip}$ is the IP addresses
+%discovered in our exploration and $E_{ip}$ the set of the links found trough
+%\traceroute. Second, the \dfn{router level graph} is defined as $G_{r}=(V_{r},
+%E_{r})$, where $V_{r}$ is the set of routers (alias resolution having been done
+%through MIDAR~\cite{Keys13}), and $E_{r}$ is the set of all the links found
+%between any pair of routers $v \in V_{r}$. Third, the \dfn{MPLS router level
+%graph} refers to $G^{mpls}_{r}=(V^{mpls}_{r}, E^{mpls}_{r})$ where
+%$V^{mpls}_{r}$ is the set of routers in which at least one IP interface belongs
+%to an LSP, and  $E^{mpls}_{r}$ is the set of all \textit{mpls links}.
+%$(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as
+%$\{{v^{mpls}_{r}(i)},{v^{mpls}_{r}(j)} \}\in V^{mpls}_{r}$.
+
+The \dfn{ASes induced graph} $G_{r}(as)$ is a induced subgraph of $G_{r}$ where 
+each vertex  has an interface belonging to the same Autonomous System, $as$. 
+In particular, the induced graph of $G_r^{mpls}$ is
+$G^{mpls}_{r}(as)$.  This definition allows
 us to define an \dfn{MPLS cluster}, $C^{mpls}_{i}$, as a connected component $i$
 of $G^{mpls}_{r}(as)$. A given AS may have several MPLS clusters.
 
+%The \dfn{ASes induced graph} is defined as $G_{r}(as)=(V_{r}(as), E_{r}(as))$.
+%Each vertex in $G_{r}(as)$ has an interface belonging to the same Autonomous
+%System, $as$.  In particular, the induced graph of $G_r^{mpls}$ is
+%$G^{mpls}_{r}(as)=(V^{mpls}_{r}(as), E^{mpls}_{r}(as))$.  This definition allows
+%us to define an \dfn{MPLS cluster}, $C^{mpls}_{i}$, as a connected component $i$
+%of $G^{mpls}_{r}(as)$. A given AS may have several MPLS clusters.
+
 Finally, the \dfn{MPLS cluster interconnection graph} is an hybrid router level
-graph,  $G_{r\backslash lsr}=(V_{r\backslash lsr},E^{mpls}_{r\backslash lsr})$,
+graph,  $G_{r\backslash lsr}$,
 where all the MPLS clusters $C^{mpls}_{i}$ are gathered together in a single
-node $v\in V_{r\setminus ls}$, while non-MPLS capable routers remain unchanged.
+node, while non-MPLS capable routers remain unchanged.
 Broadly speaking, an MPLS cluster interconnection graph refers to a router level
-graph where all MPLS clusters are treated as a single node. In this way, we can
-study how IP interfaces and non MPLS capable routers interact with MPLS
-clusters. Additionally, we call $G_{r\backslash lsr}(as)$ to the induced
+graph where all MPLS clusters are treated as a single node. Additionally,
+we call $G_{r\backslash lsr}(as)$ to the induced
 subgraphs of $G_{r\backslash lsr}$ by routers having at least one interface in
 the Autonomous System $as$.
+
+
+%Finally, the \dfn{MPLS cluster interconnection graph} is an hybrid router level
+%graph,  $G_{r\backslash lsr}=(V_{r\backslash lsr},E^{mpls}_{r\backslash lsr})$,
+%where all the MPLS clusters $C^{mpls}_{i}$ are gathered together in a single
+%node $v\in V_{r\setminus ls}$, while non-MPLS capable routers remain unchanged.
+%Broadly speaking, an MPLS cluster interconnection graph refers to a router level
+%graph where all MPLS clusters are treated as a single node. In this way, we can
+%study how IP interfaces and non MPLS capable routers interact with MPLS
+%clusters. Additionally, we call $G_{r\backslash lsr}(as)$ to the induced
+%subgraphs of $G_{r\backslash lsr}$ by routers having at least one interface in
+%the Autonomous System $as$.
 
 % \textbf{IP level Graph:} $G_{ip}=(V_{ip}, E_{ip})$, where $V_{ip}$ is the IP
 % address discovered in our exploration and $E_{ip}$ is the set of the links found
@@ -81,7 +111,7 @@ the Autonomous System $as$.
 As the analysis is mainly based on $k$-core decomposition, we present the
 following definitions:
 \begin{itemize}
-  \item\dfn{\textit{k}-core:}. Given a graph $G=(V,E)$, then the
+  \item\dfn{\textit{k}-core:} Given a graph $G=(V,E)$, then the
   subgraph $H=(C,E|C)$ induced by the set $ C\subseteq V$ is a \textit{k}-core
   of order $k$ $iff$ $\forall v \in C: degree_{H}(v)\geq k$ and $H$ is the
   maximum subgraph with this property.
@@ -99,23 +129,19 @@ following definitions:
 To retrieve the $k$-core decomposition of a graph $G$, we use
 \lanet\cite{Alvarez06k}.  This tool returns a two dimensional plot,
 where the position of each vertex depends on its shell index and its neighbors'
-index. A color code allows for the identification of shell indices, while the
-vertex's original degree is provided by its size \ed{size of what?  circles on
-Fig.~\ref{fig_k_core_MPLS} for instance?}, which depends logarithmically on the
-degree. A central role in the visualization method is played by multi-components
+index. A color code allows for the identification of shell indices. 
+Finally, the size of each node is proportional to the original degree of that vertex; 
+\lanet uses a logarithmic scale for the size of the drawn bullets. A central 
+role in the visualization method is played by multi-components
 representation of $k$-cores.  \ed{It is unclear to me what's a multi-component
 representation.  The next sentences in this paragraph are also unclear} In the
-most general situation, the recursive removal of vertices having degree less
+most general situation, the recursive removal of vertices having degree less	
 than a given $k$ can break the original network into various connected
 components, each of which might even be once again broken by the subsequent
 decomposition.
 
 In this paper, we use $k$-core decomposition focused on properties around mpls
-clusters interconnection.  \lanet is useful to read basic features of the graph
-(degree, hierarchical structure, etc.) as well as more entangled features, e.g.,
-the relation between a vertex and the hierarchical position of its neighbors. It
-is also useful to  discriminate between networks with different topological
-properties and structural arrangement. This provides us an idea about the
+clusters interconnection. This provides us an idea about the
 structural arrangement and topological properties caused by MPLS usage.
 Additionally, the visualization helps us to find properties and fingerprints
 tightly related with MPLS presence.
@@ -135,7 +161,7 @@ some strong differences between their structure and properties. As expected, we
 notice that the router level topology has slightly stronger clustering
 coefficient than the IP level topology (see Fig.~\ref{fig_clustering}), due to
 % the join of IP interfaces into single routers.
-alias resolution process.  However, the main structure of both topologies iss
+alias resolution process.  However, the main structure of both topologies is
 similar as displayed on Fig.~\ref{fig_degree_distribution}
 and~\ref{fig_neighbor}. Because we do not see any meaningful difference
 between these topologies, and the router level topology is closer to a
@@ -207,22 +233,18 @@ we believe that the study of MPLS structure requires to go deeper into the
 individual AS topology. Indeed, we found that around $89.9\%$ of \textit{mpls
 links} are intra-domain. Thereby, we focus on the top ASes in terms of total
 number of discovered links.  On this set of ASes, we discard those having less
-than 500 mpls links. Additionally, we identify the amount of mpls
-links by AS, distinguishing the type of tunnel \ed{unclear}:
+than 500 mpls links. Additionally, we identify the amount of discovered MPLS
+links by AS, distinguishing the type of MPLS tunnel to their belong i.e., given
+a link between two MPLS interfaces $i_{n-1}$  and $i_{n}$ discovered by 
+traceroute at $n-1$ and $n$ position, we called:
 
 \begin{itemize}
-  \item[i] \textit{explicit mpls link:} Link between an interface
-  $i^{\text{explicitMPLS}}_{n}$  and its immediate previous interface
-  $i^{\text{MPLS}}_{n-1}$ discovered by traceroute, such that
-  $i^{\text{explicitMPLS}}_{n}$ belongs to an explicit MPLS tunnel and
-  $i^{\text{MPLS}}_{n-1}$ belongs to any kind of MPLS tunnel (explicit,
-  \textit{qTTL} based or \textit{u-turn} based).
-  \item[ii] \textit{qTTL mpls link:} Link between the interfaces
-  $i^{\text{qTTL}}_{n}$  and $i^{\text{MPLS}}_{n-1}$, such that
-  $i^{\text{qTTL}}_{n}$ belongs to a tunnel \textit{qTTL} based.
-  \item[iii] \textit{u-turn mpls link:} Link between the interfaces
-  $i^{\text{u-turn}}_{n}$  and $i^{\text{MPLS}}_{n-1}$, such that
-  $i^{\text{u-turn}}_{n}$ belongs to a tunnel \textit{u-turn} based.
+  \item[i] \textit{explicit mpls link:} To those links 
+  where $i_{n}$ belongs  to an explicit MPLS tunnel.
+  \item[ii] \textit{qTTL mpls link:} To those links 
+  where $i_{n}$ belongs  to an implicit MPLS tunnel qTTL based.
+  \item[iii] \textit{u-turn mpls link:} To those links 
+  where $i_{n}$ belongs  to an implicit MPLS tunnel u-turn based.
 \end{itemize}
 
 The summary of the top ASes is showed in the Fig.~\ref{top_as}.
