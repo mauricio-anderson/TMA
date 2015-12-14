@@ -239,11 +239,11 @@ a link between two MPLS interfaces $i_{n-1}$  and $i_{n}$ discovered by
 traceroute at $n-1$ and $n$ position, we called:
 
 \begin{itemize}
-  \item[i] \textit{explicit mpls link:} To those links 
+  \item[i] \textit{explicit mpls link:} links 
   where $i_{n}$ belongs  to an explicit MPLS tunnel.
-  \item[ii] \textit{qTTL mpls link:} To those links 
+  \item[ii] \textit{qTTL mpls link:} links 
   where $i_{n}$ belongs  to an implicit MPLS tunnel qTTL based.
-  \item[iii] \textit{u-turn mpls link:} To those links 
+  \item[iii] \textit{u-turn mpls link:} links 
   where $i_{n}$ belongs  to an implicit MPLS tunnel u-turn based.
 \end{itemize}
 
@@ -255,23 +255,22 @@ have the lowest ratio $r_{mpls}$.
 
 For our purposes, we select the most representatives ASes from those in
 Fig.~\ref{top_as}. In this way we analyzed the graphs $G_{r}(as)$ and
-$G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS7018, AS1273 and AS2914.
+$G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS2914, AS7018 and AS1273.
 The most remarkable observation (see Fig.~\ref{fig_cluster_mpls}) occurs
 regarding the graph $G_{r\backslash lsr}(as)$: $k$-core decomposition highly
 differs on those ASes, where prevails explicit tunnels in regard to those with
-more \textit{u-turn} tunnels proportionally .We show that \textit{MPLS clusters}
+more \textit{u-turn} tunnels proportionally. We show that \textit{MPLS clusters}
 (represented as gray nodes) for  AS1299 (Teliasonera AB), AS174 (Cogent
 Communication) and AS6762 (Telecom Italia) are spread out over different shells
 index. These $k$-core structures are similar in our top four of ASes where we
 additionally noticed  the \textit{u-turn} signature was majority discovered,
 i.e., between $30\%$ and  $80\%$ over  the total amount of \textit{mpls links}.
-However, for AS7018 (AT\&T), AS1273 (Cable and Wireless Worldwide plc) and
-AS2914 (NTT America Inc.)  where prevail explicit tunnels, we found a $k$-core
+However, for  AS2914 (NTT America Inc.), AS7018 (AT\&T) and AS1273 (Cable and
+ Wireless Worldwide plc) where prevail explicit tunnels, we found a $k$-core
 structure highly different. In these cases,  the ASes have few and well defined
 \textit{MPLS clusters}, mainly belonging to the $C_{\max}$-core.
 The same $k$-core decomposition structure was noticed  on the rest of top ASes
-with high percentage of \textit{qTTL} signature, i.e., AS7018, AS1273 and
-AS2914.
+with high percentage of implicit mpls links.
 
 Another remarkable observation  relays on the fact that the maximum degree
 reached by \textit{MPLS clusters} is considerably high in regard to the network
@@ -286,17 +285,11 @@ mainly located on $C_{\max}$-core (even on the ASes with high percentage of
 backbone of the ISPs.
 
 Summarizing, we observed that  $k$-core decomposition structure varies according
-the type of MPLS tunnels that prevails in the AS. This observation could suggest
-that exists a great number of MPLS links non revealed by \traceroute in the ASes
-where prevail \textit{u-turn} signatures; therefore, the LSRs discovered can not
-build large \textit{MPLS clusters} so they are thoroughly spread out.
-Additionally, because \textit{u-turn} signatures are inaccurate, as we showed
-previously, there could exists several false LSRs spread out over the shell
-indexes, adding false \textit{MPLS clusters}. Finally, it draws our attention
-that the ratio of \textit{u-turn links} differs greatly just on ASes with low
-$r_{mpls}$, producing a \textit{u-turn} bias in some ASes while not in others,
-yielding inaccuracies to topology.
-
+the type of MPLS tunnels that prevails in the AS. Mainly, we showed that ASes where prevails 
+explicit MPLS links have a common $k$-core structure that highly differ from those ASes with
+high presence of u-turn MPLS links (Top five ASes). Additionally, we believe that the $k$-core decomposition  on the top five ASes could have different structure due to either  the
+u-turn signature inaccuracy or due to some particular MPLS deployment (Indeed, we noticed on these
+ASes a low ratio $r_{mpls}$ and an unusual  high presence of  \textit{u-turn links})
 
 \begin{figure}[!htb]
   \begin{center}
@@ -311,23 +304,28 @@ yielding inaccuracies to topology.
 %Figura u-turn
 \begin{figure*}[!htb]
   \begin{center}
-    \subfigure[AS1299  Teliasonera AB , $C_{\max}=21$, $\text{Degree}_{\max}=2781$]{\label{fig_cluster_mpls_1299}
+    \subfigure[AS1299  Teliasonera AB , $C_{\max}=21$, $\text{Degree}_{\max}=2781$, $\vert V_{r
+    \backslash lsr} \vert=4128$, $\vert E_{r \backslash lsr} \vert=24865$ ]{\label{fig_cluster_mpls_1299}
       \includegraphics[width=2in]{1299}}
 \hfill
-    \subfigure[AS174 Cogent Communication, $C_{\max}=8$, $\text{Degree}_{\max}=751$]{\label{fig_cluster_mpls_174}
+    \subfigure[AS174 Cogent Communication, $C_{\max}=8$, $\text{Degree}_{\max}=751$,$\vert V_{r
+    \backslash lsr} \vert=4421$, $\vert E_{r \backslash lsr} \vert=8611$]{\label{fig_cluster_mpls_174}
       \includegraphics[width=2in]{174}}
 \hfill
-    \subfigure[AS6762 Telecom Italia, $C_{\max}=10$, $\text{Degree}_{\max}=564$]{\label{fig_cluster_mpls_6762}
+    \subfigure[AS6762 Telecom Italia, $C_{\max}=10$, $\text{Degree}_{\max}=564$,$\vert V_{r
+    \backslash lsr} \vert=750$, $\vert E_{r \backslash lsr} \vert=1504$]{\label{fig_cluster_mpls_6762}
       \includegraphics[width=2in]{6762}}
 \hfill
-    \subfigure[AS7018 AT\&T, $C_{\max}=3$, $\text{Degree}_{\max}=745$]{\label{fig_cluster_mpls_2914}
+    \subfigure[AS2914 NTT America Inc., $C_{\max}=4$, $\text{Degree}_{\max}=1019$,$\vert V_{r
+    \backslash lsr} \vert=1807$, $\vert E_{r \backslash lsr} \vert=2360$]{\label{fig_cluster_mpls_2914}
       \includegraphics[width=2in]{2914}}
 \hfil
-    \subfigure[ AS1273 Cable and Wireless Worldwide plc, $C_{\max}=3$, $\text{Degree}_{\max}=806$]{\label{fig_cluster_mpls_1273}
-      \includegraphics[width=2in]{1273}}
-\hfil
-    \subfigure[AS2914 Citicorp, $C_{\max}=4$, $\text{Degree}_{\max}=745$]{\label{fig_cluster_mpls_7018}
+    \subfigure[ AS7018 AT\&T, $C_{\max}=3$, $\text{Degree}_{\max}=745$, $\vert V_{r
+    \backslash lsr} \vert=1306$, $\vert E_{r \backslash lsr} \vert=1441$]{\label{fig_cluster_mpls_7018}
       \includegraphics[width=2in]{7018}}
+\hfil
+    \subfigure[ AS1273 Cable and Wireless Worldwide plc, $C_{\max}=3$, $\text{Degree}_{\max}=806$, $\vert V_{r \backslash lsr} \vert=1127$, $\vert E_{r \backslash lsr} \vert=1215$]{\label{fig_cluster_mpls_1273}
+      \includegraphics[width=2in]{1273}}
   \end{center}
   \caption{$k$-core visualization of MPLS cluster interconnection Graph
   $G_{r\backslash lsr}(as)$. On the top the ASes show \textit{MPLS clusters}
