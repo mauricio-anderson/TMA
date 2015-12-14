@@ -51,8 +51,7 @@ by the IP addresses and links found trough
 through MIDAR~\cite{Keys13}). Third, the \dfn{MPLS router level
 graph} $G^{mpls}_{r}$, formed by MPLS links and routers in which at least one IP interface belongs
 to an LSP.
-
-
+%
 %We defined several graphs at different abstraction levels as follows (they are
 %summarized in Table~\ref{cluster.table_notations}): The \dfn{IP level graph} is
 %defined as $G_{ip}=(V_{ip}, E_{ip})$, where $V_{ip}$ is the IP addresses
@@ -66,21 +65,21 @@ to an LSP.
 %to an LSP, and  $E^{mpls}_{r}$ is the set of all \textit{mpls links}.
 %$(v^{mpls}_{r}(i), v^{mpls}_{r}(j))$ such as
 %$\{{v^{mpls}_{r}(i)},{v^{mpls}_{r}(j)} \}\in V^{mpls}_{r}$.
-
-The \dfn{ASes induced graph} $G_{r}(as)$ is a induced subgraph of $G_{r}$ where 
-each vertex  has an interface belonging to the same Autonomous System, $as$. 
+%
+The \dfn{ASes induced graph} $G_{r}(as)$ is a subgraph of $G_{r}$ where 
+each vertex  has an interface belonging to the same Autonomous System, namely $as$. 
 In particular, the induced graph of $G_r^{mpls}$ is
-$G^{mpls}_{r}(as)$.  This definition allows
-us to define an \dfn{MPLS cluster}, $C^{mpls}_{i}$, as a connected component $i$
-of $G^{mpls}_{r}(as)$. A given AS may have several MPLS clusters.
-
+$G^{mpls}_{r}(as)$.  Considering a connected component $C^{mpls}_{i}$ in a $G^{mpls}_{r}(as)$, it is called  \dfn{MPLS cluster}. 
+%
+%This definition allows us to define an \dfn{MPLS cluster}, $C^{mpls}_{i}$, as a connected component $i$ of $G^{mpls}_{r}(as)$. A given AS may have several MPLS clusters.
+%
 %The \dfn{ASes induced graph} is defined as $G_{r}(as)=(V_{r}(as), E_{r}(as))$.
 %Each vertex in $G_{r}(as)$ has an interface belonging to the same Autonomous
 %System, $as$.  In particular, the induced graph of $G_r^{mpls}$ is
 %$G^{mpls}_{r}(as)=(V^{mpls}_{r}(as), E^{mpls}_{r}(as))$.  This definition allows
 %us to define an \dfn{MPLS cluster}, $C^{mpls}_{i}$, as a connected component $i$
 %of $G^{mpls}_{r}(as)$. A given AS may have several MPLS clusters.
-
+%
 Finally, the \dfn{MPLS cluster interconnection graph} is an hybrid router level
 graph,  $G_{r\backslash lsr}$,
 where all the MPLS clusters $C^{mpls}_{i}$ are gathered together in a single
@@ -127,18 +126,10 @@ following definitions:
 \end{itemize}
 
 To retrieve the $k$-core decomposition of a graph $G$, we use
-\lanet\cite{Alvarez06k}.  This tool returns a two dimensional plot,
-where the position of each vertex depends on its shell index and its neighbors'
-index. A color code allows for the identification of shell indices. 
-Finally, the size of each node is proportional to the original degree of that vertex; 
-\lanet uses a logarithmic scale for the size of the drawn bullets. A central 
-role in the visualization method is played by multi-components
-representation of $k$-cores.  \ed{It is unclear to me what's a multi-component
-representation.  The next sentences in this paragraph are also unclear} In the
-most general situation, the recursive removal of vertices having degree less	
-than a given $k$ can break the original network into various connected
-components, each of which might even be once again broken by the subsequent
-decomposition.
+\lanet\cite{Alvarez06k}.  
+This tool returns a two dimensional plot, where the position of each vertex depends on its shell index and its neighbors' index, arranged into a circle. 
+A color code allows for the identification of shell indices, and diameter of the spheres represent vertex's degree in a logarithmic scale. 
+The $k$-core decomposition can break the original network into various connected components, displayed as independent circles by \lanet.
 
 In this paper, we use $k$-core decomposition focused on properties around mpls
 clusters interconnection. This provides us an idea about the
@@ -203,15 +194,20 @@ In order to locate LSRs-routers with MPLS capabilities into the shells index
 over $k$-core decomposition, we paint in black the non-MPLS routers and in gray
 the LSRs. The results are showed in Fig.~\ref{fig_k_core_LSR}.  For the sake of
 the visualization, we do not include neither the shell index, degree scale, nor
-edges between shells. We notice that the LSRs are commonly distributed around
-the different shells of Internet but slightly tends to concentrate with more
-density nearby the $C_{\max}$-core. Additionally, we apply the same methodology
+edges between shells. 
+We notice that the LSRs are commonly distributed around
+the different shells of Internet, with slightly low density in the lower shells.  
+%but slightly tends to concentrate with more
+%density nearby the $C_{\max}$-core. 
+Additionally, we apply the same methodology
 for the MPLS interconnection cluster level graph $G_{r\backslash lsr}$
 (Fig.~\ref{fig_k_core_MPLS}): MPLS clusters (gray nodes) are distinguished from
-the non MPLS capable routers (black nodes). In this case,  MPLS clusters  are
-also spread out on the Internet.  Indeed, we see some well defined gray nodes on
-the periphery of the decomposition. However MPLS clusters show a stronger
-tendency to concentrate near the $C_{\max}$-core.
+the non MPLS capable routers (black nodes). 
+In this case,  MPLS clusters  degree is correlated with shell index: as higher is shell cluster then higher is its degree.
+This behavior is observed in hierarchical networks, e.g., the Autonomous System network. 
+%are also spread out on the Internet.  Indeed, we see some well defined gray nodes on
+%the periphery of the decomposition. However MPLS clusters show a stronger
+%tendency to concentrate near the $C_{\max}$-core.
 
 Finally, we evaluate the impact of MPLS clusters on the typical router level
 topology, i.e., MPLS cluster interconnection graph $G_{r \backslash lsr }$. We
@@ -220,11 +216,9 @@ neighbor degree, as is shown on Fig.~\ref{fig_metrics}.
 We notice that MPLS clusters highly impact over the router level topology. On
 one hand, the nearest neighbor degree highly increments for low degrees nodes on
 $G_{r \backslash lsr }$, suggesting that routers with low degree are highly
-connected to MPLS clusters and thereby to LSRs. On the other hand, the
-clustering coefficient of $G_{r \backslash lsr }$ change significantly their
-slope in regards with IP and router level topology, indicating that routers with
-high degree are connected to \textit{common} MPLS clusters. \ed{does this
-suggest that some MPLS clusters are more ``popular'' than others?}
+connected to MPLS clusters and thereby to LSRs. Notice that vertices with high degree are principally the MPLS clusters, as Fig.~\ref{fig_k_core_MPLS} shows.
+On the other hand, the clustering coefficient of $G_{r \backslash lsr }$ is highly increased for vertices having degree $50$ to $200$, due to the MPLS clusters. 
+This shows that local robustness of the network increase because there exists different paths joining every pair of close vertices (higher clustering means more triangles in the network). 
 
 \subsection{\textit{MPLS clusters} on Autonomous Systems}\label{cluster.as}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -261,16 +255,17 @@ regarding the graph $G_{r\backslash lsr}(as)$: $k$-core decomposition highly
 differs on those ASes, where prevails explicit tunnels in regard to those with
 more \textit{u-turn} tunnels proportionally. We show that \textit{MPLS clusters}
 (represented as gray nodes) for  AS1299 (Teliasonera AB), AS174 (Cogent
-Communication) and AS6762 (Telecom Italia) are spread out over different shells
-index. These $k$-core structures are similar in our top four of ASes where we
+Communication) and AS6762 (Telecom Italia) are spread out over different shells, showing that MPLS clusters have not a predominant role.
+These $k$-core structures are similar in our top five of ASes where we
 additionally noticed  the \textit{u-turn} signature was majority discovered,
 i.e., between $30\%$ and  $80\%$ over  the total amount of \textit{mpls links}.
+
+
 However, for  AS2914 (NTT America Inc.), AS7018 (AT\&T) and AS1273 (Cable and
  Wireless Worldwide plc) where prevail explicit tunnels, we found a $k$-core
-structure highly different. In these cases,  the ASes have few and well defined
-\textit{MPLS clusters}, mainly belonging to the $C_{\max}$-core.
-The same $k$-core decomposition structure was noticed  on the rest of top ASes
-with high percentage of implicit mpls links.
+structure having the MPLS clusters in the $C_{\max}$-core. 
+Notice that most of vertices are directly connect to a predominant MPLS cluster.
+The remind of  ASes in Fig.~\ref{top_as} with high percentage of explicit tunnels has the same behavior.
 
 Another remarkable observation  relays on the fact that the maximum degree
 reached by \textit{MPLS clusters} is considerably high in regard to the network
@@ -289,7 +284,8 @@ the type of MPLS tunnels that prevails in the AS. Mainly, we showed that ASes wh
 explicit MPLS links have a common $k$-core structure that highly differ from those ASes with
 high presence of u-turn MPLS links (Top five ASes). Additionally, we believe that the $k$-core decomposition  on the top five ASes could have different structure due to either  the
 u-turn signature inaccuracy or due to some particular MPLS deployment (Indeed, we noticed on these
-ASes a low ratio $r_{mpls}$ and an unusual  high presence of  \textit{u-turn links})
+ASes a low ratio $r_{mpls}$ and an unusual  high presence of  \textit{u-turn links}).
+
 
 \begin{figure}[!htb]
   \begin{center}
@@ -304,27 +300,27 @@ ASes a low ratio $r_{mpls}$ and an unusual  high presence of  \textit{u-turn lin
 %Figura u-turn
 \begin{figure*}[!htb]
   \begin{center}
-    \subfigure[AS1299  Teliasonera AB , $C_{\max}=21$, $\text{Degree}_{\max}=2781$, $\vert V_{r
-    \backslash lsr} \vert=4128$, $\vert E_{r \backslash lsr} \vert=24865$ ]{\label{fig_cluster_mpls_1299}
+    \subfigure[AS1299  Teliasonera AB , $C_{\max}=21$, $\text{Degree}_{\max}=2781$, $|V_{r
+    \backslash lsr}|=4128$, $|E_{r \backslash lsr}|=24865$ ]{\label{fig_cluster_mpls_1299}
       \includegraphics[width=2in]{1299}}
 \hfill
-    \subfigure[AS174 Cogent Communication, $C_{\max}=8$, $\text{Degree}_{\max}=751$,$\vert V_{r
-    \backslash lsr} \vert=4421$, $\vert E_{r \backslash lsr} \vert=8611$]{\label{fig_cluster_mpls_174}
+    \subfigure[AS174 Cogent Communication, $C_{\max}=8$, $\text{Degree}_{\max}=751$, $|V_{r
+    \backslash lsr}|=4421$, $|E_{r \backslash lsr}|=8611$]{\label{fig_cluster_mpls_174}
       \includegraphics[width=2in]{174}}
 \hfill
-    \subfigure[AS6762 Telecom Italia, $C_{\max}=10$, $\text{Degree}_{\max}=564$,$\vert V_{r
-    \backslash lsr} \vert=750$, $\vert E_{r \backslash lsr} \vert=1504$]{\label{fig_cluster_mpls_6762}
+    \subfigure[AS6762 Telecom Italia, $C_{\max}=10$, $\text{Degree}_{\max}=564$, $|V_{r
+    \backslash lsr}|=750$, $|E_{r \backslash lsr}|=1504$]{\label{fig_cluster_mpls_6762}
       \includegraphics[width=2in]{6762}}
 \hfill
-    \subfigure[AS2914 NTT America Inc., $C_{\max}=4$, $\text{Degree}_{\max}=1019$,$\vert V_{r
-    \backslash lsr} \vert=1807$, $\vert E_{r \backslash lsr} \vert=2360$]{\label{fig_cluster_mpls_2914}
+    \subfigure[AS2914 NTT America Inc., $C_{\max}=4$, $\text{Degree}_{\max}=1019$, $|V_{r
+    \backslash lsr}|=1807$, $|E_{r \backslash lsr}|=2360$]{\label{fig_cluster_mpls_2914}
       \includegraphics[width=2in]{2914}}
 \hfil
-    \subfigure[ AS7018 AT\&T, $C_{\max}=3$, $\text{Degree}_{\max}=745$, $\vert V_{r
-    \backslash lsr} \vert=1306$, $\vert E_{r \backslash lsr} \vert=1441$]{\label{fig_cluster_mpls_7018}
+    \subfigure[ AS7018 AT\&T, $C_{\max}=3$, $\text{Degree}_{\max}=745$, $|V_{r
+    \backslash lsr}|=1306$, $|E_{r \backslash lsr}|=1441$]{\label{fig_cluster_mpls_7018}
       \includegraphics[width=2in]{7018}}
 \hfil
-    \subfigure[ AS1273 Cable and Wireless Worldwide plc, $C_{\max}=3$, $\text{Degree}_{\max}=806$, $\vert V_{r \backslash lsr} \vert=1127$, $\vert E_{r \backslash lsr} \vert=1215$]{\label{fig_cluster_mpls_1273}
+    \subfigure[ AS1273 Cable and Wireless Worldwide plc, $C_{\max}=3$, $\text{Degree}_{\max}=806$, $| V_{r \backslash lsr}|=1127$, $|E_{r \backslash lsr}=1215$]{\label{fig_cluster_mpls_1273}
       \includegraphics[width=2in]{1273}}
   \end{center}
   \caption{$k$-core visualization of MPLS cluster interconnection Graph
