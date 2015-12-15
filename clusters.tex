@@ -33,7 +33,7 @@ topologies.}
     Router             & $G_r$ & $(V_r, E_r)$\\    
     MPLS               & $G_r^{mpls}$ & $(V_r^{mpls}, E_r^{mpls})$\\
     ASes induced graph & $G_r(as)$ & $(V_r(as), E_r(as))$\\    
-    MPLS cluster       & $C_i^{mpls}$ & Connected Component of $G_r^{mpls}(as)$\\
+    %MPLS cluster       & $C_i^{mpls}$ & Connected Component of $G_r^{mpls}(as)$\\
     MPLS cluster interconnection graph & $G_{r \backslash lsr}$ & $(V_{r
     \backslash lsr}, E_{r \backslash lsr}^{mpls})$
     \end{tabular}
@@ -41,7 +41,6 @@ topologies.}
   \caption{Summary of graph notations used in Sec.~\ref{cluster}.}
   \label{cluster.table_notations}
 \end{table}
-
 
 We defined several graphs at different abstraction levels as follows (The main
 are summarized in Table~\ref{cluster.table_notations}): First, the \dfn{IP level
@@ -115,10 +114,7 @@ part.  The main part is composed of two scales, the one on the left is the node
 degree scale representing the degree in a logarithmic scale, while the one on
 the right is a gray scale with each shell index $c_i$. Between the two scales,
 we see the shell index with $C_{\max}$ in the center, the other shells being
-located concentrically around it. Notice that the $\text{Degree}_{\max}=9732$
-correspond to a isolated interface (IP private address) maybe belonging to a big
-layer 2 network. The real $\text{Degree}_{\max}$ value is around $749$.
-Additional, note that $C_{\max}$-core is made of several components with one
+located concentrically around it. Note that $C_{\max}$-core is made of several components with one
 having the most significant part, and it is shown at the left of the center
 (black nodes).  We also see that all the shells index are highly populated and
 that the node degree is not related with the shell index, i.e., there are many
@@ -199,22 +195,25 @@ Interestingly, we also see that the ASes with more IP links discovered have the
 lowest ratio $r_{mpls}$. For our purposes, we select the most representatives
 ASes from those in Fig.~\ref{top_as}. In this way, we analyzed the graphs
 $G_{r}(as)$ and $G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS2914,
-AS7018 and AS1273 (see Fig.~\ref{fig_cluster_mpls}). We noticed that $k$-core
-decomposition differs on those ASes, where prevails explicit MPLS links in
-regard to those with more u-turn MPLS links. Particularly, we show that MPLS
-clusters (represented as gray nodes) for  AS1299 (Teliasonera AB), AS174 (Cogent
-Communication) and AS6762 (Telecom Italia) are spread out over different shells,
-showing that do not exist a predominant MPLS cluster. These $k$-core structures
-are similar in our top five of ASes where u-turn signature was majority
+AS7018 and AS1273 using  $k$-core decomposition (see Fig.~\ref{fig_cluster_mpls}).
+We observed that  $k$-core decomposition structure varies according
+the type of MPLS tunnels that prevails in the AS. Particularly, for  AS1299 (Teliasonera AB), AS174 (Cogent Communication) and AS6762 (Telecom Italia) where prevails u-turn MPLS links,
+we show that MPLS clusters (represented as gray nodes)  are spread out over different shells. These $k$-core structures are similar in our top five of ASes where u-turn signature was majority
 discovered, i.e., between $30\%$ and  $80\%$ over  the total amount of MPLS
-links.
+links. 
 
 However, for  AS2914 (NTT America Inc.), AS7018 (AT\&T) and AS1273 (Cable and
 Wireless Worldwide plc) where prevail explicit MPLS links, we found a $k$-core
 structure highly different, i.e., Most of vertices are directly connect to a
 predominant MPLS cluster located at $C_{\max}$-core. The remain of  ASes in
 Fig.~\ref{top_as} with high percentage of explicit tunnels have the same
-behavior.
+structure.
+
+Summarizing, we notice that ASes where prevails explicit MPLS links has a 
+predominant MPLS cluster while ASes where prevails u-turn MPLS links have several MPLS cluster spread out over the shells. 
+Additionally, We believe that $k$-core decomposition  on the top five ASes could have different structure due to either  the u-turn signature inaccuracy or due to some particular MPLS
+deployment. Indeed, we noticed only on these ASes a low ratio $r_{mpls}$ and an
+unusual  high presence of  u-turn links.
 
 Another remarkable observation  relays on the fact that the maximum degree
 reached by MPLS clusters is considerably high in regard to the network
@@ -227,16 +226,6 @@ Sec.~\ref{cluster.topo}. Additionally, because MPLS clusters are
 mainly located on $C_{\max}$-core (even on the ASes with high percentage of
 u-turn MPLS links), we believe that MPLS plays an important role in the
 backbone of the ISPs.
-
-Summarizing, we observed that  $k$-core decomposition structure varies according
-the type of MPLS tunnels that prevails in the AS. Mainly, we showed that ASes
-where prevails explicit MPLS links have a common $k$-core structure that highly
-differ from those ASes with high presence of u-turn MPLS links. We believe that
-the $k$-core decomposition  on the top five ASes could have different structure
-due to either  the u-turn signature inaccuracy or due to some particular MPLS
-deployment. Indeed, we noticed only on these ASes a low ratio $r_{mpls}$ and an
-unusual  high presence of  u-turn links.
-
 
 \begin{figure}[!htb]
   \begin{center}
@@ -273,9 +262,9 @@ unusual  high presence of  u-turn links.
       \includegraphics[width=2in]{1273}}
   \end{center}
   \caption{$k$-core visualization of MPLS cluster interconnection Graph
-  $G_{r\backslash lsr}(as)$. On the top, the ASes show MPLS clusters
+  $G_{r\backslash lsr}(as)$. On the top, the ASes show several MPLS clusters
   spread out around the shells. On the bottom, the ASes
-  show a predominant MPLS clusters located on
+  show a predominant MPLS cluster located on
   $C_{\max}$.}
   \label{fig_cluster_mpls}
 \end{figure*}
