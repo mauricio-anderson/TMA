@@ -12,31 +12,32 @@ interface, router, subnetwork, PoP, and Autonomous System (AS) levels. All these
 models have been widely studied in the past~\cite{DONNET13} . However, the
 current state of the art of Internet deployments involves a great number of
 technologies impacting the Internet Topology.  And those technologies deserve a
-deep study in order to include them in Internet topology models.  For instance, 
+deep study in order to include them in Internet topology models.  For instance,
 \dfn{Multiprotocol Label Switching} (MPLS)~\cite{rfc3031} has been recently the
-focus of several studies~\cite{SOM11,DONNET13,Vanaubel15}.  It has been
+focus of several studies~\cite{SOM11,Donnet12,Vanaubel15}.  It has been
 demonstrated that MPLS is a mature technology widely deployed for (mainly) load
 balancing reasons or traffic engineering purposes.  Although few studies have
-partially questioned its impact on Internet topology~\cite{BRICE07,Flach2012}, the impact of MPLS deployment on the Internet architecture has not been
-studied yet in deep. The importance to study new architectural details, structure and topological
-features related with MPLS usage would help to know the way in
-which the Internet Service Providers (ISPs) use their networks or apply their
-policies for traffic engineering as well as to better understand the today's
-Internet architecture more accurately. Our work provides a study around the
-impact of MPLS deployments over Internet Topology. Principally, we focus on the
-bias involved in MPLS tunnel detection and on the features that MPLS modifies over traditional networks maps such as router level topology. For our purpose, we mainly based on  $k$-core
-decomposition method~\cite{batagelj2002}. In this way, it has been shown
-previously that the $k$-core decomposition is a relevant tool to describe
-Internet Topology ~\cite{Alvarez06k, Serrano06, Serrano06, Alvarez08k}.
+partially questioned its impact on Internet topology~\cite{BRICE07,Flach2012},
+the actual impact of MPLS deployment on the Internet architecture has not been
+studied yet in deep. The importance to study new architectural details,
+structure, and topological features related with MPLS usage would help to know
+the way in which the Internet Service Providers (ISPs) use their networks or
+apply their policies for traffic engineering as well as to better understand the
+today's Internet architecture more accurately. Our work provides a study around
+the impact of MPLS deployment over Internet Topology. Principally, we focus on
+the bias involved in MPLS tunnel detection and on the features that MPLS
+modifies over traditional networks maps such as router level topology. For our
+purpose, we mainly base on $k$-core decomposition method~\cite{batagelj2002}.
+In this way, it has been shown previously that the $k$-core decomposition is a
+relevant tool to describe Internet Topology ~\cite{Alvarez06k, Serrano06,
+Serrano06, Alvarez08k}.
 
-This paper adds complementary information around MPLS
-usage on Internet. First, we present a quantification of the biases involved on
-implicit MPLS tunnel detection. Additionally, we provided some properties and
-architectural details related with MPLS deployment on router level topology. We found
-that routers are commonly connected to  MPLS
-networks. Finally, we found that ASes seems to have different MPLS structure 
-according the type of MPLS tunnel that prevails.
-
+This paper adds complementary information around MPLS usage on Internet. First,
+we present a quantification of the biases involved on implicit MPLS tunnel
+detection. Additionally, we provided some properties and architectural details
+related with MPLS deployment on router level topology. We find that routers are
+commonly connected to  MPLS networks. Finally, we find that ASes seems to have
+different MPLS structure according the type of MPLS tunnel that prevails.
 
 The remainder of this paper is organized as follows: Sec.~\ref{related} provides
 the state of the art and the background related to MPLS tunnels discovery. In
