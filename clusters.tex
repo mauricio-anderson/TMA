@@ -1,12 +1,13 @@
 \section{LSRs and MPLS clusters}\label{cluster}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This section aims at better
-understanding the impact of MPLS deployments over Internet, specifically over
-router level topology. To achieve our purpose, we study how LSRs and \dfn{MPLS clusters} 
-interacts  with non MPLS routers. Generally speaking, we compare the fingerprints  on $k$-core 
-decomposition that MPLS presence causes over the Internet Topology. We propose two main studies: the
-first one related to locate the LSRs and MPLS clusters over the entire router topology; and a second
-one related to understand the MPLS structure for a given AS.
+This section aims at better understanding the impact of MPLS deployment over
+Internet, specifically over router level topology. To achieve our purpose, we
+study how LSRs and \dfn{MPLS clusters} interacts  with non MPLS routers.
+Generally speaking, we compare the fingerprints  on $k$-core decomposition that
+MPLS presence causes over the Internet Topology. We propose two main studies:
+the first one aims at locating the LSRs and MPLS clusters over the entire router
+topology; and a second one aims at better understanding the MPLS structure for a
+given AS.
 
 \subsection{Definitions and Background}\label{cluster.methodo}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,27 +44,27 @@ topologies.}
 \end{table}
 
 We defined several graphs at different abstraction levels as follows (The main
-are summarized in Table~\ref{cluster.table_notations}): First, the \dfn{IP level
-graph} $G_{ip}$, built by the IP addresses and links found trough \traceroute.
-Second, the \dfn{router level graph} $G_{r}$, getting after solve alias
-resolution process through MIDAR~\cite{Keys13}). Third, the \dfn{MPLS router
-level graph} $G^{mpls}_{r}$, formed by MPLS links and routers in which at least
-one IP interface belongs to an LSP.
+ones being summarized in Table~\ref{cluster.table_notations}): First, the
+\dfn{IP level graph} $G_{ip}$, built by the IP addresses and links found trough
+\traceroute. Second, the \dfn{router level graph} $G_{r}$, getting after solve
+alias resolution process through MIDAR~\cite{Keys13}). Third, the \dfn{MPLS
+router level graph} $G^{mpls}_{r}$, formed by MPLS links and routers in which at
+least one IP interface belongs to an LSP.
 
 The \dfn{ASes induced graph} $G_{r}(as)$ is a subgraph of $G_{r}$ where each
-vertex  has an interface belonging to the same Autonomous System, namely $as$.
+vertex has an interface belonging to the same Autonomous System, namely $as$.
 In particular, the induced graph of $G_r^{mpls}$ is $G^{mpls}_{r}(as)$.
-Considering a connected component $C^{mpls}_{i}$ in a $G^{mpls}_{r}(as)$, it is
-called  \dfn{MPLS cluster}. Finally, the \dfn{MPLS cluster interconnection
-graph} is an hybrid router level graph,  $G_{r\backslash lsr}$, where all the
-MPLS clusters $C^{mpls}_{i}$ are gathered together in a single node, while
-non-MPLS capable routers remain unchanged. Broadly speaking, an MPLS cluster
-interconnection graph refers to a router level graph where all MPLS clusters are
-treated as a single node. Additionally, we call $G_{r\backslash lsr}(as)$ to the
-induced subgraphs of $G_{r\backslash lsr}$ by routers having at least one
-interface in the Autonomous System $as$.
+A connected component $C^{mpls}_{i}$ in a $G^{mpls}_{r}(as)$ is called \dfn{MPLS
+cluster}. Finally, the \dfn{MPLS cluster interconnection graph} is an hybrid
+router level graph,  $G_{r\backslash lsr}$, where all the MPLS clusters
+$C^{mpls}_{i}$ are gathered together in a single node, while non-MPLS capable
+routers remain unchanged. Broadly speaking, an MPLS cluster interconnection
+graph refers to a router level graph where all MPLS clusters are treated as a
+single node. Additionally, we call $G_{r\backslash lsr}(as)$ the subgraphs of
+$G_{r\backslash lsr}$ induced by routers having at least one interface in the
+Autonomous System $as$.
 
-This work,  principally focused on MPLS clusters interconnection graph
+This section mainly focuses on MPLS clusters interconnection graph
 $G_{r\backslash lsr}$ and their respective ASes induced graphs $G_{r\backslash
 lsr}(as)$. In this way, we study how MPLS clusters are connected to non-MPLS
 capable routers. Particularly, as MPLS clusters interconnection graph analysis
@@ -73,8 +74,7 @@ definitions:
   \item\dfn{\textit{k}-core:} Given a graph $G=(V,E)$, then the
   subgraph $H=(C,E|C)$ induced by the set $ C\subseteq V$ is a \textit{k}-core
   of order $k$ $iff$ $\forall v \in C: degree_{H}(v)\geq k$ and $H$ is the
-  maximum subgraph with this property.
-      
+  maximum subgraph with this property.      
   \item\dfn{Shell index}. A vertex $i$ has a shell index $c$ if it
   belongs to the $c$-core but not to $(c+1)$-core. We denote by $C_i$ the shell
   index of vertex $i$. A shell $C_c$ consists of all the vertices whose shell
@@ -102,34 +102,34 @@ connected components which are displayed as independent circles.
 \end{figure}
 
 In this section we study the LSRs and MPLS cluster structure over the Internet
-Topology.  First, we selected the router level topology for our analysis because
-it is closer to a realistic Internet one and because  we did not notice any
-strong difference between IP and router level topology as Fig.~\ref{fig_metrics}
-suggests. Indeed, we just noticed that router level topology has slightly
+topology.  First, we select the router level topology for our analysis because
+it is closer to a realistic Internet one and because we do not notice any strong
+difference between IP and router level topology as Fig.~\ref{fig_metrics}
+suggests. Indeed, we only remark that router level topology has a slightly
 stronger clustering coefficient (see Fig.~\ref{fig_clustering}), due to alias
 resolution process. In this way, Fig.~\ref{fig_k_core_routers} shows the
 $k$-core visualization of $G_{r}$.  The figure is divided in three parts, the
 main part being in the upper left while the two others are a zoom on the main
-part.  The main part is composed of two scales, the one on the left is the node
-degree scale representing the degree in a logarithmic scale, while the one on
-the right is a gray scale with each shell index $c_i$. Between the two scales,
-we see the shell index with $C_{\max}$ in the center, the other shells being
-located concentrically around it. Note that $C_{\max}$-core is made of several components with one
-having the most significant part, and it is shown at the left of the center
-(black nodes).  We also see that all the shells index are highly populated and
-that the node degree is not related with the shell index, i.e., there are many
-routers with high degree in the outer (lower) shells.  Another typical feature
-of router level topology is that the links between routers mainly occurs between
-routers belonging to neighbors shells, e.g., the routers on the outer shells are
-not usually connected to the routers located on the  $C_{\max}$-core, as it is
-in the Autonomous Systems maps~\cite{Alvarez06k}.
+one.  The main part is composed of two scales, the one on the left is the node
+degree in a logarithmic scale, while the one on the right is a gray scale with
+each shell index $c_i$. Between the two scales, we see the shell index with
+$C_{\max}$ in the center, the other shells being located concentrically around
+it. Note that $C_{\max}$-core is made of several components with one having the
+most significant part, and it is shown at the left of the center (black nodes).
+We also see that all the shells index are highly populated and that the node
+degree is not related with the shell index, i.e., there are many routers with
+high degree in the outer (lower) shells. Another typical feature of router level
+topology is that the links between routers mainly occurs between routers
+belonging to neighbors shells, e.g., the routers on the outer shells are not
+usually connected to the routers located on the  $C_{\max}$-core, as it is in
+the Autonomous Systems maps~\cite{Alvarez06k}.
 
 \begin{figure*}[!t]
   \begin{center}
     \subfigure[The $k$-core visualization of router level topology $G_{r}$.]{\label{fig_k_core_LSR}
       \includegraphics[width=18cm]{LSR}}
 \hfil
-    \subfigure[The $k$-core visualization of MPLS cluster level topology  $G_{r\backslash lsr}$.]{\label{fig_k_core_MPLS}
+    \subfigure[The $k$-core visualization of MPLS cluster level topology $G_{r\backslash lsr}$.]{\label{fig_k_core_MPLS}
       \includegraphics[width=18cm]{MPLS}}
   \end{center}
   \caption{$k$-core visualization of $G_r$ and $G_{r \backslash lsr}$.  On
@@ -141,91 +141,94 @@ in the Autonomous Systems maps~\cite{Alvarez06k}.
 
 In order to locate LSRs-routers with MPLS capabilities into the shells index
 over $k$-core decomposition, we paint in black the non-MPLS routers and in gray
-the LSRs. The results are showed in Fig.~\ref{fig_k_core_LSR}.  For the sake of
-the visualization, we do not include neither the shell index, degree scale, nor
+the LSRs. The results are shown in Fig.~\ref{fig_k_core_LSR}.  For the sake of
+the visualization, we do not include the shell index, the degree scale, and the
 edges between shells. We notice that the LSRs are commonly distributed around
-the different shells of Internet, with slightly low density in the lower shells.
+the different shells of Internet, with slightly low density in the lower ones.
 Additionally, we apply the same methodology for the MPLS interconnection cluster
 level graph $G_{r\backslash lsr}$ (Fig.~\ref{fig_k_core_MPLS}): MPLS clusters
 (gray nodes) are distinguished from the non-MPLS capable routers (black nodes).
 In this case,  MPLS clusters  degree is correlated with shell index: as higher
-is shell cluster then higher is its degree. This behavior is observed in
-hierarchical networks, e.g., the Autonomous System network.
-
+the shell cluster, higher its degree. This behavior is observed in hierarchical
+networks, e.g., the Autonomous System network.
 
 Finally, we evaluate $G_{r \backslash lsr }$ using metrics such as degree
-distribution, clustering coefficient, and nearest neighbor degree, as is shown
+distribution, clustering coefficient, and nearest neighbor degree, as depicted
 on Fig.~\ref{fig_metrics}. We notice that MPLS clusters highly impact over the
-router level topology. On one hand, the nearest neighbor degree highly
-increments for low degrees nodes on $G_{r \backslash lsr}$, suggesting that
-routers with low degree are highly connected to MPLS clusters and thereby to
-LSRs. Notice that vertices with high degree are principally the MPLS clusters,
-as Fig.~\ref{fig_k_core_MPLS} shows. On the other hand, the clustering
-coefficient of $G_{r \backslash lsr }$ is highly increased for vertices having
-degree $50$ to $200$. This suggests that MPLS deployments plays an important
-role on Internet robustness, i.e., local robustness of the network increase
-because there exists different paths joining every pair of close vertices
-(higher clustering means more triangles in the network).
+router level topology. On one hand, the nearest neighbor degree is higher for
+lower degree nodes on $G_{r \backslash lsr}$, suggesting that routers with low
+degree are highly connected to MPLS clusters and thereby to LSRs. Notice that
+vertices with high degree are principally the MPLS clusters, as
+Fig.~\ref{fig_k_core_MPLS} shows. On the other hand, the clustering coefficient
+of $G_{r \backslash lsr }$ is highly increased for vertices having degree $50$
+to $200$. This suggests that MPLS deployment plays an important role on
+Internet robustness, i.e., local robustness of the network increase because
+there exists different paths joining every pair of close vertices (higher
+clustering means more triangles in the network).
 
 \subsection{MPLS clusters on Autonomous Systems}\label{cluster.as}
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Although, the previous results give us a general overview about MPLS deployment,
-we believe that the study of MPLS structure requires to go deeper into the
+we believe that the study of MPLS structure requires going deeper into the
 individual AS topology. Indeed, we found that around $89.9\%$ of MPLS links are
 intra-domain. Thereby, we focus on the top ASes in terms of total number of
 discovered links.  On this set of ASes, we discard those having less than 500
 MPLS links. Additionally, we identify the amount of discovered MPLS links by AS,
-distinguishing the type of MPLS tunnel to their belong, i.e., given a link
-between two MPLS interfaces $i_{n-1}$  and $i_{n}$ discovered by traceroute at
-$n-1$ and $n$ position, we called:
-
+distinguishing the type of MPLS tunnel as follows: given a link between two MPLS
+interfaces $i_{n-1}$  and $i_{n}$ discovered by \traceroute at $n-1$ and $n$
+position, we define : 
 \begin{itemize}
-  \item[i] \dfn{explicit MPLS link:} links 
-  where $i_{n}$ belongs  to an explicit MPLS tunnel.
-  \item[ii] \dfn{qTTL MPLS link:} links 
-  where $i_{n}$ belongs  to an implicit MPLS tunnel qTTL based.
-  \item[iii] \dfn{u-turn MPLS link:} links 
-  where $i_{n}$ belongs  to an implicit MPLS tunnel u-turn based.
+  \item \dfn{explicit MPLS link:} as links  where $i_{n}$ belongs to an explicit
+  MPLS tunnel;
+  \item \dfn{qTTL MPLS link:} as links  where $i_{n}$ belongs  to an implicit
+  MPLS tunnel qTTL based;
+  \item \dfn{u-turn MPLS link:} as links where $i_{n}$ belongs to an
+  implicit MPLS tunnel u-turn based.
 \end{itemize}
 
-The summary of the top ASes is showed in the Fig.~\ref{top_as}.
-We noticed that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as) \vert /\vert E_{r}
-(as) \vert $  is greater when more explicit MPLS links have been discovered.
-Interestingly, we also see that the ASes with more IP links discovered have the
-lowest ratio $r_{mpls}$. For our purposes, we select the most representatives
-ASes from those in Fig.~\ref{top_as}. In this way, we analyzed the graphs
-$G_{r}(as)$ and $G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS2914,
-AS7018 and AS1273 using  $k$-core decomposition (see Fig.~\ref{fig_cluster_mpls}).
-We observed that  $k$-core decomposition structure varies according
-the type of MPLS tunnels that prevails in the AS. Particularly, for  AS1299 (Teliasonera AB), AS174 (Cogent Communication) and AS6762 (Telecom Italia) where prevails u-turn MPLS links,
-we show that MPLS clusters (represented as gray nodes)  are spread out over different shells. These $k$-core structures are similar in our top five of ASes where u-turn signature was majority
-discovered, i.e., between $30\%$ and  $80\%$ over  the total amount of MPLS
-links. 
+The summary of the top ASes \ed{BD: Top ASes in terms of what?} is shown in
+Fig.~\ref{top_as}. We noticed that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as)
+\vert /\vert E_{r} (as) \vert $ is greater when more explicit MPLS links have
+been discovered. Interestingly, we also see that the ASes with more IP links
+discovered have the lowest ratio $r_{mpls}$. 
 
-However, for  AS2914 (NTT America Inc.), AS7018 (AT\&T) and AS1273 (Cable and
-Wireless Worldwide plc) where prevail explicit MPLS links, we found a $k$-core
-structure highly different, i.e., Most of vertices are directly connect to a
-predominant MPLS cluster located at $C_{\max}$-core. The remain of  ASes in
+For our purposes, we select the most representatives ASes from those in
+Fig.~\ref{top_as}. In this way, we analyze the graphs $G_{r}(as)$ and
+$G_{r\backslash lsr}(as)$ for AS1299, AS174, AS6762, AS2914, AS7018, and AS1273
+using $k$-core decomposition (see Fig.~\ref{fig_cluster_mpls}). We observe that
+$k$-core decomposition structure varies according the type of MPLS tunnels that
+prevails in the AS. Particularly, for  AS1299 (Teliasonera AB), AS174 (Cogent
+Communication), and AS6762 (Telecom Italia) where prevails u-turn MPLS links, we
+show that MPLS clusters (represented as gray nodes) are spread out over
+different shells. These $k$-core structures are similar in our top five ASes
+where u-turn signature was majority discovered, i.e., between $30\%$ and $80\%$
+over the total amount of MPLS links.
+
+However, for AS2914 (NTT America Inc.), AS7018 (AT\&T), and AS1273 (Cable and
+Wireless Worldwide plc) where explicit MPLS links prevail, we find a highly
+different $k$-core structure, i.e., most vertices are directly connected to a
+predominant MPLS cluster located at $C_{\max}$-core. The remaining ASes in
 Fig.~\ref{top_as} with high percentage of explicit tunnels have the same
 structure.
 
-Summarizing, we notice that ASes where prevails explicit MPLS links has a 
-predominant MPLS cluster while ASes where prevails u-turn MPLS links have several MPLS cluster spread out over the shells. 
-Additionally, We believe that $k$-core decomposition  on the top five ASes could have different structure due to either  the u-turn signature inaccuracy or due to some particular MPLS
-deployment. Indeed, we noticed only on these ASes a low ratio $r_{mpls}$ and an
-unusual  high presence of  u-turn links.
+In summary, we notice that ASes where explicit MPLS links prevail have a
+predominant MPLS cluster while ASes where u-turn MPLS links prevail have several
+MPLS cluster spread out over the shells. Additionally, We believe that $k$-core
+decomposition on the top five ASes could have different structure due to either
+the u-turn signature inaccuracy or due to some particular MPLS deployment.
+Indeed, we remark only on these ASes a low ratio $r_{mpls}$ and an unusually 
+high u-turn links presence.
 
-Another remarkable observation  relays on the fact that the maximum degree
-reached by MPLS clusters is considerably high in regard to the network
-size. Indeed, with exception of AS174, the rest of ASes suggest that more than
-$50\%$ of non-MPLS routers are connected  to at least one LSR. Actually, even
-the outer shells of the $k$-core decomposition are linked directly with the
-MPLS clusters located in the $C_{\max}$-core. This behavior match with
-our observation of nearest neighbor degree and clustering coefficient noticed on
-Sec.~\ref{cluster.topo}. Additionally, because MPLS clusters are
-mainly located on $C_{\max}$-core (even on the ASes with high percentage of
-u-turn MPLS links), we believe that MPLS plays an important role in the
-backbone of the ISPs.
+Another remarkable observation relies on the fact that the maximum degree
+reached by MPLS clusters is considerably high with respect to the network size.
+Indeed, except for AS174, the rest of ASes suggest that more than $50\%$ of
+non-MPLS routers are connected to at least one LSR. Actually, even the outer
+shells of the $k$-core decomposition are linked directly with the MPLS clusters
+located in the $C_{\max}$-core. This behavior matches with our observation of
+nearest neighbor degree and clustering coefficient discussed in
+Sec.~\ref{cluster.topo}. Additionally, because MPLS clusters are mainly located
+on $C_{\max}$-core (even on ASes with high percentage of u-turn MPLS links),
+we believe that MPLS plays an important role in ISPs' backbone.
 
 \begin{figure}[!htb]
   \begin{center}

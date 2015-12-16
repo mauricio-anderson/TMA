@@ -14,7 +14,7 @@ current state of the art of Internet deployments involves a great number of
 technologies impacting the  Internet Topology.  And those technologies deserve a
 deep study in order to include them in the current Internet models.  For instance, 
 \dfn{Multiprotocol Label Switching} (MPLS)~\cite{rfc3031} has been recently the
-focus of several studies~\cite{SOM11,DONNET13,Vanaubel15}.  It has been
+focus of several studies~\cite{SOM11,Donnet12,Vanaubel15}.  It has been
 demonstrated that MPLS is a mature technology widely deployed for (mainly) load
 balancing reasons or traffic engineering purposes.  A few studies have
 partially questioned its impact on Internet topology~\cite{BRICE07,Flach2012}. 
@@ -33,14 +33,15 @@ Secondly, we study the MPLS structure based on the way that LSRs and MPLS networ
 Internet graph, distinguishing  router-level and MPLS-level links. We also
 identified non-MPLS capable routers and  MPLS clusters. In this way, we contribute to 
 the traditional Internet Topology with new details related with MPLS usage.
-We mainly use $k$-core decomposition based tools to reveal the fingerprints
+We mainly use $k$-core decomposition~\cite{batagelj2002} based tools to reveal the fingerprints
 closely related with MPLS presence. It has been shown
 previously that $k$-core decomposition is a relevant tool to describe
-Internet Topology ~\cite{Alvarez06k, Serrano06, Serrano06, Alvarez08k}. 
+Internet Topology ~\cite{Alvarez06k, Serrano06, Alvarez08k}. 
 Our main findings reveal that MPLS
 structure varies depending the type of MPLS tunnels that prevails for a given
 AS and that MPLS deployments play an important role on Internet Backbone. Specifically,
 we found that within the main ASes more than half of their routers are connected to MPLS networks.
+
 
 The remainder of this paper is organized as follows: Sec.~\ref{related} provides
 the state of the art and the background related to MPLS tunnels discovery. In
