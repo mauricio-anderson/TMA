@@ -173,7 +173,8 @@ we believe that the study of MPLS structure requires going deeper into the
 individual AS topology. Indeed, we found that around $89.9\%$ of MPLS links are
 intra-domain. Thereby, we focus on the top ASes in terms of total number of
 discovered links.  On this set of ASes, we discard those having less than 500
-MPLS links. Additionally, we identify the amount of discovered MPLS links by AS,
+MPLS links. The summary of this top ASes is shown in
+Fig.~\ref{top_as}. Additionally, we identify the amount of discovered MPLS links by AS,
 distinguishing the type of MPLS tunnel as follows: given a link between two MPLS
 interfaces $i_{n-1}$  and $i_{n}$ discovered by \traceroute at $n-1$ and $n$
 position, we define : 
@@ -186,8 +187,7 @@ position, we define :
   implicit MPLS tunnel u-turn based.
 \end{itemize}
 
-The summary of the top ASes \ed{BD: Top ASes in terms of what?} is shown in
-Fig.~\ref{top_as}. We noticed that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as)
+Regarding Fig.~\ref{top_as}, we noticed that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as)
 \vert /\vert E_{r} (as) \vert $ is greater when more explicit MPLS links have
 been discovered. Interestingly, we also see that the ASes with more IP links
 discovered have the lowest ratio $r_{mpls}$. 
