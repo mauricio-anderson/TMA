@@ -94,10 +94,11 @@ LH router).  Implicit and opaque tunnels can be revelead as follows:
   \textit{original label stack} default routing behavior: when the LSE-TTL
   expires, an LSR first sends the \ttlexceeded reply to the Egress LER which
   then forwards the reply on its own to the probing source, while an LSR
-  replies to other probes using its own IP routing table if available. Summarizing, 
+  replies to other probes using its own IP routing table if available. Thereby,
+  u-turn is the signature related with the difference in these values. Summarizing, 
   $\textit{u-turn}=\text{TTL}_{\text{echo-reply}}-\text{TTL}_{\text{time-exceeded}}$.
   The expected u-turn value is in the form $[2L, 2L-2, 2L-4,..., 2]$ where $L$
-  is the tunnel length and the array position corresponds to the LSR position
+  is the LSP length and the array position corresponds to the LSR position
   within the LSP.
   \item opaque tunnels are revealed through an \textit{abnormal} LSE-TTL
   ($1<$LSE-TTL$<255$) returned by the LH in the \ttlexceeded reply.
