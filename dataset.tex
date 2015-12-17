@@ -1,7 +1,7 @@
 \section{Data Collection}\label{dataset}
 % %%%%%%%%%%%%%%%%%%%%%%%
 In order to get MPLS data, we develop a tool called
-\magallanes\footnote{\magallanes is freely available at \url{\ldots}} allowing
+\magallanes~\cite{magallanes}  allowing
 us to easily run and manage \scamper~\cite{Luckie10} based probes through the
 PlanetLab (PL) infrastructure.  \magallanes starts by randomly allocating
 several vantage points (VP) within the available set of PL nodes.  It next
@@ -9,8 +9,7 @@ distribues, among those VPs, a given number of probe targets.
 To achieve some geographical uniformity in target selection, \magallanes uses
 data provived by IP geolocation database maxmind.\footnote{See
 \url{www.maxmind.com}.  Although we know that IP geolocation databases suffer
-from strong accuracy limits~\cite{geolocation}, we believe it is enough for our
-purpose as we do not need accurate geolocation.}  In this way, it chooses the
+from strong accuracy limits~\cite{geolocation}, we do not need accurate geolocation.}  In this way, it chooses the
 targets randomly and proportionality distributed according to the number of
 subnets assigned by the Regional Internet Registry (RIR) to each region.
 Additionally, \magallanes allows one to store the experiments results on a
