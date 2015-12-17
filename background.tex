@@ -15,13 +15,12 @@ incoming packet is replaced by a corresponding outgoing label found in an MPLS
 switching table. A portion of a path where the forwarding decision is not
 anymore based on longest prefix matching but rather on MPLS features is known as
 an MPLS tunnel. A router with label switching capabilities is called Label
-Switching Router (LSR). A series of LSRs connected together form a Label Switched Path(LSR).
-
-
+Switching Router (LSR). A series of LSRs connected together form a Label
+Switched Path(LSR).
 
 \subsection{Revealing MPLS tunnels}
 
-\textit{Donnet et al.} provided a taxonomy for MPLS tunnels revealed by
+Donnet et al.~\cite{Donnet12} provided a taxonomy for MPLS tunnels revealed by
 traceroute and developed algotithms in order to detect it based on the way that
 LSR react to ttl-propagate  and RFC 4950 option. Regarding this, we can sumarize
 two kind of visible MPLS tunnels: explicit tunnels and implicit tunnels.
