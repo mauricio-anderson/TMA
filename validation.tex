@@ -175,9 +175,9 @@ u-turn = 2 \times (L - (n-1)) .
 
 Because u-turn is commonly present in almost all LSRs, first, we compare $n$
 with u-turn on LSRs revealed either explicitly or qTTL-based using the dataset
-presented in Sec.~\ref{dataset} (Fig.~\ref{fig_uturn_a}. We also study 
+presented in Sec.~\ref{dataset} (Fig.~\ref{fig_uturn_a}). We also study 
 $n$ value on LSRs where u-turn was the only detected signature
-(Fig.~\ref{fig_uturn_b}. We use the filter $\text{u-turn}>3$ (i.e., avoiding
+(Fig.~\ref{fig_uturn_b}). We use the filter $\text{u-turn}>3$ (i.e., avoiding
 short tunnels where bias are more likely to appear) to avoid false positives.
 
 The results for a given tunnel length $L=5$ are shown on
@@ -190,14 +190,15 @@ We notice that obtained u-turn values are close to expected ones when the LSR
 was either explicitly revealed or when qTTL is present (Fig.~\ref{fig_uturn_a}).
 However, for LSRs revealed only by u-turn signatures (Fig.~\ref{fig_uturn_b})
 the obtained and expected u-turn values commonly do not match. If we accept a
-bias of $ \pm 2$ around the expected u-turn value, we notice that, on LSRs
+bias of $ \pm 2$ around the expected u-turn value over the entire of our
+dataset, we notice that, on LSRs
 explicitly revealed or qTTL based, the $60\%$ of obtained u-turn signatures
 match with the expected values. However, for LSRs revealed only trough u-turn
 signature, the obtained u-turn signature just match in less than $25\%$  with
 the expected values.
 
 Therefore, LSRs revealed only through u-turn are highly inaccurate, mainly,
-because MPLS tunnels are not the only responsible for u-turn signature.  It is
+because MPLS tunnels are not the only responsible for u-turn signature. Indeed, it is
 also related with load balancing on the return path, where ICMP \echoreply and
 ICMP \ttlexceeded at different hops may be load balanced~\cite{BRICE06}. 
 
