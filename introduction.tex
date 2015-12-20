@@ -1,47 +1,45 @@
 \section{Introduction}\label{intro}
 % %%%%%%%%%%%%%%%%%%%%%
-Internet topology refers to the study of the various types of
-connectivity structures and representations between directly connected nodes on
-the Internet architecture~\cite{Calvert97}. This representation aims at
-obtaining models that represent  Internet with the greatest possible accuracy in order
-to test new communications protocols, algorithms, QoS policies, traffic
-engineering, etc.
+Internet topology refers to the study of the various types of connectivity
+structures and representations between directly connected nodes on the Internet
+architecture~\cite{Calvert97}. This representation aims at modeling the Internet
+with the greatest possible accuracy in order to test new communications
+protocols, algorithms, QoS policies, traffic engineering, etc.
 
 The Internet topology can be seen at several abstraction levels i.e., IP
 interface, router, subnetwork, PoP, and Autonomous System (AS) levels. All these
 models have been widely studied in the past~\cite{DONNET13}. However, the
-current state of the art of Internet deployments involves a great number of
+current state of the art of Internet deployment involves a great number of
 technologies impacting the  Internet Topology.  And those technologies deserve a
-deep study in order to include them in the current Internet models.  For instance, 
-\dfn{Multiprotocol Label Switching} (MPLS)~\cite{rfc3031} has been recently the
-focus of several studies~\cite{SOM11,Donnet12,Vanaubel15}.  It has been
-demonstrated that MPLS is a mature technology widely deployed for (mainly) load
-balancing reasons or traffic engineering purposes.  A few studies have
-partially questioned its impact on Internet topology~\cite{BRICE07,Flach2012}. 
-Although, the MPLS structure on the Internet architecture has not been	
-studied yet.  The importance to study  the architectural details of MPLS usage 
-would help to know the way in
-which the Internet Service Providers (ISPs) use their networks or apply their
-policies for traffic engineering as well as to better understand the today's
-Internet architecture more accurately. 
+deep study in order to include them in the current Internet models.  For
+instance, \dfn{Multiprotocol Label Switching} (MPLS)~\cite{rfc3031} has been
+recently the focus of several studies~\cite{SOM11,Donnet12,Vanaubel15}.  It has
+been demonstrated that MPLS is a mature technology widely deployed for (mainly)
+load balancing reasons or traffic engineering purposes.  A few studies have
+partially questioned its impact on Internet topology~\cite{BRICE07,Flach2012}.
+However, the MPLS structure on the Internet architecture has not been studied
+yet.  The importance to study  the architectural details of MPLS usage would
+help to know the way in which the Internet Service Providers (ISPs) use their
+networks or apply their policies for traffic engineering as well as to better
+understand the today's Internet architecture more accurately.
 
-This work mainly provides a study around the
-structure of MPLS usage over Internet Topology. Initially, we focus on evaluate the
-accuracy of MPLS tunnel detection methods. Particularly, we provide a quantification 
-of the biases related with MPLS tunnels that are not revealed explicitly by \traceroute.
-Secondly, we study the MPLS structure based on the way that LSRs and MPLS networks interact with non-MPLS capable routers. In order to do it, we define a new abstraction level on 
-Internet graph, distinguishing  router-level and MPLS-level links. We also
-identified non-MPLS capable routers and  MPLS clusters. In this way, we contribute to 
-the traditional Internet Topology with new details related with MPLS usage.
-We mainly use $k$-core decomposition~\cite{batagelj2002} based tools to reveal the fingerprints
-closely related with MPLS presence. It has been shown
-previously that $k$-core decomposition is a relevant tool to describe
-Internet Topology ~\cite{Alvarez06k, Serrano06, Alvarez08k}. 
-Our main findings reveal that MPLS
-structure varies depending the type of MPLS tunnels that prevails for a given
-AS and that MPLS deployments play an important role on Internet Backbone. Specifically,
-we found that local robustness of internet topology increase due to MPLS presence.
-
+This work mainly provides a study around the structure of MPLS usage over
+Internet Topology. Firstly, we focus on evaluating the accuracy of MPLS tunnel
+detection methods. Particularly, we provide a quantification of the biases
+related with MPLS tunnels that are not revealed explicitly by \traceroute.
+Secondly, we study the MPLS structure based on the way LSRs and MPLS networks
+interact with non-MPLS capable routers. In order to do it, we define a new
+abstraction level on Internet graph, distinguishing  router-level and MPLS-level
+links. We also identified non-MPLS capable routers and  MPLS clusters. In this
+way, we contribute to the traditional Internet topology with new details related
+to MPLS usage. We mainly use $k$-core decomposition~\cite{batagelj2002} based
+tools to reveal the fingerprints closely related to MPLS presence. It has been
+shown previously that $k$-core decomposition is a relevant tool to describe
+Internet Topology ~\cite{Alvarez06k, Serrano06, Alvarez08k}. Our main findings
+reveal that the MPLS structure varies depending the type of MPLS tunnels that
+prevails for a given AS and that MPLS deployment plays an important role on the
+Internet Backbone. Specifically, we find that local robustness of Internet
+topology increase due to MPLS presence.
 
 The remainder of this paper is organized as follows: Sec.~\ref{related} provides
 the state of the art and the background related to MPLS tunnels discovery. In
@@ -49,7 +47,7 @@ particular, it describes how MPLS tunnels can be revealed through active
 measurements;  Sec.~\ref{dataset} explains how we collected data for this work;
 Sec.~\ref{validation} presents our results related to \textit{mpls signatures}
 accuracy; Sec.~\ref{cluster} presents the main contributions of this paper with
-a detailed study around the behaviour of MPLS networks on the Internet Topology
+a detailed study around the behavior of MPLS networks on the Internet Topology
 and architectural details of some ASes with most MPLS usage; Finally,
 Sec.~\ref{ccl} concludes this paper by summarizing its main achievements.
 

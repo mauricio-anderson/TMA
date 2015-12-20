@@ -40,18 +40,18 @@ topologies.}
     \backslash lsr}, E_{r \backslash lsr}^{mpls})$
     \end{tabular}
   \end{center}
-\vspace{-0.5cm}  
+\vspace{-0.3cm}  
   \caption{Summary of graph notations used in Sec.~\ref{cluster}.}
   \label{cluster.table_notations}
 \end{table}
 
-We defined several graphs at different abstraction levels as follows (The main
+We define several graphs at different abstraction levels as follows (The main
 ones being summarized in Table~\ref{cluster.table_notations}): First, the
-\dfn{IP level graph} $G_{ip}$, built by the IP addresses and links found trough
-\traceroute. Second, the \dfn{router level graph} $G_{r}$, getting after solve
-alias resolution process through MIDAR~\cite{Keys13}). Third, the \dfn{MPLS
-router level graph} $G^{mpls}_{r}$, formed by MPLS links and routers in which at
-least one IP interface belongs to an LSP.
+\dfn{IP level graph} $G_{ip}$ is built with the IP addresses and links found
+trough \traceroute. Second, the \dfn{router level graph} $G_{r}$ is obtained
+after solving alias resolution process through MIDAR~\cite{Keys13}). Third, the
+\dfn{MPLS router level graph} $G^{mpls}_{r}$ is formed by MPLS links and routers
+in which at least one IP interface belongs to an LSP.
 
 The \dfn{ASes induced graph} $G_{r}(as)$ is a subgraph of $G_{r}$ where each
 vertex has an interface belonging to the same Autonomous System, namely $as$.
@@ -104,8 +104,8 @@ connected components which are displayed as independent circles.
   \label{fig_k_core_routers}
 \end{figure}
 
-In this section we study the LSRs and MPLS cluster structure over the Internet
-topology.  First, we select the router level topology for our analysis because
+In this section, we study the LSRs and MPLS cluster structure over the Internet
+topology.  We focus on the router level topology for our analysis because
 it is closer to a realistic Internet one and because we do not notice any strong
 difference between IP and router level topology as Fig.~\ref{fig_metrics}
 suggests. Indeed, we only remark that router level topology has a slightly
@@ -115,11 +115,11 @@ $k$-core visualization of $G_{r}$.  The figure is divided in three parts, the
 main part being in the upper left while the two others are a zoom on the main
 one.  The main part is composed of two scales, the one on the left is the node
 degree in a logarithmic scale, while the one on the right is a gray scale with
-each shell index $c_i$. Between the two scales, we see the shell index with
+each shell index $C_i$. Between the two scales, we see the shell index with
 $C_{\max}$ in the center, the other shells being located concentrically around
 it. Note that $C_{\max}$-core is made of several components with one having the
 most significant part, and it is shown at the left of the center (black nodes).
-We also see that all the shells index are highly populated and that the node
+We also see that all the shell indexes are highly populated and that the node
 degree is not related with the shell index, i.e., there are many routers with
 high degree in the outer (lower) shells. Another typical feature of router level
 topology is that the links between routers mainly occurs between routers
@@ -143,7 +143,7 @@ the Autonomous Systems maps~\cite{Alvarez06k}.
   \label{fig_kcore_overview}
 \end{figure*}
 
-In order to locate LSRs-routers with MPLS capabilities into the shells index
+In order to locate LSRs-routers with MPLS capabilities into the shell indexes
 over $k$-core decomposition, we paint in black the non-MPLS routers and in gray
 the LSRs. The results are shown in Fig.~\ref{fig_k_core_LSR}.  For the sake of
 the visualization, we do not include the shell index, the degree scale, and the
@@ -177,11 +177,11 @@ we believe that the study of MPLS structure requires going deeper into the
 individual AS topology. Indeed, we found that around $89.9\%$ of MPLS links are
 intra-domain. Thereby, we focus on the top ASes in terms of total number of
 discovered links.  On this set of ASes, we discard those having less than 500
-MPLS links. The summary of this top ASes is shown in
-Fig.~\ref{top_as}. Additionally, we identify the amount of discovered MPLS links by AS,
+MPLS links. The summary of this top ASes is shown in Fig.~\ref{top_as}.
+Additionally, we identify the amount of discovered MPLS links by AS,
 distinguishing the type of MPLS tunnel as follows: given a link between two MPLS
 interfaces $i_{n-1}$  and $i_{n}$ discovered by \traceroute at $n-1$ and $n$
-position, we define : 
+position, we define :
 \begin{itemize}
   \item \dfn{explicit MPLS link:} as links  where $i_{n}$ belongs to an explicit
   MPLS tunnel;
@@ -191,7 +191,7 @@ position, we define :
   implicit MPLS tunnel u-turn based.
 \end{itemize}
 
-Regarding Fig.~\ref{top_as}, we noticed that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as)
+Regarding Fig.~\ref{top_as}, we notice that the ratio $r_{mpls}= \vert E^{mpls}_{r} (as)
 \vert /\vert E_{r} (as) \vert $ is greater when more explicit MPLS links have
 been discovered. Interestingly, we also see that the ASes with more IP links
 discovered have the lowest ratio $r_{mpls}$. 

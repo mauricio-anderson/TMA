@@ -49,7 +49,7 @@ RFC4950~\cite{rfc4950}, an extension to ICMP allowing a router to embed an MPLS
 LSE in an ICMP \ttlexceeded message. In that case, the router simply quotes the
 MPLS LSE (or the LSE stack) of the received packet in the ICMP \ttlexceeded
 message. RFC4950 is particularly useful for operators as it allows them to
-verify the correctness of their MPLS tunnels and TE policy.
+verify the correctness of their MPLS tunnels and traffic engineering policy.
 
 If the Ingress LER copies the IP-TTL value to the LSE-TTL field rather than
 setting the LSE-TTL to an arbitrary value such as 255, LSRs along the LSP will
@@ -62,14 +62,16 @@ deactivated on recent routers supporting it).
 Using those two features, Sommers et al.~\cite{SOM11} provide an extensive study
 of MPLS tunnels as observed in CAIDA's topology data.  In this data, they find
 tunnels in 7\% of ASes, and the fraction is constant over the years of data
-considered.  In addition, Sommers et al. propose a statistical methodology to
-infer MPLS tunnels in archived data where ICMP extensions are not recorded.
-Vanaubel et al.~\cite{Vanaubel15} propose a classification of path diversity
-according to MPLS deployment.  Their classification reveals the actual usage of
-MPLS (e.g., load balancing, traffic engineering) according to the inferred label
-distribution protocol.  Finally, it has also been demonstrated that MPLS tunnels
-may have an impact on Internet topology discovery tools.  For instance, the
-presence of MPLS tunnels may interfere with load balancing
+considered.
+% In addition, Sommers et al. propose a statistical methodology to infer MPLS
+% tunnels in archived data where ICMP extensions are not recorded.
+Recently, Vanaubel et al.~\cite{Vanaubel16} focus on MPLS deployment and usage
+under IPv6.  Vanaubel et al.~\cite{Vanaubel15} propose a classification of path
+diversity according to MPLS deployment.  Their classification reveals the actual
+usage of MPLS (e.g., load balancing, traffic engineering) according to the
+inferred label distribution protocol.  Finally, it has also been demonstrated
+that MPLS tunnels may have an impact on Internet topology discovery tools.  For
+instance, the presence of MPLS tunnels may interfere with load balancing
 detection~\cite{BRICE07} or violate the destination-based
 forwarding~\cite{Flach2012}.
 
@@ -82,7 +84,7 @@ RFC4950 for MPLS and the \tpropagate option.  The classes proposed are:
 (i.e., the LH implements RFC4950 but the ingress LER does not enable the
 \tpropagate option), and, finally, \dfn{invisible tunnels} (i.e., the ingress
 LER does not enable the \tpropagate option and RFC4950 is not implemented by the
-LH router).  Implicit and opaque tunnels can be revelead as follows:
+LH router).  Implicit and opaque tunnels can be revealed as follows:
 \begin{enumerate}
   \item a quoted IP-TTL (\dfn{qTTL}) in ICMP \ttlexceeded messages $>1$ will
   likely reveal the \tpropagate option at the ingress LER of an LSP. For each

@@ -35,13 +35,13 @@ In this section, we expose our methodology for validating the MPLS signatures
 used to reveal implicit MPLS tunnels (see Sec.~\ref{related.revealing}).
 Basically, we compare the LSR position within an MPLS tunnel, called the
 \dfn{MPLS position}, with the different signatures values. Our main goal here is
-to evaluate the u-turn accuracy.
+to assess the u-turn accuracy.
 
 The MPLS position of an LSR is obtained based on its appearance order in an LSR,
 as revealed by \traceroute.  The appearance order is called \dfn{$n$-position},
-i.e., The first LSR revealed by a \traceroute probe should be the first LSR
+i.e., the first LSR revealed by a \traceroute probe should be the first LSR
 within the LSP ($1$-position) , the LSR revealed by the next consecutive
-traceroute probe should be the second LSR within the LSP ($2$-position), etc.
+\traceroute probe should be the second LSR within the LSP ($2$-position), etc.
 Given that MPLS tunnels can be configured to perform load balancing (this is
 quite common, as shown by Vanaubel et al.~\cite{Vanaubel15}), the $n$-position
 revealed by \traceroute might lead to a bias with respect to the actual MPLS
@@ -99,7 +99,7 @@ $n$.
 
 In order to validate this assumption, we use the dataset described in
 Sec.~\ref{dataset} and compare the qTTL with $n$-position for explicit and
-implicit tunnels
+implicit tunnels.
 % \ed{We compare also with explicit tunnels, the exact filter is: RFC4950 IS ON
 % OR QTLL>1. Mainly, we do this in order to add information realted with the
 % amount of those explicit tunnels with have QTTL and those who dont (QTTL=1)}.
@@ -113,13 +113,13 @@ Fig.~\ref{hist_length} also provides, by extension, possible values for qTTL
 (X-axis).  This suggests thus that qTTL values should oscillates between 1 and
 8, with a strong predominance for short values (i.e., between 1 and 3). 
 
-Fig.~\ref{n_vs_qttl} represents a scatter plot showing the relations between the
-qTTL (Y-axis) and the $n$-position (X-axis).  The circle size in the scatter
+Fig.~\ref{n_vs_qttl} represents a scatter plot showing the relationship between
+the qTTL (Y-axis) and the $n$-position (X-axis).  The circle size in the scatter
 plot is related with the occurrence frequency of Y-axis values regarding each
 $n$-position.  The transparency of the circle is related with occurrence
 frequency of the $n$-position regarding each Y-axis value.  For instance, on
 Fig.~\ref{n_vs_qttl} for values where $n>1$, the biggest circles are mainly
-located on qTTL$=1$ and qTTL=$n$.  So, this suggests that, for a given
+located on qTTL$=1$ and qTTL$=n$.  So, this suggests that, for a given
 $n$-position, the qTTL value usually takes either the value $1$ or $n$.
 
 However, we notice, on Fig.~\ref{n_vs_qttl} that the qTTL signature highly
@@ -128,10 +128,10 @@ two causes: one is the limitation in our method to reveal the first LSR in the
 LSP when RFC4950 is not implemented (by definition of implicit tunnel); and the
 second cause could occur due to load balancers (using Paris traceroute should
 avoid load balancing issues, except for ``per packet'' load balancers).
-In the later case, the \traceroute probes may follow different paths, as suggest
-Fig.~\ref{validation.MPLSpositionFig}. Fig.~\ref{n_vs_qttl} also shows that qTTL
-frequently takes the value of $1$, even for $n>1$, which means that the LSR
-implements the RFC4950 but do not mach with the qTTL signature. 
+In the later case, the \traceroute probes may follow different paths, as
+suggested by Fig.~\ref{validation.MPLSpositionFig}. Fig.~\ref{n_vs_qttl} also
+shows that qTTL frequently takes the value of $1$, even for $n>1$, which means
+that the LSR implements the RFC4950 but do not mach with the qTTL signature.
 
 We also find that around $2\%$ of LSRs do not react to qTTL signature, even if
 their neighbors does, i.e., some LSRs interfaces located at $i_{n \pm 1}$
@@ -178,12 +178,12 @@ with u-turn on LSRs revealed either explicitly or qTTL-based using the dataset
 presented in Sec.~\ref{dataset} (Fig.~\ref{fig_uturn_a}). We also study 
 $n$ value on LSRs where u-turn was the only detected signature
 (Fig.~\ref{fig_uturn_b}). We use the filter $\text{u-turn}>3$ (i.e., avoiding
-short tunnels where bias are more likely to appear) to avoid false positives.
+short tunnels where biases are more likely to appear) to avoid false positives.
 
 The results for a given tunnel length $L=5$ are shown on
 Fig.~\ref{validation.uturn.fig}, a scatter plot that must be read the same way
 as Fig.~\ref{n_vs_qttl}.  Quickly said, Fig.~\ref{validation.uturn.fig} suggests
-that u-turn is usually overestimated. Similar results where observed for other
+that u-turn is usually overestimated. Similar results were observed for other
 tunnel lengths. 
 
 We notice that obtained u-turn values are close to expected ones when the LSR
@@ -191,11 +191,10 @@ was either explicitly revealed or when qTTL is present (Fig.~\ref{fig_uturn_a}).
 However, for LSRs revealed only by u-turn signatures (Fig.~\ref{fig_uturn_b})
 the obtained and expected u-turn values commonly do not match. If we accept a
 bias of $ \pm 2$ around the expected u-turn value over the entire of our
-dataset, we notice that, on LSRs
-explicitly revealed or qTTL based, the $60\%$ of obtained u-turn signatures
-match with the expected values. However, for LSRs revealed only trough u-turn
-signature, the obtained u-turn signature just match in less than $25\%$  with
-the expected values.
+dataset, we notice that, on LSRs explicitly revealed or qTTL based, the $60\%$
+of obtained u-turn signatures match with the expected values. However, for LSRs
+revealed only trough u-turn signature, the obtained u-turn signature just match
+in less than $25\%$  with the expected values.
 
 Therefore, LSRs revealed only through u-turn are highly inaccurate, mainly,
 because MPLS tunnels are not the only responsible for u-turn signature. Indeed, it is

@@ -1,29 +1,29 @@
 \section{Data Collection}\label{dataset}
 % %%%%%%%%%%%%%%%%%%%%%%%
-In order to get MPLS data, we develop a tool called
-\magallanes~\cite{magallanes}  allowing
-us to easily run and manage \scamper~\cite{Luckie10} based probes through the
-PlanetLab (PL) infrastructure.  \magallanes starts by randomly allocating
-several vantage points (VP) within the available set of PL nodes.  It next
-distributes, among those VPs, a given number of probe targets.
-To achieve some geographical uniformity in target selection, \magallanes uses
-data provived by IP geolocation database maxmind.\footnote{See
-\url{www.maxmind.com}.  Although we know that IP geolocation databases suffer
-from strong accuracy limits~\cite{geolocation}, we do not need accurate geolocation.}  In this way, it chooses the
-targets randomly and proportionality distributed according to the number of
-subnets assigned by the Regional Internet Registry (RIR) to each region.
-Additionally, \magallanes allows one to store the experiments results on a
-centralized database and to perfom alias resolution using MIDAR~\cite{Keys13}.
+In order to collect MPLS data, we develop a tool called
+\magallanes~\cite{magallanes}  allowing us to easily run and manage
+\scamper~\cite{Luckie10} based probes through the PlanetLab (PL) infrastructure.
+\magallanes starts by randomly allocating several vantage points (VP) within the
+available set of PL nodes.  It next distributes, among those VPs, a given number
+of probe targets. To achieve some geographical uniformity in target selection,
+\magallanes uses data provided by IP geolocation database maxmind.\footnote{See
+\url{www.maxmind.com}.  We know that IP geolocation databases suffer from strong
+accuracy limits~\cite{geolocation} but we do not need accurate geolocation
+here.}  In this way, it chooses the targets randomly and proportionality
+distributed according to the number of subnets assigned by the Regional Internet
+Registry (RIR) to each region. Additionally, \magallanes allows one to store an 
+experiment results on a centralized database and to perform alias resolution
+using MIDAR~\cite{Keys13}.
 
 We ran \magallanes on October \nth{31}, 2015.  We chose 100 VPs and selected
 10,000 targets per VP.  Each VP managed its own set of targets, meaning that
 probes targets are disjoint sets between VPs.  \scamper was configured to run
-ICMP Paris traceroute~\cite{BRICE06}.  To get the u-turn signature,
-we sent a \ping to each hop revealed by Paris traceroute. We sent six
-ICMP \echorequest packets from the same VP.  Six ICMP \echoreply allow us to
-infer with $95\%$ confidence if there is a single return path and, 
-therefore, reduce measurement errors caused by a reverse path containing
-load-balanced segments of different lengths~\cite{BRICE07}. 
+ICMP Paris traceroute~\cite{BRICE06}.  To get the u-turn signature, we sent a
+\ping to each hop revealed by Paris traceroute. We sent six ICMP \echorequest
+packets from the same VP.  Six ICMP \echoreply allow us to infer with $95\%$
+confidence if there is a single return path and, therefore, reduce measurement
+errors caused by a reverse path containing load-balanced segments of different
+lengths~\cite{BRICE07}.
 
 As a result we discovered around 270,000 IP interfaces,  520,000 links, $42\%$
 of which were available to run MIDAR and we found aliases successfully on $19\%$
@@ -34,7 +34,7 @@ Additionally, we found that $44\%$ of traces collected traverse at least one
 MPLS tunnel.  The amount of explicit tunnels is highly superior to implicit
 ones. We discovered explicit tunnels on $34\%$ of traceroutes and at least one
 implicit tunnel on $16\%$. Surprisingly, we found more implicit tunnels revealed
-through u-turn signature ($12\%$) rather than qTTL signature
-($4\%$). However, the qTTL signature matched with at least $63\%$ of
-the explicit tunnels. We discuss these results in the next sections. Finally, we
-did not found opaque tunnels, confirming so their rarity~\cite{VAN2013}.
+through u-turn signature ($12\%$) rather than qTTL signature ($4\%$). However,
+the qTTL signature matched with at least $63\%$ of the explicit tunnels. We
+discuss these results in the next sections. Finally, we did not found opaque
+tunnels, confirming so their rarity~\cite{VAN2013}.
